@@ -13,11 +13,13 @@ public class Entrar extends javax.swing.JFrame {
 
 
     private Datos datos = new Datos();
+    private Inicio inicio = new Inicio();
     
     public Entrar() {
         
         initComponents();
-        
+        this.setVisible(true);
+        this.setTitle("Entrar");
         conectar();
     }
 
@@ -116,9 +118,7 @@ public class Entrar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
-        
-        Inicio inicio = new Inicio();
-        
+
         boolean valor;
         
         valor = datos.traerDatos(contraseña.getText(), usuario.getText());
