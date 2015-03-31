@@ -1,29 +1,20 @@
-package puzzle;
+
+package Vistas;
 
 import javax.swing.JButton;
 
-public class Vista extends javax.swing.JFrame {
+public class PuzzleV extends javax.swing.JFrame {
 
     private JButton[][] botones;
     private int alto;
     private int ancho;
     int n = 3;
-
-    public Vista() {
+    
+    public PuzzleV() {
         initComponents();
         this.setTitle("Puzzle");
-        darFormato(n);
-
     }
 
-    public void darFormato(int n) {
-
-        botones = new JButton[n][n];
-    }
-
-    public void borrarFormato(){
-        
-    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

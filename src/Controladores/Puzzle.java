@@ -1,5 +1,5 @@
 
-package puzzle;
+package Controladores;
 
 public class Puzzle {
     
