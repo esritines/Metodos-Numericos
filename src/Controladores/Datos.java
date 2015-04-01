@@ -11,18 +11,24 @@ import java.util.logging.Logger;
 
 public class Datos {
     
-    private static String contraseña;
     private static String usuario;
+
+    public static String getUsuario() {
+        return usuario;
+    }
+
+    public static void setUsuario(String usuario) {
+        Datos.usuario = usuario;
+    }
     
-    public boolean traerDatos(String contraseña, String usuario) {
+    public boolean traerDatos(String usuario) {
         
         try {
             Statement consultarDatos = ConexionBD.conexion.createStatement();
-            ResultSet consulta = consultarDatos.executeQuery("select CONTRASEÑA, USUARIO from datos where CONTRASEÑA = '" + contraseña + "' and USUARIO = '" + usuario + "'");
+            ResultSet consulta = consultarDatos.executeQuery("select USUARIO from datos where USUARIO = '" + usuario + "'");
 
             if (consulta.next()) {
-                this.contraseña = consulta.getString(1);
-                this.usuario = consulta.getString(2);
+                this.usuario = consulta.getString(1);
 
                 consulta.close();
                 consultarDatos.close();
@@ -39,7 +45,7 @@ public class Datos {
 
     public void enviarDatos() {
         try {
-            PreparedStatement consultarDatos = ConexionBD.conexion.prepareStatement("update DATOS set CONTRASEÑA = '" + contraseña + "' where usuario = '" + usuario + "'");
+            PreparedStatement consultarDatos = ConexionBD.conexion.prepareStatement("update DATOS set usuario = '" + usuario + "' where usuario = '" + usuario + "'");
 
             consultarDatos.executeUpdate();
             consultarDatos.close();
