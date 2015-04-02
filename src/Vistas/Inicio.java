@@ -1,8 +1,10 @@
 package Vistas;
 
+import Controladores.Fuente;
+
 public class Inicio extends javax.swing.JFrame {
 
-
+    private static final Fuente fuente = new Fuente();
     private Entrar regresar;
     
     public Inicio() {
@@ -10,6 +12,12 @@ public class Inicio extends javax.swing.JFrame {
         initComponents();
         this.setVisible(false);
         this.setTitle("Inicio");
+        
+//        jugar.setFont(fuente.getSizedFont());
+//        records.setFont(fuente.getSizedFont());
+//        nuevoUsuario.setFont(fuente.getSizedFont());
+//        atras.setFont(fuente.getSizedFont());
+//        bienvenido.setFont(fuente.getSizedFont());
     }
 
     public void regresar(Entrar regresar){
@@ -24,7 +32,7 @@ public class Inicio extends javax.swing.JFrame {
         nuevoUsuario = new javax.swing.JButton();
         records = new javax.swing.JButton();
         atras = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        bienvenido = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -73,8 +81,8 @@ public class Inicio extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setText("¡Bienvenido!");
+        bienvenido.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        bienvenido.setText("¡Bienvenido!");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -84,7 +92,7 @@ public class Inicio extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(71, 71, 71)
-                        .addComponent(jLabel1))
+                        .addComponent(bienvenido))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(81, 81, 81)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -94,7 +102,7 @@ public class Inicio extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(bienvenido)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -118,7 +126,7 @@ public class Inicio extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton atras;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel bienvenido;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton jugar;
     private javax.swing.JButton nuevoUsuario;

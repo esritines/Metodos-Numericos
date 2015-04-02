@@ -21,7 +21,6 @@ public class Entrar extends javax.swing.JFrame {
         initComponents();
         this.setVisible(true);
         this.setTitle("Entrar");
-        
     }
 
     public static void conectar(){
