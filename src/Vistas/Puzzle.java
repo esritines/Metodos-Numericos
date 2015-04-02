@@ -31,16 +31,12 @@ public class Puzzle extends javax.swing.JFrame {
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                if (i == (n-1) && j == (n-1)) {
-                    
-                }else{
                     botones[i][j] = new JButton();
                     panel.add(botones[i][j]);
-                }
+
             }
         }
 
-        
         this.setContentPane(panel);
         this.repaint();
         this.setVisible(true);
