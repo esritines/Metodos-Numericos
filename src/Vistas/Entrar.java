@@ -17,10 +17,11 @@ public class Entrar extends javax.swing.JFrame {
     
     public Entrar() {
         
+        conectar();
         initComponents();
         this.setVisible(true);
         this.setTitle("Entrar");
-        conectar();
+        
     }
 
     public static void conectar(){
@@ -121,7 +122,7 @@ public class Entrar extends javax.swing.JFrame {
             usuario.setText("");
 
         }else{
-            JOptionPane.showMessageDialog(rootPane, "Usuario incorrecto", "Error...", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(rootPane, "Usuario no existe", "Error...", JOptionPane.ERROR_MESSAGE);
             usuario.setText("");
         } 
         

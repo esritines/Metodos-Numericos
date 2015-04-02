@@ -1,42 +1,49 @@
-
 package Vistas;
 
 import Controladores.Datos;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-
 public class Puzzle extends javax.swing.JFrame {
 
     private JButton[][] botones;
+    private JPanel panel;
+    private GridLayout capa;
     private static int alto;
     private static int ancho;
     private static int n = 3;
-    
-    public Puzzle() {
-        
-        initComponents();
-        
-        this.setTitle("Puzzle" + Datos.getUsuario());
-        this.setVisible(true);
-        
-        botones = new JButton[n][n];     
-        botones[n-1][n-1] = null;
-        
-        GridLayout capa = new GridLayout(n, n);
 
-        this.setLayout(capa);
+    public Puzzle() {
+
+        initComponents();
+
+        this.setTitle("Puzzle (" + Datos.getUsuario() + ")");
+        this.setSize(300, 300);
         
+        botones = new JButton[n][n];
+
+        capa = new GridLayout(n, n); 
+        panel = new JPanel();
+        panel.setSize(300, 300);
+        panel.setLayout(capa);
+
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                
-                if(botones[i][j] != null){
-                    this.add(new JButton("Boton " + i));
+                if (i == (n-1) && j == (n-1)) {
+                    
+                }else{
+                    botones[i][j] = new JButton();
+                    panel.add(botones[i][j]);
                 }
             }
-        }    
+        }
+
         
+        this.setContentPane(panel);
+        this.repaint();
+        this.setVisible(true);
         
     }
 

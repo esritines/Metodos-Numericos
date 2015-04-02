@@ -110,8 +110,9 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_atrasActionPerformed
 
     private void jugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jugarActionPerformed
-        Puzzle puzzle = new Puzzle();
+        
         this.setVisible(false);
+        Puzzle puzzle = new Puzzle();    
     }//GEN-LAST:event_jugarActionPerformed
 
 
