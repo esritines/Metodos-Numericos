@@ -104,12 +104,8 @@ public class Entrar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
-
-        boolean valor;
         
-        valor = datos.traerDatos(usuario.getText());
-        
-        if(valor){
+        if(datos.traerDatos(usuario.getText())){
          
             this.setVisible(false);
             inicio.regresar(this);
