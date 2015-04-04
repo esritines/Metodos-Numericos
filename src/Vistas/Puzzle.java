@@ -2,76 +2,127 @@ package Vistas;
 
 import Controladores.Datos;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class Puzzle extends javax.swing.JFrame {
-
+public class Puzzle extends javax.swing.JFrame implements ActionListener {
+    
     private JButton[][] botones;
-    private ArrayList<Integer> numeros = new ArrayList<>();
+    private ArrayList<String> numeros = new ArrayList<>();
     private JPanel panel;
     private GridLayout capa;
     private static int n = 3;
-    private String comparaGanar = new String();
-
+    private String comparaGanar = "";
+    
     public Puzzle() {
-        this.comparaGanar = "";
-
+        
         initComponents();
-
+        
         this.setTitle("Puzzle (" + Datos.getUsuario() + ")");
         this.setSize(300, 300);
-
+        
         agregarBotones();
         random();
-
+        
         this.setVisible(true);
-
     }
-
-    public void random() {
-
-        int k = (n * n) - 1, r;
-
+    
+    public final void random() {
+        
+        int k = n * n, r;
+        
         for (int i = 1; i < n * n; i++) {
-            numeros.add(i);
+            numeros.add(Integer.toString(i));
             comparaGanar += i;
         }
-
+        
+        numeros.add((int) (Math.random()* 9 ), "");
+        
+        for (int i = 0; i < n*n; i++) {
+            System.out.println(numeros.get(i));
+        }
+        
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                if ((i != (n-1)) || (j != (n-1))) {
+//                if ((i != (n - 1)) || (j != (n - 1))) {
                     r = (int) (Math.random() * k);
-                    botones[i][j].setText(Integer.toString(numeros.get(r)));
+                    botones[i][j].setText(numeros.get(r));
                     numeros.remove(r);
                     k--;
-                }        
+//                }
             }
         }
-
-        botones[n-1][n-1].setText("");
     }
-
-    public void agregarBotones() {
-
+    
+    public final void agregarBotones() {
+        
         botones = new JButton[n][n];
         capa = new GridLayout(n, n);
         panel = new JPanel();
         panel.setSize(300, 300);
         panel.setLayout(capa);
-
+        
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 botones[i][j] = new JButton();
+                botones[i][j].addActionListener(this);
                 panel.add(botones[i][j]);
             }
         }
-
+        
         this.setContentPane(panel);
         this.repaint();
     }
-
+    
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (e.getSource().equals(botones[i][j])) {
+                    moverBoton(i, j - 1, i, j);
+                    moverBoton(i - 1, j, i, j);
+                    moverBoton(i, j + 1, i, j);
+                    moverBoton(i + 1, j, i, j);
+                }
+            }
+        }
+        ganar();
+    }
+    
+    public void moverBoton(int i, int j, int k, int l) {
+        String temporal;
+        try {
+            if (botones[i][j].getText().isEmpty()) {
+                temporal = botones[k][l].getText();
+                botones[k][l].setText("");
+                botones[i][j].setText(temporal);
+            }
+        } catch (ArrayIndexOutOfBoundsException ex) {
+        }
+        this.repaint();
+    }
+    
+    public void ganar() {
+        
+        String temporal = "";
+        
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                temporal += botones[i][j].getText();
+            }
+        }
+        
+        if (temporal.equals(comparaGanar)) {
+            System.out.println("Ganaste");
+        }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
