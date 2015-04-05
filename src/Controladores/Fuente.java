@@ -11,17 +11,16 @@ public class Fuente {
     private Font font;
     private Font sizedFont;
 
-    public Font getSizedFont() {
-        return sizedFont;
+    public Font getFont() {
+        return font;
     }
     
     public Fuente(){
         try {
             input = Fuente.class.getResourceAsStream
-            ("C:/Users/Abraham/Documents/NetBeansProjects/Puzzle/src/Fuente/Games.ttf");
+            ("C:/Users/Abraham/Documents/NetBeansProjects/Puzzle/src/Fuente/Games.TTF");
             
             font = Font.createFont(Font.TRUETYPE_FONT, input);
-            sizedFont = font.deriveFont(11f);
             
         } catch (FontFormatException ex) {
             System.out.println("No se cargo la Fuente");

@@ -13,11 +13,11 @@ public class Inicio extends javax.swing.JFrame {
         this.setVisible(false);
         this.setTitle("Inicio");
         
-        jugar.setFont(fuente.getSizedFont());
-        records.setFont(fuente.getSizedFont());
-        nuevoUsuario.setFont(fuente.getSizedFont());
-        atras.setFont(fuente.getSizedFont());
-        bienvenido.setFont(fuente.getSizedFont());
+        jugar.setFont(fuente.getFont());
+        records.setFont(fuente.getFont());
+        nuevoUsuario.setFont(fuente.getFont());
+        atras.setFont(fuente.getFont());
+        bienvenido.setFont(fuente.getFont());
         this.repaint();
     }
 
