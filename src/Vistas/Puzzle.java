@@ -1,5 +1,6 @@
 package Vistas;
 
+
 import Controladores.Datos;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -10,6 +11,7 @@ import javax.swing.JPanel;
 
 public class Puzzle extends javax.swing.JFrame implements ActionListener {
 
+    
     private JButton[][] botones;
     private JPanel panel;
     private GridLayout capa;
@@ -21,16 +23,16 @@ public class Puzzle extends javax.swing.JFrame implements ActionListener {
 
         initComponents();
 
-        this.setTitle("Puzzle (" + Datos.getUsuario() + ")");
+        this.setTitle("" + Datos.getUsuario());
         this.setSize(resolucion, resolucion);
 
         agregarBotones();
-        random();
+        desacomodar();
 
-        this.setVisible(true);
+        this.setVisible(true);      
     }
 
-    public final void random() {
+    public final void desacomodar() {
         int rnd, rnd2, i, j, k = 0;
         boolean valor = false, valor2 = true;
 
