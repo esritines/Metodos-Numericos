@@ -1,35 +1,83 @@
 package Vistas;
 
-
 import Controladores.Datos;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 
 public class Puzzle extends javax.swing.JFrame implements ActionListener {
 
-    
+    private Puzzle puzzle;
     private JButton[][] botones;
-    private JPanel panel;
+    private JPanel panelPrincipal;
+    private JPanel panelBotones;
+    private JPanel panelTimer;
+    private static final Label tiempoRestante = new Label("Tiempo restante:");
+    private static Label segundosLabel = new Label();
     private GridLayout capa;
+    private static int segundos = 40;
+    private static int reponerSegundos = 0;
     private static int n = 3;
     private static int resolucion = 300;
-    private String comparaGanar = "";
+    private static final int resolucion2 = 25;
+    private static String comparaGanar = "";
 
     public Puzzle() {
-
+        
         initComponents();
 
-        this.setTitle("" + Datos.getUsuario());
-        this.setSize(resolucion, resolucion);
+        setTitle("Puzzle" + Datos.getUsuario());
+        setSize(resolucion, resolucion + resolucion2);
+
+        panelBotones = new JPanel();
+        panelBotones.setSize(resolucion, resolucion);
 
         agregarBotones();
         desacomodar();
 
-        this.setVisible(true);      
+        panelPrincipal = new JPanel();
+        panelPrincipal.setSize(resolucion, resolucion + resolucion2);
+        panelPrincipal.setLayout(new BorderLayout());
+        panelPrincipal.add("Center", panelBotones);
+
+        panelTimer = new JPanel();
+        panelTimer.setSize(resolucion, resolucion2);
+        panelTimer.add(tiempoRestante);
+        panelTimer.add(segundosLabel);
+        panelPrincipal.add("South", panelTimer);
+
+        setContentPane(panelPrincipal);
+        repaint();
+        setVisible(true);
+        
+        reponerSegundos = 0;
+        tiempo.start();
+    }
+    
+    public final void agregarBotones() {
+
+        int c = 0;
+
+        botones = new JButton[n][n];
+        capa = new GridLayout(n, n);
+
+        panelBotones.setLayout(capa);
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                botones[i][j] = new JButton();
+                botones[i][j].addActionListener(this);
+                panelBotones.add(botones[i][j]);
+                c++;
+                if ((i != (n - 1)) || (j != (n - 1))) {
+                    botones[i][j].setText("" + c);
+                } else {
+                    botones[i][j].setText(".");
+                }
+                comparaGanar += botones[i][j].getText();
+            }
+        }
     }
 
     public final void desacomodar() {
@@ -38,9 +86,8 @@ public class Puzzle extends javax.swing.JFrame implements ActionListener {
 
         do {
             rnd = (int) (Math.random() * (Math.pow(n, 3) + 1));
-            System.out.println("El numero random es: " + rnd);
             if (rnd > n * n) {
-                while (k < rnd) {         
+                while (k < rnd) {
                     for (i = 0; i < n; i++) {
                         for (j = 0; j < n; j++) {
                             if (botones[i][j].getText().equals(".")) {
@@ -50,35 +97,30 @@ public class Puzzle extends javax.swing.JFrame implements ActionListener {
                                     switch (rnd2) {
                                         case 0:
                                             valor2 = moverBotonVacio(i, j - 1, i, j);
-                                            if(valor2){
+                                            if (valor2) {
                                                 k++;
-                                                System.out.println("Case 0");
-                                            }                                    
+                                            }
                                             break;
                                         case 1:
                                             valor2 = moverBotonVacio(i - 1, j, i, j);
-                                            if(valor2){
+                                            if (valor2) {
                                                 k++;
-                                                System.out.println("Case 1");
-                                            }  
+                                            }
                                             break;
                                         case 2:
                                             valor2 = moverBotonVacio(i, j + 1, i, j);
-                                            if(valor2){
-                                                System.out.println("Case 2");
+                                            if (valor2) {
                                                 k++;
-                                            }  
+                                            }
                                             break;
                                         case 3:
-                                            valor2 = moverBotonVacio(i + 1, j, i, j); 
-                                            if(valor2){
-                                                System.out.println("Case 3");
+                                            valor2 = moverBotonVacio(i + 1, j, i, j);
+                                            if (valor2) {
                                                 k++;
-                                            } 
+                                            }
                                             break;
                                     }
                                 } while (valor2);
-                                this.repaint();
                                 break;
                             }
                         }
@@ -90,34 +132,6 @@ public class Puzzle extends javax.swing.JFrame implements ActionListener {
                 }
             }
         } while (rnd <= n * n);
-    }
-
-    public final void agregarBotones() {
-
-        int c = 0;
-
-        botones = new JButton[n][n];
-        capa = new GridLayout(n, n);
-        panel = new JPanel();
-        panel.setSize(resolucion, resolucion);
-        panel.setLayout(capa);
-
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                botones[i][j] = new JButton();
-                botones[i][j].addActionListener(this);
-                panel.add(botones[i][j]);
-                c++;
-                if ((i != (n - 1)) || (j != (n - 1))) {
-                    botones[i][j].setText("" + c);         
-                } else {
-                    botones[i][j].setText(".");
-                }
-                comparaGanar += botones[i][j].getText();
-            }
-        }
-        this.setContentPane(panel);
-        this.repaint();
     }
 
     @Override
@@ -132,7 +146,8 @@ public class Puzzle extends javax.swing.JFrame implements ActionListener {
                 }
             }
         }
-        ganar();
+        repaint();
+        ganaste();
     }
 
     public void moverBoton(int i, int j, int k, int l) {
@@ -145,7 +160,6 @@ public class Puzzle extends javax.swing.JFrame implements ActionListener {
             }
         } catch (ArrayIndexOutOfBoundsException ex) {
         }
-        this.repaint();
     }
 
     public boolean moverBotonVacio(int i, int j, int k, int l) {
@@ -158,7 +172,7 @@ public class Puzzle extends javax.swing.JFrame implements ActionListener {
         }
     }
 
-    public void ganar() {
+    public void ganaste() {
 
         String temporal = "";
 
@@ -168,14 +182,32 @@ public class Puzzle extends javax.swing.JFrame implements ActionListener {
             }
         }
 
-        if (temporal.equals(comparaGanar)) {
+        if (temporal.equals(comparaGanar)) {        
+            tiempo.stop();
             JOptionPane.showMessageDialog(rootPane, "Ganaste", "", JOptionPane.INFORMATION_MESSAGE);
+            removeAll();
             n++;
             resolucion += 100;
-            this.setVisible(false);
-            Puzzle puzzle = new Puzzle();
+            segundos += 20 + reponerSegundos;
         }
     }
+
+    public void perdiste(){
+
+    }
+    
+    Timer tiempo = new Timer(1000, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            segundosLabel.setText(Integer.toString(segundos) + " ");
+            segundos--;
+            reponerSegundos++;
+            if (segundos == 0) {
+                tiempo.stop();
+                perdiste();
+            }
+        }
+    });
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

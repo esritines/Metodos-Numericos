@@ -1,10 +1,10 @@
 package Vistas;
 
-import Controladores.Fuente;
+//import Controladores.Fuente;
 
 public class Inicio extends javax.swing.JFrame {
 
-    private static final Fuente fuente = new Fuente();
+//    private static final Fuente fuente = new Fuente();
     private Entrar regresar;
     
     public Inicio() {
@@ -12,12 +12,13 @@ public class Inicio extends javax.swing.JFrame {
         initComponents();
         this.setVisible(false);
         this.setTitle("Inicio");
+//        
+//        jugar.setFont(fuente.getFont());
+//        records.setFont(fuente.getFont());
+//        nuevoUsuario.setFont(fuente.getFont());
+//        atras.setFont(fuente.getFont());
+//        bienvenido.setFont(fuente.getFont());
         
-        jugar.setFont(fuente.getFont());
-        records.setFont(fuente.getFont());
-        nuevoUsuario.setFont(fuente.getFont());
-        atras.setFont(fuente.getFont());
-        bienvenido.setFont(fuente.getFont());
         this.repaint();
     }
 
@@ -121,7 +122,7 @@ public class Inicio extends javax.swing.JFrame {
     private void jugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jugarActionPerformed
         
         this.setVisible(false);
-        Puzzle puzzle = new Puzzle();   
+        Puzzle puzzle = new Puzzle();  
     }//GEN-LAST:event_jugarActionPerformed
 
 
