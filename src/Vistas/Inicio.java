@@ -5,7 +5,8 @@ package Vistas;
 public class Inicio extends javax.swing.JFrame {
 
 //    private static final Fuente fuente = new Fuente();
-    private Entrar regresar;
+    private  Entrar regresar;
+    private  Puzzle puzzle = new Puzzle();
     
     public Inicio() {
         
@@ -122,7 +123,8 @@ public class Inicio extends javax.swing.JFrame {
     private void jugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jugarActionPerformed
         
         this.setVisible(false);
-        Puzzle puzzle = new Puzzle();  
+        puzzle = new Puzzle(40, 0, 3, 300); 
+        puzzle.regresar(this);
     }//GEN-LAST:event_jugarActionPerformed
 
 

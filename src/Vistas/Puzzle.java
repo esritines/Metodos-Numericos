@@ -8,39 +8,55 @@ import javax.swing.*;
 
 public class Puzzle extends javax.swing.JFrame implements ActionListener {
 
-    private Puzzle puzzle;
-    private JButton[][] botones;
-    private JPanel panelPrincipal;
-    private JPanel panelBotones;
-    private JPanel panelTimer;
-    private static final Label tiempoRestante = new Label("Tiempo restante:");
-    private static Label segundosLabel = new Label();
-    private GridLayout capa;
-    private static int segundos = 40;
-    private static int reponerSegundos = 0;
-    private static int n = 3;
-    private static int resolucion = 300;
-    private static final int resolucion2 = 25;
-    private static String comparaGanar = "";
+    private  JButton[][] botones;
+    private  JPanel panelPrincipal;
+    private  JPanel panelBotones;
+    private  JPanel panelTimer;
+    private  final Label tiempoRestante = new Label("Tiempo Restante:");
+    private  Label segundosLabel = new Label("   ");
+    private  GridLayout capa;
+    private  int segundos;
+    private  int reponerSegundos;
+    private  static int n;
+    private  static int resolucion;
+    private  final int resolucion2 = 25;
+    private  String comparaGanar = "";
+    private  static Inicio regresar;
+    
 
-    public Puzzle() {
+    public Puzzle(int segundos, int reponerSegundos, int n, int resolucion) {
+        
+        this.segundos = segundos;
+        this.reponerSegundos = reponerSegundos;
+        Puzzle.n = n;
+        Puzzle.resolucion = resolucion; 
         
         initComponents();
 
         setTitle("Puzzle" + Datos.getUsuario());
+        
+        iniciar();
+        
+    }
+    
+    public Puzzle(){
+        
+    }
+    
+    public void iniciar(){
         setSize(resolucion, resolucion + resolucion2);
-
+  
         panelBotones = new JPanel();
         panelBotones.setSize(resolucion, resolucion);
 
         agregarBotones();
         desacomodar();
-
+    
         panelPrincipal = new JPanel();
         panelPrincipal.setSize(resolucion, resolucion + resolucion2);
         panelPrincipal.setLayout(new BorderLayout());
         panelPrincipal.add("Center", panelBotones);
-
+      
         panelTimer = new JPanel();
         panelTimer.setSize(resolucion, resolucion2);
         panelTimer.add(tiempoRestante);
@@ -50,15 +66,13 @@ public class Puzzle extends javax.swing.JFrame implements ActionListener {
         setContentPane(panelPrincipal);
         repaint();
         setVisible(true);
-        
-        reponerSegundos = 0;
+
         tiempo.start();
     }
     
     public final void agregarBotones() {
 
         int c = 0;
-
         botones = new JButton[n][n];
         capa = new GridLayout(n, n);
 
@@ -86,6 +100,7 @@ public class Puzzle extends javax.swing.JFrame implements ActionListener {
 
         do {
             rnd = (int) (Math.random() * (Math.pow(n, 3) + 1));
+            System.out.println("El numero random es: " + rnd);
             if (rnd > n * n) {
                 while (k < rnd) {
                     for (i = 0; i < n; i++) {
@@ -98,24 +113,28 @@ public class Puzzle extends javax.swing.JFrame implements ActionListener {
                                         case 0:
                                             valor2 = moverBotonVacio(i, j - 1, i, j);
                                             if (valor2) {
+                                                System.out.println("Case 0");
                                                 k++;
                                             }
                                             break;
                                         case 1:
                                             valor2 = moverBotonVacio(i - 1, j, i, j);
                                             if (valor2) {
+                                                System.out.println("Case 1");
                                                 k++;
                                             }
                                             break;
                                         case 2:
                                             valor2 = moverBotonVacio(i, j + 1, i, j);
                                             if (valor2) {
+                                                System.out.println("Case 2");
                                                 k++;
                                             }
                                             break;
                                         case 3:
                                             valor2 = moverBotonVacio(i + 1, j, i, j);
                                             if (valor2) {
+                                                System.out.println("Case 3");
                                                 k++;
                                             }
                                             break;
@@ -175,7 +194,7 @@ public class Puzzle extends javax.swing.JFrame implements ActionListener {
     public void ganaste() {
 
         String temporal = "";
-
+        
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 temporal += botones[i][j].getText();
@@ -185,21 +204,24 @@ public class Puzzle extends javax.swing.JFrame implements ActionListener {
         if (temporal.equals(comparaGanar)) {        
             tiempo.stop();
             JOptionPane.showMessageDialog(rootPane, "Ganaste", "", JOptionPane.INFORMATION_MESSAGE);
-            removeAll();
-            n++;
-            resolucion += 100;
-            segundos += 20 + reponerSegundos;
+            setVisible(false);
+            Puzzle puzzle = new Puzzle(segundos += 40 + reponerSegundos, 0, ++n, resolucion += 100);
         }
     }
 
     public void perdiste(){
-
+        this.setVisible(false);
+        regresar.setVisible(true);
+    }
+    
+    public void regresar(Inicio inicio){
+        regresar = inicio;
     }
     
     Timer tiempo = new Timer(1000, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            segundosLabel.setText(Integer.toString(segundos) + " ");
+            segundosLabel.setText(Integer.toString(segundos));
             segundos--;
             reponerSegundos++;
             if (segundos == 0) {

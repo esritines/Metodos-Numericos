@@ -116,14 +116,11 @@ public class Entrar extends javax.swing.JFrame {
         }else{
             JOptionPane.showMessageDialog(rootPane, "Usuario no existe", "Error...", JOptionPane.ERROR_MESSAGE);
             usuario.setText("");
-        } 
-        
-        
+        }    
     }//GEN-LAST:event_aceptarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         try {
-            System.out.println("Cerrando conexion");
             ConexionBD.conexion.close();
         } catch (SQLException ex) {
             Logger.getLogger(Entrar.class.getName()).log(Level.SEVERE, null, ex);
