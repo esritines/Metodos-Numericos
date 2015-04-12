@@ -1,60 +1,36 @@
 
 package Vistas;
 
-import Controladores.ConexionBD;
 import Controladores.Datos;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-public class Entrar extends javax.swing.JFrame {
-
-    private Datos datos;
-    private Inicio inicio;
+public class nuevoUsuario extends javax.swing.JFrame {
     
-    public Entrar() {
-        
-        conectar();
-        initComponents();
-        
-        setTitle("Entrar");
-        
-        datos = new Datos();
-        inicio = new Inicio();
+    private Datos datos;
+    private Inicio regresar;
 
-        inicio.regresar(this);
-        
-        setVisible(true);
+    public nuevoUsuario() {
+        setVisible(false);
+        initComponents();
+        datos = new Datos();
     }
 
-    public static void conectar(){
-        try{
-            String BaseDeDatos = "jdbc:ucanaccess://" + "C:/Users/Abraham/Documents/NetBeansProjects/Puzzle/src/Base de Datos/puzzle.accdb"; 
-            ConexionBD.conexion = DriverManager.getConnection(BaseDeDatos, "", "");
-            if(ConexionBD.conexion != null){
-                System.out.println("Conexion exitosa");
-            }
-        } catch(Exception e){
-            e.printStackTrace();
-        } 
+    public void regresar(Inicio inicio){
+        regresar = inicio;
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        aceptar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        usuario = new javax.swing.JTextField();
+        nuevoUsuario = new javax.swing.JTextField();
+        aceptar = new javax.swing.JButton();
+        atras = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
-        });
+
+        jLabel1.setText("Nuevo usuario:");
 
         aceptar.setText("Aceptar");
         aceptar.addActionListener(new java.awt.event.ActionListener() {
@@ -63,19 +39,29 @@ public class Entrar extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Usuario:");
+        atras.setText("Atras");
+        atras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                atrasActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(aceptar)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(nuevoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(atras, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(aceptar)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -84,8 +70,11 @@ public class Entrar extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(aceptar))
+                    .addComponent(nuevoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(aceptar)
+                    .addComponent(atras))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -95,8 +84,8 @@ public class Entrar extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -111,30 +100,27 @@ public class Entrar extends javax.swing.JFrame {
 
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
         
-        if(datos.traerDatos(usuario.getText())){
-         
-            setVisible(false);         
-            inicio.setVisible(true);       
-            usuario.setText("");
-
+        if(datos.enviarDatos(nuevoUsuario.getText())){
+            JOptionPane.showMessageDialog(rootPane, "Se agrego al nuevo usuario con exito", "", JOptionPane.INFORMATION_MESSAGE);
+            nuevoUsuario.setText("");
+            setVisible(false);
+            regresar.setVisible(true);
         }else{
-            JOptionPane.showMessageDialog(rootPane, "Usuario no existe", "Error...", JOptionPane.ERROR_MESSAGE);
-            usuario.setText("");
-        }    
+            JOptionPane.showMessageDialog(rootPane, "Error al agregar nuevo usuario", "", JOptionPane.INFORMATION_MESSAGE);
+            nuevoUsuario.setText("");
+        }
     }//GEN-LAST:event_aceptarActionPerformed
 
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        try {
-            ConexionBD.conexion.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(Entrar.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_formWindowClosing
+    private void atrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atrasActionPerformed
+        regresar.setVisible(true);
+        setVisible(false);
+    }//GEN-LAST:event_atrasActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aceptar;
+    private javax.swing.JButton atras;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField usuario;
+    private javax.swing.JTextField nuevoUsuario;
     // End of variables declaration//GEN-END:variables
 }

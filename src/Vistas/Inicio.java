@@ -5,14 +5,18 @@ package Vistas;
 public class Inicio extends javax.swing.JFrame {
 
 //    private static final Fuente fuente = new Fuente();
-    private  Entrar regresar;
-    private  Puzzle puzzle = new Puzzle();
+    private Entrar regresar;
+    private Puzzle puzzle;
+    private nuevoUsuario usuario;
     
     public Inicio() {
         
         initComponents();
-        this.setVisible(false);
-        this.setTitle("Inicio");
+        setVisible(false);
+        setTitle("Inicio");
+        
+        usuario = new nuevoUsuario();
+        usuario.regresar(this);
 //        
 //        jugar.setFont(fuente.getFont());
 //        records.setFont(fuente.getFont());
@@ -20,7 +24,7 @@ public class Inicio extends javax.swing.JFrame {
 //        atras.setFont(fuente.getFont());
 //        bienvenido.setFont(fuente.getFont());
         
-        this.repaint();
+//        repaint();
     }
 
     public void regresar(Entrar regresar){
@@ -47,6 +51,11 @@ public class Inicio extends javax.swing.JFrame {
         });
 
         nuevoUsuario.setText("Nuevo Usuario");
+        nuevoUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nuevoUsuarioActionPerformed(evt);
+            }
+        });
 
         records.setText("Records");
 
@@ -122,10 +131,15 @@ public class Inicio extends javax.swing.JFrame {
 
     private void jugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jugarActionPerformed
         
-        this.setVisible(false);
+        setVisible(false);
         puzzle = new Puzzle(40, 0, 3, 300); 
         puzzle.regresar(this);
     }//GEN-LAST:event_jugarActionPerformed
+
+    private void nuevoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoUsuarioActionPerformed
+        setVisible(false);
+        usuario.setVisible(true);
+    }//GEN-LAST:event_nuevoUsuarioActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

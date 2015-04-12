@@ -1,7 +1,6 @@
 
 package Controladores;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -16,10 +15,6 @@ public class Datos {
     public static String getUsuario() {
         return usuario;
     }
-
-    public static void setUsuario(String usuario) {
-        Datos.usuario = usuario;
-    }
     
     public boolean traerDatos(String usuario) {
         
@@ -28,7 +23,7 @@ public class Datos {
             ResultSet consulta = consultarDatos.executeQuery("select USUARIO from datos where USUARIO = '" + usuario + "'");
 
             if (consulta.next()) {
-                this.usuario = consulta.getString(1);
+                Datos.usuario = consulta.getString(1);
 
                 consulta.close();
                 consultarDatos.close();
@@ -43,15 +38,19 @@ public class Datos {
         }
     }
 
-    public void enviarDatos() {
+    public boolean enviarDatos(String nuevoUsuario) {
         try {
-            PreparedStatement consultarDatos = ConexionBD.conexion.prepareStatement("update DATOS set usuario = '" + usuario + "' where usuario = '" + usuario + "'");
-
-            consultarDatos.executeUpdate();
-            consultarDatos.close();
+            Statement capturarUsuario;
+            capturarUsuario = ConexionBD.conexion.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            capturarUsuario.executeUpdate("insert into datos (USUARIO) values('" + nuevoUsuario + "')");
+            
+            capturarUsuario.close();
+            
+            return true;
 
         } catch (SQLException ex) {
             Logger.getLogger(Datos.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
     }
 }
