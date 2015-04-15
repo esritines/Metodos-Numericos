@@ -2,12 +2,20 @@ package Vistas;
 
 //import Controladores.Fuente;
 
+import Controladores.Datos;
+import java.util.ArrayList;
+
+
 public class Inicio extends javax.swing.JFrame {
 
 //    private static final Fuente fuente = new Fuente();
     private Entrar regresar;
     private Puzzle puzzle;
     private nuevoUsuario usuario;
+    private Registros record;
+    private Datos datos;
+    private ArrayList<String> listaUsuarios;
+    private ArrayList<Integer> listaPuntos;
     
     public Inicio() {
         
@@ -17,7 +25,13 @@ public class Inicio extends javax.swing.JFrame {
         
         usuario = new nuevoUsuario();
         usuario.regresar(this);
-//        
+        record = new Registros();
+        record.regresar(this);
+        datos = new Datos();
+        
+        listaUsuarios = new ArrayList();
+        listaPuntos = new ArrayList();
+        
 //        jugar.setFont(fuente.getFont());
 //        records.setFont(fuente.getFont());
 //        nuevoUsuario.setFont(fuente.getFont());
@@ -58,6 +72,11 @@ public class Inicio extends javax.swing.JFrame {
         });
 
         records.setText("Records");
+        records.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                recordsActionPerformed(evt);
+            }
+        });
 
         atras.setText("Atras");
         atras.addActionListener(new java.awt.event.ActionListener() {
@@ -140,6 +159,15 @@ public class Inicio extends javax.swing.JFrame {
         setVisible(false);
         usuario.setVisible(true);
     }//GEN-LAST:event_nuevoUsuarioActionPerformed
+
+    private void recordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recordsActionPerformed
+        datos.traerRegistros(listaUsuarios, listaPuntos);
+        record.insertarRegistro(listaUsuarios, listaPuntos);
+        listaUsuarios.clear();
+        listaPuntos.clear();
+        setVisible(false);
+        record.setVisible(true); 
+    }//GEN-LAST:event_recordsActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

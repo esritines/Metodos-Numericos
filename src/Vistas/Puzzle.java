@@ -8,55 +8,52 @@ import javax.swing.*;
 
 public class Puzzle extends javax.swing.JFrame implements ActionListener {
 
-    private  JButton[][] botones;
-    private  JPanel panelPrincipal;
-    private  JPanel panelBotones;
-    private  JPanel panelTimer;
-    private  final Label tiempoRestante = new Label("Tiempo Restante:");
-    private  Label segundosLabel = new Label("   ");
-    private  GridLayout capa;
-    private  int segundos;
-    private  int reponerSegundos;
-    private  static int n;
-    private  static int resolucion;
-    private  final int resolucion2 = 25;
-    private  String comparaGanar = "";
-    private  static Inicio regresar;
-    
+    private JButton[][] botones;
+    private JPanel panelPrincipal;
+    private JPanel panelBotones;
+    private JPanel panelTimer;
+    private final Label tiempoRestante = new Label("Tiempo Restante:");
+    private Label segundosLabel = new Label("   ");
+    private GridLayout capa;
+    private int segundos;
+    private int reponerSegundos;
+    private static int n;
+    private static int resolucion;
+    private final int resolucion2 = 25;
+    private String comparaGanar = "";
+    private static Inicio regresar;
+    private Datos registro;
 
     public Puzzle(int segundos, int reponerSegundos, int n, int resolucion) {
-        
+
         this.segundos = segundos;
         this.reponerSegundos = reponerSegundos;
         Puzzle.n = n;
-        Puzzle.resolucion = resolucion; 
-        
+        Puzzle.resolucion = resolucion;
+
+        registro = new Datos();
         initComponents();
 
         setTitle("Puzzle" + Datos.getUsuario());
-        
+
         iniciar();
-        
+
     }
-    
-    public Puzzle(){
-        
-    }
-    
-    public void iniciar(){
+
+    public void iniciar() {
         setSize(resolucion, resolucion + resolucion2);
-  
+
         panelBotones = new JPanel();
         panelBotones.setSize(resolucion, resolucion);
 
         agregarBotones();
         desacomodar();
-    
+
         panelPrincipal = new JPanel();
         panelPrincipal.setSize(resolucion, resolucion + resolucion2);
         panelPrincipal.setLayout(new BorderLayout());
         panelPrincipal.add("Center", panelBotones);
-      
+
         panelTimer = new JPanel();
         panelTimer.setSize(resolucion, resolucion2);
         panelTimer.add(tiempoRestante);
@@ -69,7 +66,7 @@ public class Puzzle extends javax.swing.JFrame implements ActionListener {
 
         tiempo.start();
     }
-    
+
     public final void agregarBotones() {
 
         int c = 0;
@@ -194,14 +191,14 @@ public class Puzzle extends javax.swing.JFrame implements ActionListener {
     public void ganaste() {
 
         String temporal = "";
-        
+
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 temporal += botones[i][j].getText();
             }
         }
 
-        if (temporal.equals(comparaGanar)) {        
+        if (temporal.equals(comparaGanar)) {
             tiempo.stop();
             JOptionPane.showMessageDialog(rootPane, "Ganaste", "", JOptionPane.INFORMATION_MESSAGE);
             setVisible(false);
@@ -209,15 +206,15 @@ public class Puzzle extends javax.swing.JFrame implements ActionListener {
         }
     }
 
-    public void perdiste(){
+    public void perdiste() {
         this.setVisible(false);
         regresar.setVisible(true);
     }
-    
-    public void regresar(Inicio inicio){
+
+    public void regresar(Inicio inicio) {
         regresar = inicio;
     }
-    
+
     Timer tiempo = new Timer(1000, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
