@@ -18,7 +18,7 @@ public class Fuente {
     public Fuente(){
         try {
             input = Fuente.class.getResourceAsStream
-            ("C:/Users/Abraham/Documents/NetBeansProjects/Puzzle/src/Fuente/Games.TTF");
+            ("C:/Users/Abraham/Documents/NetBeansProjects/Puzzle/src/Diseño/Games.TTF");
             
             font = Font.createFont(Font.TRUETYPE_FONT, input);
             

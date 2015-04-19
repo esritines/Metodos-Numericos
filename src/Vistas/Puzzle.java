@@ -25,12 +25,12 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
     private Datos registro;
     private int puntos;
     private static boolean valor = false;
-    private Font font = new Font("Courier", Font.BOLD, 12);
-    private Font font2 = new Font("Courier", Font.BOLD, 16);
-    private final ImageIcon imagen[][];
+    private static Font font = new Font("Courier", Font.BOLD, 12);
+    private static Font font2 = new Font("Courier", Font.BOLD, 16);
+    private static ImageIcon imagen[][];
     private static AePlayWave sonido;
-    private final String sonidoClic = "C:/Users/Abraham/Documents/NetBeansProjects/puzzle/src/Diseño/clic.wav";
-    private final String imagenFondo = "C:/Users/Abraham/Documents/NetBeansProjects/puzzle/src/Diseño/";
+    private static final String sonidoClic = "C:/Users/Abraham/Documents/NetBeansProjects/puzzle/src/Diseño/clic.wav";
+    private static final String imagenFondo = "C:/Users/Abraham/Documents/NetBeansProjects/puzzle/src/Diseño/";
 
     public void setValor(boolean valor) {
         this.valor = valor;
@@ -42,7 +42,7 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
         Puzzle.n = n;
         Puzzle.resolucion = resolucion;
 
-        imagen = new ImageIcon[n][n];
+        
         registro = new Datos();
         initComponents();
 
@@ -83,6 +83,7 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
     public final void agregarBotones() {
 
         int c = 0;
+        imagen = new ImageIcon[n][n];
         botones = new JLabel[n][n];
         capa = new GridLayout(n, n);
 
