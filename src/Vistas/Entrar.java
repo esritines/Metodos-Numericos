@@ -31,7 +31,7 @@ public class Entrar extends javax.swing.JFrame {
 
     public static void conectar(){
         try{
-            String BaseDeDatos = "jdbc:ucanaccess://" + "C:/Users/Abraham/Documents/NetBeansProjects/Puzzle/src/Base de Datos/puzzle.accdb"; 
+            String BaseDeDatos = "jdbc:ucanaccess://C:/Users/Abraham/Documents/NetBeansProjects/Puzzle/src/Base de Datos/puzzle.accdb"; 
             ConexionBD.conexion = DriverManager.getConnection(BaseDeDatos, "", "");
             if(ConexionBD.conexion != null){
                 System.out.println("Conexion exitosa");
@@ -50,6 +50,7 @@ public class Entrar extends javax.swing.JFrame {
         usuario = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -126,6 +127,7 @@ public class Entrar extends javax.swing.JFrame {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         try {
             ConexionBD.conexion.close();
+            System.out.println("Conexion Cerrada");
         } catch (SQLException ex) {
             Logger.getLogger(Entrar.class.getName()).log(Level.SEVERE, null, ex);
         }

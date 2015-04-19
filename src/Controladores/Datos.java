@@ -55,6 +55,49 @@ public class Datos {
     }
 
     public void enviarRegistro(String usuario, int puntos) {
+
+        ArrayList<String> listaUsuarios = new ArrayList<>();
+        ArrayList<Integer> listaPuntos = new ArrayList<>();
+
+        traerRegistros(listaUsuarios, listaPuntos);
+
+        for (int i = 0; i < listaPuntos.size(); i++) {
+
+            int temporal;
+            if (puntos > listaPuntos.get(i)) {
+                System.out.println("entre al if");
+                try {
+                    Statement consultarDatos = ConexionBD.conexion.createStatement();
+                    ResultSet consulta = consultarDatos.executeQuery("SELECT MIN(puntos) FROM registros");
+
+                    consulta.next();
+                    temporal = consulta.getInt(1);
+
+                    consulta.close();
+                    consultarDatos.close();
+
+                    Statement consultarPuntos = ConexionBD.conexion.createStatement();
+                    ResultSet consulta1 = consultarPuntos.executeQuery("select id from registros where puntos = '" + temporal + "'");
+
+                    consulta1.next();
+                    int temporal2 = consulta1.getInt(1);
+
+                    consulta1.close();
+                    consultarPuntos.close();
+
+                    Statement borrarRegistro = ConexionBD.conexion.createStatement();
+                    borrarRegistro.executeUpdate("DELETE from registros where id = '" + temporal2 + "'");
+
+                    borrarRegistro.close();
+
+                } catch (SQLException ex) {
+                    Logger.getLogger(Datos.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                break;
+            }
+        }
+
         try {
             Statement capturarRegistro;
             capturarRegistro = ConexionBD.conexion.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -70,9 +113,9 @@ public class Datos {
     public void traerRegistros(ArrayList usuarios, ArrayList puntos) {
         try {
             Statement traerRegistros = ConexionBD.conexion.createStatement();
-            ResultSet consulta = traerRegistros.executeQuery("select usuario, puntos from datos");
+            ResultSet consulta = traerRegistros.executeQuery("select usuario, puntos from registros");
 
-            while(consulta.next()){
+            while (consulta.next()) {
                 usuarios.add(consulta.getString(1));
                 puntos.add(consulta.getInt(2));
             }

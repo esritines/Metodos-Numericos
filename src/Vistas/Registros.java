@@ -72,9 +72,9 @@ public class Registros extends javax.swing.JFrame implements ActionListener{
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 2; j++) {
                 if(j == 0){
-                    records[i][j].setText(usuarios.get(j).toString());
+                    records[i][j].setText(usuarios.get(i).toString());
                 }else{
-                    records[i][j].setText(usuarios.get(j).toString());
+                    records[i][j].setText(puntos.get(i).toString());
                 }        
             }
         }
@@ -83,7 +83,8 @@ public class Registros extends javax.swing.JFrame implements ActionListener{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setResizable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

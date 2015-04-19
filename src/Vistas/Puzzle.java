@@ -23,18 +23,26 @@ public class Puzzle extends javax.swing.JFrame implements ActionListener {
     private String comparaGanar = "";
     private static Inicio regresar;
     private Datos registro;
+    private int puntos;
+    private static boolean valor = false;
+    private Font font = new Font("Courier", Font.BOLD, 12);
 
+    public void setValor(boolean valor) {
+        this.valor = valor;
+    }
+
+    
     public Puzzle(int segundos, int reponerSegundos, int n, int resolucion) {
 
         this.segundos = segundos;
         this.reponerSegundos = reponerSegundos;
         Puzzle.n = n;
         Puzzle.resolucion = resolucion;
-
+        
         registro = new Datos();
         initComponents();
 
-        setTitle("Puzzle" + Datos.getUsuario());
+        setTitle("Puzzle " + Datos.getUsuario());
 
         iniciar();
 
@@ -57,6 +65,8 @@ public class Puzzle extends javax.swing.JFrame implements ActionListener {
         panelTimer = new JPanel();
         panelTimer.setSize(resolucion, resolucion2);
         panelTimer.add(tiempoRestante);
+        segundosLabel.setForeground(Color.RED);
+        segundosLabel.setFont(font);
         panelTimer.add(segundosLabel);
         panelPrincipal.add("South", panelTimer);
 
@@ -200,9 +210,11 @@ public class Puzzle extends javax.swing.JFrame implements ActionListener {
 
         if (temporal.equals(comparaGanar)) {
             tiempo.stop();
+            puntos += segundos * 10;
+            valor = true;
             JOptionPane.showMessageDialog(rootPane, "Ganaste", "", JOptionPane.INFORMATION_MESSAGE);
             setVisible(false);
-            Puzzle puzzle = new Puzzle(segundos += 40 + reponerSegundos, 0, ++n, resolucion += 100);
+            Puzzle puzzle = new Puzzle(segundos += 50 + reponerSegundos, 0, ++n, resolucion += 100);
         }
     }
 
@@ -218,6 +230,7 @@ public class Puzzle extends javax.swing.JFrame implements ActionListener {
     Timer tiempo = new Timer(1000, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
+
             segundosLabel.setText(Integer.toString(segundos));
             segundos--;
             reponerSegundos++;
@@ -232,7 +245,12 @@ public class Puzzle extends javax.swing.JFrame implements ActionListener {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -247,6 +265,15 @@ public class Puzzle extends javax.swing.JFrame implements ActionListener {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        if (valor) {
+            System.out.println("estoy enviando el record");
+            registro.enviarRegistro(Datos.getUsuario(), puntos);
+            valor = false;
+        }
+        regresar.setVisible(true);
+    }//GEN-LAST:event_formWindowClosed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

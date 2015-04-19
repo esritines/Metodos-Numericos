@@ -1,10 +1,8 @@
 package Vistas;
 
 //import Controladores.Fuente;
-
 import Controladores.Datos;
 import java.util.ArrayList;
-
 
 public class Inicio extends javax.swing.JFrame {
 
@@ -16,34 +14,34 @@ public class Inicio extends javax.swing.JFrame {
     private Datos datos;
     private ArrayList<String> listaUsuarios;
     private ArrayList<Integer> listaPuntos;
-    
+
     public Inicio() {
-        
+
         initComponents();
         setVisible(false);
         setTitle("Inicio");
-        
+
         usuario = new nuevoUsuario();
         usuario.regresar(this);
         record = new Registros();
         record.regresar(this);
         datos = new Datos();
-        
+
         listaUsuarios = new ArrayList();
         listaPuntos = new ArrayList();
-        
+
 //        jugar.setFont(fuente.getFont());
 //        records.setFont(fuente.getFont());
 //        nuevoUsuario.setFont(fuente.getFont());
 //        atras.setFont(fuente.getFont());
 //        bienvenido.setFont(fuente.getFont());
-        
 //        repaint();
     }
 
-    public void regresar(Entrar regresar){
+    public void regresar(Entrar regresar) {
         this.regresar = regresar;
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -55,7 +53,8 @@ public class Inicio extends javax.swing.JFrame {
         atras = new javax.swing.JButton();
         bienvenido = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setResizable(false);
 
         jugar.setText("Jugar");
         jugar.addActionListener(new java.awt.event.ActionListener() {
@@ -143,16 +142,17 @@ public class Inicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void atrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atrasActionPerformed
-        
+
         this.setVisible(false);
         regresar.setVisible(true);
     }//GEN-LAST:event_atrasActionPerformed
 
     private void jugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jugarActionPerformed
-        
         setVisible(false);
-        puzzle = new Puzzle(40, 0, 3, 300); 
+        puzzle = new Puzzle(50, 0, 3, 300);
+        puzzle.setValor(false);
         puzzle.regresar(this);
+
     }//GEN-LAST:event_jugarActionPerformed
 
     private void nuevoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoUsuarioActionPerformed
@@ -166,7 +166,7 @@ public class Inicio extends javax.swing.JFrame {
         listaUsuarios.clear();
         listaPuntos.clear();
         setVisible(false);
-        record.setVisible(true); 
+        record.setVisible(true);
     }//GEN-LAST:event_recordsActionPerformed
 
 
