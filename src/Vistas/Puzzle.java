@@ -1,14 +1,14 @@
 package Vistas;
 
 import Controladores.Datos;
-
+import sonidos.AePlayWave;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class Puzzle extends javax.swing.JFrame implements ActionListener {
+public class Puzzle extends javax.swing.JFrame implements MouseListener {
 
-    private JButton[][] botones;
+    private JLabel[][] botones;
     private JPanel panelPrincipal;
     private JPanel panelBotones;
     private JPanel panelTimer;
@@ -26,19 +26,23 @@ public class Puzzle extends javax.swing.JFrame implements ActionListener {
     private int puntos;
     private static boolean valor = false;
     private Font font = new Font("Courier", Font.BOLD, 12);
+    private Font font2 = new Font("Courier", Font.BOLD, 16);
+    private final ImageIcon imagen[][];
+    private static AePlayWave sonido;
+    private final String sonidoClic = "C:/Users/Abraham/Documents/NetBeansProjects/puzzle/src/Diseño/clic.wav";
+    private final String imagenFondo = "C:/Users/Abraham/Documents/NetBeansProjects/puzzle/src/Diseño/";
 
     public void setValor(boolean valor) {
         this.valor = valor;
     }
 
-    
     public Puzzle(int segundos, int reponerSegundos, int n, int resolucion) {
-
         this.segundos = segundos;
         this.reponerSegundos = reponerSegundos;
         Puzzle.n = n;
         Puzzle.resolucion = resolucion;
-        
+
+        imagen = new ImageIcon[n][n];
         registro = new Datos();
         initComponents();
 
@@ -46,6 +50,8 @@ public class Puzzle extends javax.swing.JFrame implements ActionListener {
 
         iniciar();
 
+        setVisible(true);
+        tiempo.start();
     }
 
     public void iniciar() {
@@ -71,24 +77,24 @@ public class Puzzle extends javax.swing.JFrame implements ActionListener {
         panelPrincipal.add("South", panelTimer);
 
         setContentPane(panelPrincipal);
-        repaint();
-        setVisible(true);
-
-        tiempo.start();
+        repaint();      
     }
 
     public final void agregarBotones() {
 
         int c = 0;
-        botones = new JButton[n][n];
+        botones = new JLabel[n][n];
         capa = new GridLayout(n, n);
 
         panelBotones.setLayout(capa);
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                botones[i][j] = new JButton();
-                botones[i][j].addActionListener(this);
+                imagen[i][j] = new ImageIcon(imagenFondo + (int) (Math.random() * 12) + ".png");
+                botones[i][j] = new JLabel(imagen[i][j]);
+                botones[i][j].setForeground(Color.WHITE);
+                botones[i][j].setFont(font2);
+                botones[i][j].addMouseListener(this);
                 panelBotones.add(botones[i][j]);
                 c++;
                 if ((i != (n - 1)) || (j != (n - 1))) {
@@ -97,6 +103,7 @@ public class Puzzle extends javax.swing.JFrame implements ActionListener {
                     botones[i][j].setText(".");
                 }
                 comparaGanar += botones[i][j].getText();
+                botones[i][j].setHorizontalTextPosition(SwingConstants.CENTER);
             }
         }
     }
@@ -160,26 +167,12 @@ public class Puzzle extends javax.swing.JFrame implements ActionListener {
         } while (rnd <= n * n);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (e.getSource().equals(botones[i][j])) {
-                    moverBoton(i, j - 1, i, j);
-                    moverBoton(i - 1, j, i, j);
-                    moverBoton(i, j + 1, i, j);
-                    moverBoton(i + 1, j, i, j);
-                }
-            }
-        }
-        repaint();
-        ganaste();
-    }
-
     public void moverBoton(int i, int j, int k, int l) {
         String temporal;
         try {
             if (botones[i][j].getText().equals(".")) {
+                sonido = new AePlayWave(sonidoClic);
+                sonido.start();
                 temporal = botones[k][l].getText();
                 botones[k][l].setText(".");
                 botones[i][j].setText(temporal);
@@ -277,4 +270,35 @@ public class Puzzle extends javax.swing.JFrame implements ActionListener {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (e.getSource().equals(botones[i][j])) {
+                    moverBoton(i, j - 1, i, j);
+                    moverBoton(i - 1, j, i, j);
+                    moverBoton(i, j + 1, i, j);
+                    moverBoton(i + 1, j, i, j);
+                }
+            }
+        }
+        repaint();
+        ganaste();
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+    }
 }
