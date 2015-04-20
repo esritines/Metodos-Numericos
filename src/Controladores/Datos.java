@@ -65,7 +65,6 @@ public class Datos {
 
             int temporal;
             if (puntos > listaPuntos.get(i)) {
-                System.out.println("entre al if");
                 try {
                     Statement consultarDatos = ConexionBD.conexion.createStatement();
                     ResultSet consulta = consultarDatos.executeQuery("SELECT MIN(puntos) FROM registros");
@@ -113,7 +112,7 @@ public class Datos {
     public void traerRegistros(ArrayList usuarios, ArrayList puntos) {
         try {
             Statement traerRegistros = ConexionBD.conexion.createStatement();
-            ResultSet consulta = traerRegistros.executeQuery("select usuario, puntos from registros");
+            ResultSet consulta = traerRegistros.executeQuery("select usuario, puntos from registros order by puntos");
 
             while (consulta.next()) {
                 usuarios.add(consulta.getString(1));

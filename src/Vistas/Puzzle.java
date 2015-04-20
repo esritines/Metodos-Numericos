@@ -23,7 +23,7 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
     private String comparaGanar = "";
     private static Inicio regresar;
     private Datos registro;
-    private int puntos;
+    private static int puntos;
     private static boolean valor = false;
     private static Font font = new Font("Courier", Font.BOLD, 12);
     private static Font font2 = new Font("Courier", Font.BOLD, 16);
@@ -213,6 +213,7 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
     }
 
     public void perdiste() {
+        puntos = 0;
         this.setVisible(false);
         regresar.setVisible(true);
     }
@@ -261,16 +262,19 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        System.out.println(puntos);
         if (valor) {
             System.out.println("estoy enviando el record");
             registro.enviarRegistro(Datos.getUsuario(), puntos);
             valor = false;
+            puntos = 0;
         }
         regresar.setVisible(true);
     }//GEN-LAST:event_formWindowClosed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
+    
     @Override
     public void mouseClicked(MouseEvent e) {
         for (int i = 0; i < n; i++) {

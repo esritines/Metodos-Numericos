@@ -1,4 +1,3 @@
-
 package Vistas;
 
 import java.awt.*;
@@ -7,8 +6,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.*;
 
-public class Registros extends javax.swing.JFrame implements ActionListener{
-    
+public class Registros extends javax.swing.JFrame implements ActionListener {
+
     private Inicio regresar;
     private JPanel panelPrincipal;
     private JPanel panel1;
@@ -17,16 +16,15 @@ public class Registros extends javax.swing.JFrame implements ActionListener{
     private JPanel panel3;
     private JLabel records[][];
     private JButton atras;
-    
+
     public Registros() {
         initComponents();
-        
-        
+
         setTitle("Records");
         setVisible(false);
-        
+
         setSize(200, 400);
-        
+
         panel1 = new JPanel();
         panel1.setSize(200, 75);
         recordsTitulo = new JLabel("Records");
@@ -34,9 +32,9 @@ public class Registros extends javax.swing.JFrame implements ActionListener{
 
         panel2 = new JPanel();
         panel2.setSize(200, 250);
-        panel2.setLayout(new GridLayout(6, 2));     
+        panel2.setLayout(new GridLayout(6, 2));
         records = new JLabel[6][2];
-        
+
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 2; j++) {
                 records[i][j] = new JLabel("        ");
@@ -49,36 +47,38 @@ public class Registros extends javax.swing.JFrame implements ActionListener{
         atras = new JButton("Atras");
         atras.addActionListener(this);
         panel3.add(atras);
-        
+
         panelPrincipal = new JPanel(new BorderLayout());
         panelPrincipal.setSize(200, 400);
         panelPrincipal.add("North", panel1);
         panelPrincipal.add("Center", panel2);
         panelPrincipal.add("South", panel3);
-        
+
         setContentPane(panelPrincipal);
     }
-    
-    public void regresar(Inicio regresar){
+
+    public void regresar(Inicio regresar) {
         this.regresar = regresar;
     }
-    
+
+    @Override
     public void actionPerformed(ActionEvent e) {
         setVisible(false);
         regresar.setVisible(true);
     }
 
-    public void insertarRegistro(ArrayList usuarios, ArrayList puntos){
+    public void insertarRegistro(ArrayList usuarios, ArrayList puntos) {
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 2; j++) {
-                if(j == 0){
-                    records[i][j].setText(usuarios.get(i).toString());
-                }else{
-                    records[i][j].setText(puntos.get(i).toString());
-                }        
+                if (j == 0) {
+                    records[i][j].setText(usuarios.get(usuarios.size() - i - 1).toString());
+                } else {
+                    records[i][j].setText(puntos.get(usuarios.size() - i - 1).toString());
+                }
             }
         }
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
