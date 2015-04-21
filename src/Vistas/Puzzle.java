@@ -37,6 +37,9 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
     }
 
     public Puzzle(int segundos, int reponerSegundos, int n, int resolucion) {
+        
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+
         this.segundos = segundos;
         this.reponerSegundos = reponerSegundos;
         Puzzle.n = n;
@@ -55,7 +58,7 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
     }
 
     public void iniciar() {
-        setSize(resolucion, resolucion + resolucion2);
+//        setSize(resolucion, resolucion + resolucion2);
 
         panelBotones = new JPanel();
         panelBotones.setSize(resolucion, resolucion);
@@ -71,9 +74,10 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
         panelTimer = new JPanel();
         panelTimer.setSize(resolucion, resolucion2);
         panelTimer.add(tiempoRestante);
+        
         segundosLabel.setForeground(Color.RED);
-        segundosLabel.setFont(font);
-        panelTimer.add(segundosLabel);
+        segundosLabel.setFont(font);     
+        panelTimer.add(segundosLabel);    
         panelPrincipal.add("South", panelTimer);
 
         setContentPane(panelPrincipal);
@@ -241,6 +245,7 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);

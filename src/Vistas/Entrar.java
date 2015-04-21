@@ -1,55 +1,98 @@
-
 package Vistas;
 
-import Controladores.ConexionBD;
-import Controladores.Datos;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
+import Controladores.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.*;
+import java.sql.*;
+import java.util.logging.*;
+import javax.swing.*;
+import sonidos.AePlayWave;
 
-public class Entrar extends javax.swing.JFrame {
+public class Entrar extends javax.swing.JFrame implements MouseListener {
 
+    private static AePlayWave sonido;
+    private static final String sonidoClic = "C:/Users/Abraham/Documents/NetBeansProjects/puzzle/src/Diseño/clic.wav";
+    
     private Datos datos;
     private Inicio inicio;
+
+    ImageIcon image = new ImageIcon("C:/Users/Abraham/Documents/NetBeansProjects/Puzzle/src/Diseño/01.png");
+
+    private static Font font2 = new Font("Courier", Font.BOLD, 66);
     
+    private JPanel principal = new JPanel(new BorderLayout());
+    private JPanel secundario = new JPanel(new GridLayout(3, 0));
+
+    private JPanel panelLabel = new JPanel(new FlowLayout());
+    private JLabel label = new JLabel("¡Slide Puzzle!");
+
+    private JPanel panelUsuario = new JPanel(new FlowLayout());
+    private JLabel usuario = new JLabel("Usuario:");
+    private JTextField ingresarUsuario = new JTextField(15);
+
+    private JPanel panelBotones = new JPanel(new FlowLayout());
+    private JLabel aceptar = new JLabel("Aceptar");
+    private JLabel salir = new JLabel("Salir");
+
     public Entrar() {
-        
+
         conectar();
         initComponents();
-        
-        setTitle("Entrar");
-        
+
         datos = new Datos();
         inicio = new Inicio();
-
         inicio.regresar(this);
         
+        label.setFont(font2);
+        panelLabel.add(label);
+                
+        panelUsuario.add(usuario);
+        panelUsuario.add(ingresarUsuario);
+        
+        panelBotones.add(salir);
+        panelBotones.add(aceptar);
+        
+        secundario.add(panelLabel);
+        secundario.add(panelUsuario);
+        secundario.add(panelBotones);
+        
+        aceptar.addMouseListener(this);
+        aceptar.setIcon(image);
+        aceptar.setHorizontalTextPosition(SwingConstants.CENTER);
+        salir.addMouseListener(this);
+        salir.setIcon(image);
+        salir.setHorizontalTextPosition(SwingConstants.CENTER);
+
+        principal.add("Center", secundario);
+        setContentPane(principal);
+
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        repaint();
         setVisible(true);
     }
 
-    public static void conectar(){
-        try{
-            String BaseDeDatos = "jdbc:ucanaccess://C:/Users/Abraham/Documents/NetBeansProjects/Puzzle/src/Base de Datos/puzzle.accdb"; 
+    public static void conectar() {
+        try {
+            String BaseDeDatos = "jdbc:ucanaccess://C:/Users/Abraham/Documents/NetBeansProjects/Puzzle/src/Base de Datos/puzzle.accdb";
             ConexionBD.conexion = DriverManager.getConnection(BaseDeDatos, "", "");
-            if(ConexionBD.conexion != null){
+            if (ConexionBD.conexion != null) {
                 System.out.println("Conexion exitosa");
             }
-        } catch(Exception e){
-            e.printStackTrace();
-        } 
+        } catch (Exception e) {
+        }
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        aceptar = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        usuario = new javax.swing.JTextField();
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Entrar");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -57,72 +100,19 @@ public class Entrar extends javax.swing.JFrame {
             }
         });
 
-        aceptar.setText("Aceptar");
-        aceptar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                aceptarActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setText("Usuario:");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(aceptar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(aceptar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGap(0, 415, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(0, 338, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
-        
-        if(datos.traerDatos(usuario.getText())){
-         
-            setVisible(false);         
-            inicio.setVisible(true);       
-            usuario.setText("");
-
-        }else{
-            JOptionPane.showMessageDialog(rootPane, "Usuario no existe", "Error...", JOptionPane.ERROR_MESSAGE);
-            usuario.setText("");
-        }    
-    }//GEN-LAST:event_aceptarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         try {
@@ -134,9 +124,30 @@ public class Entrar extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton aceptar;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField usuario;
     // End of variables declaration//GEN-END:variables
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        sonido = new AePlayWave(sonidoClic);
+        sonido.start();
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
 }
