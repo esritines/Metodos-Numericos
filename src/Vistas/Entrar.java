@@ -2,31 +2,27 @@ package Vistas;
 
 import Controladores.*;
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.*;
 import java.sql.*;
-import java.util.logging.*;
 import javax.swing.*;
-import sonidos.AePlayWave;
 
 public class Entrar extends javax.swing.JFrame implements MouseListener {
 
-    private static AePlayWave sonido;
-    private static final String sonidoClic = "C:/Users/Abraham/Documents/NetBeansProjects/puzzle/src/Diseño/clic.wav";
-    
+    ReproducirSonido sonidoClic;
+
     private Datos datos;
     private Inicio inicio;
 
-    ImageIcon image = new ImageIcon("C:/Users/Abraham/Documents/NetBeansProjects/Puzzle/src/Diseño/01.png");
+    private Imagenes imagen = new Imagenes(1);
 
-    private static Font font2 = new Font("Courier", Font.BOLD, 66);
-    
+    private static Font font = new Font("Courier", Font.BOLD, 66);
+//    private Fuente fuente = new Fuente();
+
     private JPanel principal = new JPanel(new BorderLayout());
-    private JPanel secundario = new JPanel(new GridLayout(3, 0));
+    private JPanel secundario = new JPanel(new GridLayout(4, 0));
 
     private JPanel panelLabel = new JPanel(new FlowLayout());
     private JLabel label = new JLabel("¡Slide Puzzle!");
@@ -47,25 +43,26 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
         datos = new Datos();
         inicio = new Inicio();
         inicio.regresar(this);
-        
-        label.setFont(font2);
+
+        label.setFont(font);
         panelLabel.add(label);
-                
+
         panelUsuario.add(usuario);
         panelUsuario.add(ingresarUsuario);
-        
+
         panelBotones.add(salir);
         panelBotones.add(aceptar);
-        
+
+        secundario.add(new JPanel());
         secundario.add(panelLabel);
         secundario.add(panelUsuario);
         secundario.add(panelBotones);
-        
+
         aceptar.addMouseListener(this);
-        aceptar.setIcon(image);
+        aceptar.setIcon(imagen.getImagen());
         aceptar.setHorizontalTextPosition(SwingConstants.CENTER);
         salir.addMouseListener(this);
-        salir.setIcon(image);
+        salir.setIcon(imagen.getImagen());
         salir.setHorizontalTextPosition(SwingConstants.CENTER);
 
         principal.add("Center", secundario);
@@ -93,7 +90,6 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Entrar");
-        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -116,10 +112,9 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         try {
-            ConexionBD.conexion.close();
             System.out.println("Conexion Cerrada");
-        } catch (SQLException ex) {
-            Logger.getLogger(Entrar.class.getName()).log(Level.SEVERE, null, ex);
+            ConexionBD.conexion.close();
+        } catch (Exception e) {
         }
     }//GEN-LAST:event_formWindowClosing
 
@@ -127,8 +122,22 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
     // End of variables declaration//GEN-END:variables
     @Override
     public void mouseClicked(MouseEvent e) {
-        sonido = new AePlayWave(sonidoClic);
-        sonido.start();
+        sonidoClic = new ReproducirSonido(2);
+        sonidoClic.getSonido().start();
+
+        if (e.getSource().equals(aceptar)) {
+            if (datos.traerDatos(ingresarUsuario.getText())) {
+                inicio.setTitle("Inicio (" + Datos.getUsuario() + ")");
+                setVisible(false);
+                inicio.setVisible(true);
+                ingresarUsuario.setText("");
+            } else {
+                JOptionPane.showMessageDialog(panelBotones, "Usuario no existe", "", JOptionPane.ERROR_MESSAGE);
+                ingresarUsuario.setText("");
+            }
+        } else {
+            dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+        }
     }
 
     @Override
