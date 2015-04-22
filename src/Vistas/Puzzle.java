@@ -2,7 +2,6 @@ package Vistas;
 
 import Controladores.Datos;
 import Controladores.ReproducirSonido;
-import sonidos.AePlayWave;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -38,7 +37,7 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
     }
 
     public Puzzle(int segundos, int reponerSegundos, int n, int resolucion) {
-        
+
         this.segundos = segundos;
         this.reponerSegundos = reponerSegundos;
         Puzzle.n = n;
@@ -73,14 +72,14 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
         panelTimer = new JPanel();
         panelTimer.setSize(resolucion, resolucion2);
         panelTimer.add(tiempoRestante);
-        
+
         segundosLabel.setForeground(Color.RED);
-        segundosLabel.setFont(font);     
-        panelTimer.add(segundosLabel);    
+        segundosLabel.setFont(font);
+        panelTimer.add(segundosLabel);
         panelPrincipal.add("South", panelTimer);
 
         setContentPane(panelPrincipal);
-        repaint();      
+        repaint();
     }
 
     public final void agregarBotones() {
@@ -177,7 +176,7 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
             if (botones[i][j].getText().equals(".")) {
                 sonidoClic = new ReproducirSonido(1);
                 sonidoClic.getSonido().start();
-                
+
                 temporal = botones[k][l].getText();
                 imagenTemp = botones[k][l].getIcon();
                 botones[k][l].setText(".");
@@ -232,7 +231,6 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
     Timer tiempo = new Timer(1000, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-
             segundosLabel.setText(Integer.toString(segundos));
             segundos--;
             reponerSegundos++;
@@ -282,7 +280,6 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
-    
     @Override
     public void mouseClicked(MouseEvent e) {
         for (int i = 0; i < n; i++) {
