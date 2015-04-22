@@ -233,11 +233,19 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
     }
 
     public void perdiste() {
-        puntos = 0;
+        capturarRegistro();
         this.setVisible(false);
         regresar.setVisible(true);
     }
 
+    public void capturarRegistro(){
+        if (valor) {
+            registro.enviarRegistro(Datos.getUsuario(), puntos);
+            valor = false;
+            puntos = 0;
+        }
+    }
+    
     public void regresar(Inicio inicio) {
         regresar = inicio;
     }
@@ -283,15 +291,11 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        System.out.println(puntos);
-        if (valor) {
-            registro.enviarRegistro(Datos.getUsuario(), puntos);
-            valor = false;
-            puntos = 0;
-        }
+        capturarRegistro();
         regresar.setVisible(true);
     }//GEN-LAST:event_formWindowClosed
 
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
     @Override

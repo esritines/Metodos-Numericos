@@ -70,13 +70,14 @@ public class Datos {
     public void traerRegistros(ArrayList usuarios, ArrayList puntos) {
         try {
             Statement traerRegistros = ConexionBD.conexion.createStatement();
-            ResultSet consulta = traerRegistros.executeQuery("select usuario, puntos from registros order by puntos");
+            ResultSet consulta = traerRegistros.executeQuery("select usuario, puntos from registros order by puntos desc");
 
-            while (consulta.next()) {
+            for (int i = 0; i < 6; i++) {
+                consulta.next();
                 usuarios.add(consulta.getString(1));
-                System.out.println(consulta.getInt(2));
                 puntos.add(consulta.getInt(2));
             }
+            
             consulta.close();
             traerRegistros.close();
 

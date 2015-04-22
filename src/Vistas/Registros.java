@@ -87,9 +87,9 @@ public class Registros extends javax.swing.JFrame implements MouseListener {
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 2; j++) {
                 if (j == 0) {
-                    records[i][j].setText(usuarios.get(usuarios.size() - i - 1).toString());
+                    records[i][j].setText(usuarios.get(i).toString());
                 } else {
-                    records[i][j].setText(puntos.get(usuarios.size() - i - 1).toString());
+                    records[i][j].setText(puntos.get(i).toString());
                 }
             }
         }
