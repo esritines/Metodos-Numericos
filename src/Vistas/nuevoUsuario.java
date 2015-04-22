@@ -1,127 +1,124 @@
-
 package Vistas;
 
 import Controladores.Datos;
-import javax.swing.JOptionPane;
+import Controladores.Imagenes;
+import Controladores.ReproducirSonido;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 
-public class nuevoUsuario extends javax.swing.JFrame {
-    
+public class nuevoUsuario extends javax.swing.JFrame implements MouseListener {
+
+    private ReproducirSonido sonidoClic;
+    private Imagenes imagen = new Imagenes(2);
+
     private Datos datos;
     private Inicio regresar;
+
+    private JPanel principal = new JPanel(new BorderLayout());
+    private JPanel secundario = new JPanel(new GridLayout(4, 0));
+
+    private JPanel panelUsuario = new JPanel(new FlowLayout());
+    private JLabel usuario = new JLabel("Nuevo usuario:");
+    private JTextField nuevoUsuario = new JTextField(15);
+
+    private JPanel panelBotones = new JPanel(new FlowLayout());
+    private JLabel aceptar = new JLabel("Aceptar");
+    private JLabel atras = new JLabel("Atras");
 
     public nuevoUsuario() {
         setVisible(false);
         initComponents();
         datos = new Datos();
+
+        panelUsuario.add(usuario);
+        panelUsuario.add(nuevoUsuario);
+
+        panelBotones.add(atras);
+        atras.addMouseListener(this);
+        atras.setIcon(imagen.getImagen());
+        atras.setHorizontalTextPosition(SwingConstants.CENTER);
+        panelBotones.add(aceptar);
+        aceptar.addMouseListener(this);
+        aceptar.setIcon(imagen.getImagen());
+        aceptar.setHorizontalTextPosition(SwingConstants.CENTER);
+
+        secundario.add(new JPanel());
+        secundario.add(panelUsuario);
+        secundario.add(panelBotones);
+        secundario.add(new JPanel());
+        
+        principal.add("Center", secundario);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setContentPane(principal);
     }
 
-    public void regresar(Inicio inicio){
+    public void regresar(Inicio inicio) {
         regresar = inicio;
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        nuevoUsuario = new javax.swing.JTextField();
-        aceptar = new javax.swing.JButton();
-        atras = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(false);
-
-        jLabel1.setText("Nuevo usuario:");
-
-        aceptar.setText("Aceptar");
-        aceptar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                aceptarActionPerformed(evt);
-            }
-        });
-
-        atras.setText("Atras");
-        atras.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                atrasActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(nuevoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(atras, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
-                        .addComponent(aceptar)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(nuevoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(aceptar)
-                    .addComponent(atras))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(0, 252, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(0, 105, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
-        
-        if(datos.enviarDatos(nuevoUsuario.getText())){
-            JOptionPane.showMessageDialog(rootPane, "Se agrego al nuevo usuario con exito", "", JOptionPane.INFORMATION_MESSAGE);
-            nuevoUsuario.setText("");
-            setVisible(false);
-            regresar.setVisible(true);
-        }else{
-            JOptionPane.showMessageDialog(rootPane, "Error al agregar nuevo usuario", "", JOptionPane.INFORMATION_MESSAGE);
-            nuevoUsuario.setText("");
-        }
-    }//GEN-LAST:event_aceptarActionPerformed
-
-    private void atrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atrasActionPerformed
-        regresar.setVisible(true);
-        setVisible(false);
-    }//GEN-LAST:event_atrasActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton aceptar;
-    private javax.swing.JButton atras;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField nuevoUsuario;
     // End of variables declaration//GEN-END:variables
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        sonidoClic = new ReproducirSonido(2);
+        sonidoClic.getSonido().start();
+        
+        if (e.getSource().equals(aceptar)) {
+            if (datos.enviarDatos(nuevoUsuario.getText())) {
+                JOptionPane.showMessageDialog(rootPane, "Se agrego al nuevo usuario con exito", "", JOptionPane.INFORMATION_MESSAGE);
+                nuevoUsuario.setText("");
+                setVisible(false);
+                regresar.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Error al agregar nuevo usuario", "", JOptionPane.INFORMATION_MESSAGE);
+                nuevoUsuario.setText("");
+            }
+        }
+        if (e.getSource().equals(atras)) {
+            regresar.setVisible(true);
+            setVisible(false);
+        }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
 }

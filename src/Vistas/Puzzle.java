@@ -1,6 +1,7 @@
 package Vistas;
 
 import Controladores.Datos;
+import Controladores.ReproducirSonido;
 import sonidos.AePlayWave;
 import java.awt.*;
 import java.awt.event.*;
@@ -13,7 +14,7 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
     private JPanel panelBotones;
     private JPanel panelTimer;
     private final Label tiempoRestante = new Label("Tiempo Restante:");
-    private Label segundosLabel = new Label("   ");
+    private Label segundosLabel = new Label("          ");
     private GridLayout capa;
     private int segundos;
     private int reponerSegundos;
@@ -25,11 +26,11 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
     private Datos registro;
     private static int puntos;
     private static boolean valor = false;
-    private static Font font = new Font("Courier", Font.BOLD, 12);
-    private static Font font2 = new Font("Courier", Font.BOLD, 16);
+    private static Font font = new Font("Courier", Font.BOLD, 16);
+    private static Font font2 = new Font("Courier", Font.BOLD, 20);
     private static ImageIcon imagen[][];
-    private static AePlayWave sonido;
-    private static final String sonidoClic = "C:/Users/Abraham/Documents/NetBeansProjects/puzzle/src/Diseño/clic.wav";
+    private static Icon imagenTemp;
+    private static ReproducirSonido sonidoClic;
     private static final String imagenFondo = "C:/Users/Abraham/Documents/NetBeansProjects/puzzle/src/Diseño/";
 
     public void setValor(boolean valor) {
@@ -38,14 +39,12 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
 
     public Puzzle(int segundos, int reponerSegundos, int n, int resolucion) {
         
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
-
         this.segundos = segundos;
         this.reponerSegundos = reponerSegundos;
         Puzzle.n = n;
         Puzzle.resolucion = resolucion;
 
-        
+        tiempoRestante.setFont(font);
         registro = new Datos();
         initComponents();
 
@@ -53,12 +52,12 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
 
         iniciar();
 
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setVisible(true);
         tiempo.start();
     }
 
     public void iniciar() {
-//        setSize(resolucion, resolucion + resolucion2);
 
         panelBotones = new JPanel();
         panelBotones.setSize(resolucion, resolucion);
@@ -176,10 +175,14 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
         String temporal;
         try {
             if (botones[i][j].getText().equals(".")) {
-                sonido = new AePlayWave(sonidoClic);
-                sonido.start();
+                sonidoClic = new ReproducirSonido(1);
+                sonidoClic.getSonido().start();
+                
                 temporal = botones[k][l].getText();
+                imagenTemp = botones[k][l].getIcon();
                 botones[k][l].setText(".");
+                botones[k][l].setIcon(botones[i][j].getIcon());
+                botones[i][j].setIcon(imagenTemp);
                 botones[i][j].setText(temporal);
             }
         } catch (ArrayIndexOutOfBoundsException ex) {
