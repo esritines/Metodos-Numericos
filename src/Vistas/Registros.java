@@ -120,20 +120,20 @@ public class Registros extends javax.swing.JFrame implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        sonidoClic = new ReproducirSonido(2);
-        sonidoClic.getSonido().start();
-        setVisible(false);
-        regresar.setVisible(true);
+        
+        
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+        sonidoClic = new ReproducirSonido(2);
+        sonidoClic.getSonido().start();
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
+        setVisible(false);
+        regresar.setVisible(true);
     }
 
     @Override

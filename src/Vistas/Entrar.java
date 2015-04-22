@@ -122,9 +122,17 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
     // End of variables declaration//GEN-END:variables
     @Override
     public void mouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
         sonidoClic = new ReproducirSonido(2);
         sonidoClic.getSonido().start();
+    }
 
+    @Override
+    public void mouseReleased(MouseEvent e) {
         if (e.getSource().equals(aceptar)) {
             if (datos.traerDatos(ingresarUsuario.getText())) {
                 inicio.setTitle("Inicio (" + Datos.getUsuario() + ")");
@@ -138,16 +146,6 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
         } else {
             dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
         }
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
     }
 
     @Override

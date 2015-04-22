@@ -8,43 +8,51 @@ import javax.swing.*;
 
 public class Puzzle extends javax.swing.JFrame implements MouseListener {
 
-    private JLabel[][] botones;
     private JPanel panelPrincipal;
+    private JPanel secundario = new JPanel(new GridBagLayout());
+    GridBagConstraints c = new GridBagConstraints();
+    
     private JPanel panelBotones;
+    private GridLayout capa;
     private JPanel panelTimer;
+    
     private final Label tiempoRestante = new Label("Tiempo Restante:");
     private Label segundosLabel = new Label("          ");
-    private GridLayout capa;
+    
+    private JLabel[][] botones;
     private int segundos;
     private int reponerSegundos;
-    private static int n;
-    private static int resolucion;
-    private final int resolucion2 = 25;
+    
     private String comparaGanar = "";
     private static Inicio regresar;
     private Datos registro;
+    
+    private static int n;
     private static int puntos;
     private static boolean valor = false;
+    
     private static Font font = new Font("Courier", Font.BOLD, 16);
     private static Font font2 = new Font("Courier", Font.BOLD, 20);
+    
     private static ImageIcon imagen[][];
     private static Icon imagenTemp;
-    private static ReproducirSonido sonidoClic;
     private static final String imagenFondo = "C:/Users/Abraham/Documents/NetBeansProjects/puzzle/src/Diseño/";
-
+    
+    private static ReproducirSonido sonidoClic;
+    
     public void setValor(boolean valor) {
         this.valor = valor;
     }
 
-    public Puzzle(int segundos, int reponerSegundos, int n, int resolucion) {
+    public Puzzle(int segundos, int reponerSegundos, int n) {
 
         this.segundos = segundos;
         this.reponerSegundos = reponerSegundos;
         Puzzle.n = n;
-        Puzzle.resolucion = resolucion;
 
         tiempoRestante.setFont(font);
         registro = new Datos();
+        
         initComponents();
 
         setTitle("Puzzle " + Datos.getUsuario());
@@ -59,18 +67,24 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
     public void iniciar() {
 
         panelBotones = new JPanel();
-        panelBotones.setSize(resolucion, resolucion);
 
         agregarBotones();
         desacomodar();
 
         panelPrincipal = new JPanel();
-        panelPrincipal.setSize(resolucion, resolucion + resolucion2);
         panelPrincipal.setLayout(new BorderLayout());
-        panelPrincipal.add("Center", panelBotones);
+        
+        c.fill = GridBagConstraints.HORIZONTAL;
+	c.ipady = 40;      
+	c.weightx = 0.0;
+	c.gridwidth = 3;
+	c.gridx = 0;
+	c.gridy = 1;
+        
+        secundario.add(panelBotones, c);
+        panelPrincipal.add("Center", secundario);
 
         panelTimer = new JPanel();
-        panelTimer.setSize(resolucion, resolucion2);
         panelTimer.add(tiempoRestante);
 
         segundosLabel.setForeground(Color.RED);
@@ -214,7 +228,7 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
             valor = true;
             JOptionPane.showMessageDialog(rootPane, "Ganaste", "", JOptionPane.INFORMATION_MESSAGE);
             setVisible(false);
-            Puzzle puzzle = new Puzzle(segundos += 50 + reponerSegundos, 0, ++n, resolucion += 100);
+            Puzzle puzzle = new Puzzle(segundos += 50 + reponerSegundos, 0, ++n);
         }
     }
 
@@ -231,6 +245,7 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
     Timer tiempo = new Timer(1000, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
+//            setTitle("Puzzle (" + Datos.getUsuario() + ") Tiempo Restante: " + segundos);
             segundosLabel.setText(Integer.toString(segundos));
             segundos--;
             reponerSegundos++;
@@ -270,7 +285,6 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         System.out.println(puntos);
         if (valor) {
-            System.out.println("estoy enviando el record");
             registro.enviarRegistro(Datos.getUsuario(), puntos);
             valor = false;
             puntos = 0;
@@ -282,6 +296,12 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
     // End of variables declaration//GEN-END:variables
     @Override
     public void mouseClicked(MouseEvent e) {
+        
+        
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 if (e.getSource().equals(botones[i][j])) {
@@ -292,16 +312,12 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
                 }
             }
         }
-        repaint();
-        ganaste();
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        repaint();
+        ganaste();
     }
 
     @Override

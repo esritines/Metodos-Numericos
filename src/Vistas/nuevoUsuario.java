@@ -82,8 +82,7 @@ public class nuevoUsuario extends javax.swing.JFrame implements MouseListener {
     // End of variables declaration//GEN-END:variables
     @Override
     public void mouseClicked(MouseEvent e) {
-        sonidoClic = new ReproducirSonido(2);
-        sonidoClic.getSonido().start();
+        
         
         if (e.getSource().equals(aceptar)) {
             if (datos.enviarDatos(nuevoUsuario.getText())) {
@@ -104,7 +103,8 @@ public class nuevoUsuario extends javax.swing.JFrame implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+        sonidoClic = new ReproducirSonido(2);
+        sonidoClic.getSonido().start();
     }
 
     @Override
