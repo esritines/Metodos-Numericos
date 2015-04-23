@@ -132,6 +132,7 @@ public class Inicio extends javax.swing.JFrame implements MouseListener {
     public void mouseClicked(MouseEvent e) {
         if (e.getSource().equals(jugar)) {
             setVisible(false);
+            datos.vaciarPreguntas();
             puzzle = new Puzzle(50, 0, 3);
             puzzle.setValor(false);
             puzzle.regresar(this);

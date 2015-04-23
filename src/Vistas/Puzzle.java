@@ -4,6 +4,7 @@ import Controladores.Datos;
 import Controladores.ReproducirSonido;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import javax.swing.*;
 
 public class Puzzle extends javax.swing.JFrame implements MouseListener {
@@ -11,35 +12,35 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
     private JPanel panelPrincipal;
     private JPanel secundario = new JPanel(new GridBagLayout());
     GridBagConstraints c = new GridBagConstraints();
-    
+
     private JPanel panelBotones;
     private GridLayout capa;
     private JPanel panelTimer;
-    
+
     private final Label tiempoRestante = new Label("Tiempo Restante:");
     private Label segundosLabel = new Label("          ");
-    
+
     private JLabel[][] botones;
     private int segundos;
     private int reponerSegundos;
-    
+
     private String comparaGanar = "";
     private static Inicio regresar;
     private Datos registro;
-    
+
     private static int n;
     private static int puntos;
     private static boolean valor = false;
-    
+
     private static Font font = new Font("Courier", Font.BOLD, 16);
     private static Font font2 = new Font("Courier", Font.BOLD, 20);
-    
+
     private static ImageIcon imagen[][];
     private static Icon imagenTemp;
     private static final String imagenFondo = "C:/Users/Abraham/Documents/NetBeansProjects/puzzle/src/Diseño/";
-    
+
     private static ReproducirSonido sonidoClic;
-    
+
     public void setValor(boolean valor) {
         this.valor = valor;
     }
@@ -52,7 +53,7 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
 
         tiempoRestante.setFont(font);
         registro = new Datos();
-        
+
         initComponents();
 
         setTitle("Puzzle " + Datos.getUsuario());
@@ -73,14 +74,14 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
 
         panelPrincipal = new JPanel();
         panelPrincipal.setLayout(new BorderLayout());
-        
+
         c.fill = GridBagConstraints.HORIZONTAL;
-	c.ipady = 40;      
-	c.weightx = 0.0;
-	c.gridwidth = 3;
-	c.gridx = 0;
-	c.gridy = 1;
-        
+        c.ipady = 40;
+        c.weightx = 0.0;
+        c.gridwidth = 3;
+        c.gridx = 0;
+        c.gridy = 1;
+
         secundario.add(panelBotones, c);
         panelPrincipal.add("Center", secundario);
 
@@ -216,6 +217,9 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
 
         String temporal = "";
 
+        String temporal2 = "";
+        ArrayList<String> respuestas = new ArrayList<>();
+
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 temporal += botones[i][j].getText();
@@ -226,7 +230,8 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
             tiempo.stop();
             puntos += segundos * 10;
             valor = true;
-            JOptionPane.showMessageDialog(rootPane, "Ganaste", "", JOptionPane.INFORMATION_MESSAGE);
+            registro.traerPregunta(temporal2, respuestas);
+            Pregunta pregunta = new Pregunta(temporal2, respuestas);
             setVisible(false);
             Puzzle puzzle = new Puzzle(segundos += 50 + reponerSegundos, 0, ++n);
         }
@@ -238,14 +243,14 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
         regresar.setVisible(true);
     }
 
-    public void capturarRegistro(){
+    public void capturarRegistro() {
         if (valor) {
             registro.enviarRegistro(Datos.getUsuario(), puntos);
             valor = false;
             puntos = 0;
         }
     }
-    
+
     public void regresar(Inicio inicio) {
         regresar = inicio;
     }
@@ -295,13 +300,12 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
         regresar.setVisible(true);
     }//GEN-LAST:event_formWindowClosed
 
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
     @Override
     public void mouseClicked(MouseEvent e) {
-        
-        
+
     }
 
     @Override
