@@ -1,17 +1,21 @@
 package Vistas;
 
 import Controladores.*;
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridLayout;
+import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class Entrar extends javax.swing.JFrame implements MouseListener {
 
-    ReproducirSonido sonidoClic;
+    private Sound musica;
+    private ReproducirSonido sonidoClic;
 
     private Datos datos;
     private Inicio inicio;
@@ -35,7 +39,10 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
     private JLabel aceptar = new JLabel("Aceptar");
     private JLabel salir = new JLabel("Salir");
 
-    public Entrar() {
+    public Entrar()  {
+
+        BufferedImage myPicture;
+        
 
         conectar();
         initComponents();
@@ -64,13 +71,16 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
         salir.addMouseListener(this);
         salir.setIcon(imagen.getImagen());
         salir.setHorizontalTextPosition(SwingConstants.CENTER);
-
+        
         principal.add("Center", secundario);
         setContentPane(principal);
 
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         repaint();
         setVisible(true);
+        
+        musica = new Sound();
+        musica.loop();
     }
 
     public static void conectar() {
@@ -111,6 +121,7 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        musica.stop();
         try {
             System.out.println("Conexion Cerrada");
             ConexionBD.conexion.close();
