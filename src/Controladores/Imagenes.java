@@ -9,7 +9,7 @@ public class Imagenes {
     public ImageIcon getImagen() {
         return imagen;
     }
-    
+
     public Imagenes(int n) {
         switch (n) {
             case 1:
