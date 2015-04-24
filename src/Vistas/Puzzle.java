@@ -1,6 +1,7 @@
 package Vistas;
 
 import Controladores.Datos;
+import Controladores.Fuente;
 import Controladores.ReproducirSonido;
 import java.awt.*;
 import java.awt.event.*;
@@ -9,6 +10,9 @@ import javax.swing.*;
 
 public class Puzzle extends javax.swing.JFrame implements MouseListener {
 
+    private Fuente fuente = new Fuente();
+    private Font sizedFuente;
+    
     private JPanel panelPrincipal;
     private JPanel secundario = new JPanel(new GridBagLayout());
     GridBagConstraints c = new GridBagConstraints();
@@ -18,7 +22,7 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
     private JPanel panelTimer;
 
     private final Label tiempoRestante = new Label("Tiempo Restante:");
-    private Label segundosLabel = new Label("          ");
+    private Label segundosLabel = new Label();
 
     private JLabel[][] botones;
     private int segundos;
@@ -31,9 +35,6 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
     private static int n;
     private static int puntos;
     private static boolean valor = false;
-
-    private static Font font = new Font("Courier", Font.BOLD, 16);
-    private static Font font2 = new Font("Courier", Font.BOLD, 20);
 
     private static ImageIcon imagen[][];
     private static Icon imagenTemp;
@@ -51,7 +52,6 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
         this.reponerSegundos = reponerSegundos;
         Puzzle.n = n;
 
-        tiempoRestante.setFont(font);
         registro = new Datos();
 
         initComponents();
@@ -87,9 +87,10 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
 
         panelTimer = new JPanel();
         panelTimer.add(tiempoRestante);
-
+        sizedFuente = fuente.getFont().deriveFont(16f);     
+        tiempoRestante.setFont(sizedFuente);
         segundosLabel.setForeground(Color.RED);
-        segundosLabel.setFont(font);
+        segundosLabel.setFont(sizedFuente);
         panelTimer.add(segundosLabel);
         panelPrincipal.add("South", panelTimer);
 
@@ -99,6 +100,8 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
 
     public final void agregarBotones() {
 
+        sizedFuente = fuente.getFont().deriveFont(20f);
+        
         int c = 0;
         imagen = new ImageIcon[n][n];
         botones = new JLabel[n][n];
@@ -111,7 +114,7 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
                 imagen[i][j] = new ImageIcon(imagenFondo + (int) (Math.random() * 12) + ".png");
                 botones[i][j] = new JLabel(imagen[i][j]);
                 botones[i][j].setForeground(Color.WHITE);
-                botones[i][j].setFont(font2);
+                botones[i][j].setFont(sizedFuente);
                 botones[i][j].addMouseListener(this);
                 panelBotones.add(botones[i][j]);
                 c++;

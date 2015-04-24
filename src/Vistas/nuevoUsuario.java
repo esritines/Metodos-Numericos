@@ -1,6 +1,7 @@
 package Vistas;
 
 import Controladores.Datos;
+import Controladores.Fuente;
 import Controladores.Imagenes;
 import Controladores.ReproducirSonido;
 import java.awt.*;
@@ -9,6 +10,9 @@ import javax.swing.*;
 
 public class nuevoUsuario extends javax.swing.JFrame implements MouseListener {
 
+    private Fuente fuente;
+    private Font sizedFuente;
+    
     private ReproducirSonido sonidoClic;
     private Imagenes imagen = new Imagenes(2);
 
@@ -27,19 +31,27 @@ public class nuevoUsuario extends javax.swing.JFrame implements MouseListener {
     private JLabel atras = new JLabel("Atras");
 
     public nuevoUsuario() {
+        
+        fuente = new Fuente();
+        sizedFuente = fuente.getFont().deriveFont(14f);
+        
         setVisible(false);
         initComponents();
         datos = new Datos();
 
+        usuario.setFont(sizedFuente);
         panelUsuario.add(usuario);
+        nuevoUsuario.setFont(sizedFuente);
         panelUsuario.add(nuevoUsuario);
 
         panelBotones.add(atras);
         atras.addMouseListener(this);
+        atras.setFont(sizedFuente);
         atras.setIcon(imagen.getImagen());
         atras.setHorizontalTextPosition(SwingConstants.CENTER);
         panelBotones.add(aceptar);
         aceptar.addMouseListener(this);
+        aceptar.setFont(sizedFuente);
         aceptar.setIcon(imagen.getImagen());
         aceptar.setHorizontalTextPosition(SwingConstants.CENTER);
 

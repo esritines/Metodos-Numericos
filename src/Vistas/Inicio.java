@@ -2,6 +2,7 @@ package Vistas;
 
 //import Controladores.Fuente;
 import Controladores.Datos;
+import Controladores.Fuente;
 import Controladores.Imagenes;
 import Controladores.ReproducirSonido;
 import java.awt.*;
@@ -12,14 +13,13 @@ import javax.swing.*;
 
 public class Inicio extends javax.swing.JFrame implements MouseListener {
 
-//    private static final Fuente fuente = new Fuente();
+    private Fuente fuente;
+    private Font sizedFuente;
     
     private ReproducirSonido sonidoClic;
-    
+
     private Imagenes imagen = new Imagenes(4);
-    
-    private static Font font = new Font("Courier", Font.BOLD, 46);
-    
+
     private JPanel principal = new JPanel(new BorderLayout());
     private JPanel secundario = new JPanel(new GridLayout(5, 0));
 
@@ -28,8 +28,8 @@ public class Inicio extends javax.swing.JFrame implements MouseListener {
     private JPanel panel3 = new JPanel(new FlowLayout());
     private JPanel panel4 = new JPanel(new FlowLayout());
     private JPanel panel5 = new JPanel(new FlowLayout());
-    
-    private JLabel bienvenido = new JLabel("¡Bienvenido!");
+
+    private JLabel bienvenido = new JLabel("Bienvenido");
     private JLabel jugar = new JLabel("Jugar");
     private JLabel records = new JLabel("Records");
     private JLabel nuevoUsuario = new JLabel("Nuevo Usuario");
@@ -45,33 +45,42 @@ public class Inicio extends javax.swing.JFrame implements MouseListener {
 
     public Inicio() {
 
+        fuente = new Fuente();
+        sizedFuente = fuente.getFont().deriveFont(56f);
+        
         setVisible(false);
         initComponents();
+
+        bienvenido.setFont(sizedFuente);
         
-        bienvenido.setFont(font);
-        
+        sizedFuente = fuente.getFont().deriveFont(12f);
+
         jugar.addMouseListener(this);
+        jugar.setFont(sizedFuente);
         jugar.setIcon(imagen.getImagen());
         jugar.setHorizontalTextPosition(SwingConstants.CENTER);
-        
+
         records.addMouseListener(this);
+        records.setFont(sizedFuente);
         records.setIcon(imagen.getImagen());
         records.setHorizontalTextPosition(SwingConstants.CENTER);
-        
+
         nuevoUsuario.addMouseListener(this);
+        nuevoUsuario.setFont(sizedFuente);
         nuevoUsuario.setIcon(imagen.getImagen());
         nuevoUsuario.setHorizontalTextPosition(SwingConstants.CENTER);
-        
+
         atras.addMouseListener(this);
+        atras.setFont(sizedFuente);
         atras.setIcon(imagen.getImagen());
         atras.setHorizontalTextPosition(SwingConstants.CENTER);
-        
+
         panel1.add(bienvenido);
         panel2.add(jugar);
         panel3.add(records);
         panel4.add(nuevoUsuario);
         panel5.add(atras);
-        
+
         secundario.add(panel1);
         secundario.add(panel2);
         secundario.add(panel3);
@@ -96,7 +105,6 @@ public class Inicio extends javax.swing.JFrame implements MouseListener {
 //        atras.setFont(fuente.getFont());
 //        bienvenido.setFont(fuente.getFont());
 //        repaint();
-        
         setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
@@ -127,7 +135,6 @@ public class Inicio extends javax.swing.JFrame implements MouseListener {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
-
     @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getSource().equals(jugar)) {

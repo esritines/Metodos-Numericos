@@ -1,5 +1,6 @@
 package Vistas;
 
+import Controladores.Fuente;
 import Controladores.Imagenes;
 import Controladores.ReproducirSonido;
 import java.awt.*;
@@ -10,9 +11,12 @@ import javax.swing.*;
 
 public class Registros extends javax.swing.JFrame implements MouseListener {
 
+    private Fuente fuente;
+    private Font sizedFuente;
+
     private ReproducirSonido sonidoClic;
     private Imagenes imagen = new Imagenes(3);
-    private static Font font = new Font("Courier", Font.BOLD, 46);
+
 
     private Inicio regresar;
 
@@ -34,12 +38,13 @@ public class Registros extends javax.swing.JFrame implements MouseListener {
         setTitle("Records");
         setVisible(false);
 
-        setSize(200, 400);
-
+        fuente = new Fuente();
+        sizedFuente = fuente.getFont().deriveFont(56f);
+        
         panel1 = new JPanel(new FlowLayout());
         panel1.setSize(200, 75);
         recordsTitulo = new JLabel("Records");
-        recordsTitulo.setFont(font);
+        recordsTitulo.setFont(sizedFuente);
         panel1.add(recordsTitulo);
 
         panel2 = new JPanel();
@@ -48,12 +53,15 @@ public class Registros extends javax.swing.JFrame implements MouseListener {
         records = new JLabel[6][2];
         paneles = new JPanel[6][4];
 
+        sizedFuente = fuente.getFont().deriveFont(14f);
+        
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 4; j++) {
                 paneles[i][j] = new JPanel();          
                 if (j == 1 || j == 2) {
                     paneles[i][j].setLayout(new FlowLayout());
                     records[i][j-1] = new JLabel("        ");
+                    records[i][j-1].setFont(sizedFuente);
                     paneles[i][j].add(records[i][j-1]);
                 }
                 panel2.add(paneles[i][j]);
@@ -65,6 +73,7 @@ public class Registros extends javax.swing.JFrame implements MouseListener {
         atras = new JLabel("Atras");
         atras.addMouseListener(this);
         atras.setIcon(imagen.getImagen());
+        atras.setFont(sizedFuente);
         atras.setHorizontalTextPosition(SwingConstants.CENTER);
         panel3.add(atras);
 
