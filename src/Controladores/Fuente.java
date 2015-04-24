@@ -2,28 +2,25 @@ package Controladores;
 
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 
 public class Fuente {
 
-    private InputStream input;
-    private Font font;
-    private Font sizedFont;
+    private Font fuente;
 
     public Font getFont() {
-        return font;
+        return fuente;
     }
-    
-    public Fuente(){
+
+    public Fuente() {
         try {
-            input = Fuente.class.getResourceAsStream
-            ("C:/Users/Abraham/Documents/NetBeansProjects/Puzzle/src/Diseño/Games.TTF");
-            font = Font.createFont(Font.TRUETYPE_FONT, input);
-            
-        } catch (FontFormatException ex) {
-            System.out.println("No se cargo la Fuente");
-        } catch (IOException ex){           
+            fuente = Font.createFont(Font.TRUETYPE_FONT, new File("C:/Users/Abraham/Documents/NetBeansProjects/Puzzle/src/Diseño/Games.ttf"));
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("C:/Users/Abraham/Documents/NetBeansProjects/Puzzle/src/Diseño/Games.ttf")));
+        } catch (IOException | FontFormatException e) {
         }
+
     }
 }

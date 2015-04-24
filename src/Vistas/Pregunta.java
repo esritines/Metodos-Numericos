@@ -9,19 +9,19 @@ import javax.swing.*;
 
 public class Pregunta extends javax.swing.JFrame implements MouseListener {
 
-    private static Datos datos = new Datos();
     private Imagenes imagen = new Imagenes(2);
 
-    private JPanel principal = new JPanel(new BorderLayout(2, 0));
+    private JPanel principal = new JPanel(new GridLayout(3, 1));
     private JPanel panelPregunta = new JPanel(new FlowLayout());
     private JPanel panelRespuestas;
     private JPanel panelAceptar = new JPanel(new FlowLayout());
 
     private JLabel aceptarL = new JLabel("Aceptar");
-    private JLabel preguntaL = new JLabel("                                                                   ");
+    private JLabel preguntaL = new JLabel();
 
-    private ArrayList<JLabel> respuestasLabel = new ArrayList<>();
+    private ArrayList<JRadioButton> respuestasRButton = new ArrayList<>();
     private ArrayList<JTextField> respuestasField = new ArrayList<>();
+    private ArrayList<String> verdadera;
     
     private static boolean nuevoPuzzle = false;
 
@@ -33,16 +33,17 @@ public class Pregunta extends javax.swing.JFrame implements MouseListener {
         this.nuevoPuzzle = nuevoPuzzle;
     }
     
-    public Pregunta(String pregunta, ArrayList respuestas) {
+    public Pregunta(String pregunta, ArrayList respuestas, ArrayList verdadera, ArrayList textoPregunta) {
         initComponents();
 
-        setSize(600, 300);
-
+        setSize(700, 300);
+        
         preguntaL.setText(pregunta);
         panelPregunta.add(preguntaL);
 
+//        this.verdadera = verdadera.clone();
         if (isNumber(respuestas.get(1).toString())) {
-            agregarRespuestas1(respuestas);
+            agregarRespuestas1(textoPregunta);
         } else {
             agregarRespuestas2(respuestas);
         }
@@ -50,25 +51,27 @@ public class Pregunta extends javax.swing.JFrame implements MouseListener {
         aceptarL.addMouseListener(this);
         aceptarL.setIcon(imagen.getImagen());
         aceptarL.setHorizontalTextPosition(SwingConstants.CENTER);
-
         panelAceptar.add(aceptarL);
 
-        principal.add("North", panelPregunta);
-        principal.add("Center", panelRespuestas);
-        principal.add("South", panelAceptar);
+        principal.add(panelPregunta);
+        principal.add(panelRespuestas);
+        principal.add(panelAceptar);
         
         setContentPane(principal);
 
         setVisible(true);
     }
 
-    public void agregarRespuestas1(ArrayList respuestas) {
+    public void agregarRespuestas1(ArrayList textoPregunta) {
 
-        panelRespuestas = new JPanel(new GridLayout(1, respuestas.size()));
+        panelRespuestas = new JPanel(new GridLayout(1, textoPregunta.size()));
 
-        for (int i = 0; i < respuestas.size(); i++) {
+        for (int i = 0; i < textoPregunta.size(); i++) {
             JPanel panel = new JPanel(new FlowLayout());
-            respuestasField.add(new JTextField());
+            JLabel label = new JLabel();
+            respuestasField.add(new JTextField(11));
+            label.setText(textoPregunta.get(i).toString());
+            panel.add(label);
             panel.add(respuestasField.get(i));
             panelRespuestas.add(panel);
         }

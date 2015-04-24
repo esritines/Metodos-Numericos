@@ -3,7 +3,6 @@ package Vistas;
 import Controladores.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
 import java.sql.*;
 import javax.swing.*;
 
@@ -17,14 +16,14 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
 
     private Imagenes imagen = new Imagenes(1);
 
-    private static Font font = new Font("Courier", Font.BOLD, 66);
-//    private Fuente fuente = new Fuente();
+    private Font sizedFuente;
+    private Fuente fuente;
 
     private JPanel principal = new JPanel(new BorderLayout());
     private JPanel secundario = new JPanel(new GridLayout(4, 0));
 
     private JPanel panelLabel = new JPanel(new FlowLayout());
-    private JLabel label = new JLabel("¡Slide Puzzle!");
+    private JLabel label = new JLabel("SCROLL NUMBER");
 
     private JPanel panelUsuario = new JPanel(new FlowLayout());
     private JLabel usuario = new JLabel("Usuario:");
@@ -36,9 +35,9 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
 
     public Entrar()  {
 
-        BufferedImage myPicture;
+        fuente = new Fuente();
+        sizedFuente = fuente.getFont().deriveFont(66f);
         
-
         conectar();
         initComponents();
 
@@ -46,7 +45,13 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
         inicio = new Inicio();
         inicio.regresar(this);
 
-        label.setFont(font);
+        label.setFont(sizedFuente);
+        sizedFuente = fuente.getFont().deriveFont(14f);
+        usuario.setFont(sizedFuente);
+        aceptar.setFont(sizedFuente);
+        salir.setFont(sizedFuente);
+        ingresarUsuario.setFont(sizedFuente);
+        
         panelLabel.add(label);
 
         panelUsuario.add(usuario);
@@ -118,7 +123,6 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         musica.stop();
         try {
-            System.out.println("Conexion Cerrada");
             ConexionBD.conexion.close();
         } catch (Exception e) {
         }

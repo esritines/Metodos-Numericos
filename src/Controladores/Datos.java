@@ -92,19 +92,21 @@ public class Datos {
         }
     }
 
-    public void traerPregunta(String preguntaTemp, ArrayList respuestasTemp) {
+    public String traerPregunta(ArrayList respuestasTemp, ArrayList respuestasVerdadera, ArrayList textoPregunta) {
 
+        String preguntaTemp = "";
         recorrer = preguntas.iterator();
         
         boolean valor;
 
         do {
             valor = false;
-            int n = (int) (Math.random() * 2) + 1;
+//            int n = (int) (Math.random() * 2) + 1;
+            int n = 2;
 
             try {
                 Statement consultarDatos = ConexionBD.conexion.createStatement();
-                ResultSet consulta = consultarDatos.executeQuery("select pregunta, respuesta from preguntas where id = '" + n + "'");
+                ResultSet consulta = consultarDatos.executeQuery("select pregunta, respuesta, verdadera, texto from preguntas where id = '" + n + "'");
               
                 while (recorrer.hasNext()) {
                     if (n == recorrer.next()) {
@@ -117,14 +119,16 @@ public class Datos {
                     while (consulta.next()) {
                         preguntaTemp = consulta.getString(1);
                         respuestasTemp.add(consulta.getString(2));
+                        respuestasVerdadera.add(consulta.getString(3));
+                        textoPregunta.add(consulta.getString(4));
                     }
-                    preguntas.add(n);
+                    preguntas.add(n);        
                 }
-
             } catch (SQLException ex) {
                 Logger.getLogger(Datos.class.getName()).log(Level.SEVERE, null, ex);
+                return "";
             }
         } while (valor);
-
+        return preguntaTemp;
     }
 }

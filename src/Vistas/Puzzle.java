@@ -219,6 +219,8 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
 
         String temporal2 = "";
         ArrayList<String> respuestas = new ArrayList<>();
+        ArrayList<String> respuestasVerdadera = new ArrayList<>();
+        ArrayList<String> textoPregunta = new ArrayList<>();
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
@@ -230,8 +232,8 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
             tiempo.stop();
             puntos += segundos * 10;
             valor = true;
-            registro.traerPregunta(temporal2, respuestas);
-            Pregunta pregunta = new Pregunta(temporal2, respuestas);
+            temporal2 = registro.traerPregunta(respuestas, respuestasVerdadera, textoPregunta);
+            Pregunta pregunta = new Pregunta(temporal2, respuestas, respuestasVerdadera, textoPregunta);
             setVisible(false);
             Puzzle puzzle = new Puzzle(segundos += 50 + reponerSegundos, 0, ++n);
         }
