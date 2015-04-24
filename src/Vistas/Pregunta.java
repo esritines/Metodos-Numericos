@@ -22,7 +22,7 @@ public class Pregunta extends javax.swing.JFrame implements MouseListener {
     private ArrayList<JRadioButton> respuestasRButton = new ArrayList<>();
     private ArrayList<JTextField> respuestasField = new ArrayList<>();
     private ArrayList<String> verdadera;
-    
+
     private static boolean nuevoPuzzle = false;
 
     public boolean getNuevoPuzzle() {
@@ -32,12 +32,12 @@ public class Pregunta extends javax.swing.JFrame implements MouseListener {
     public void setNuevoPuzzle(boolean nuevoPuzzle) {
         this.nuevoPuzzle = nuevoPuzzle;
     }
-    
+
     public Pregunta(String pregunta, ArrayList respuestas, ArrayList verdadera, ArrayList textoPregunta) {
         initComponents();
 
         setSize(700, 300);
-        
+
         preguntaL.setText(pregunta);
         panelPregunta.add(preguntaL);
 
@@ -56,7 +56,7 @@ public class Pregunta extends javax.swing.JFrame implements MouseListener {
         principal.add(panelPregunta);
         principal.add(panelRespuestas);
         principal.add(panelAceptar);
-        
+
         setContentPane(principal);
 
         setVisible(true);
@@ -78,6 +78,15 @@ public class Pregunta extends javax.swing.JFrame implements MouseListener {
     }
 
     public void agregarRespuestas2(ArrayList respuestas) {
+
+        panelRespuestas = new JPanel(new GridLayout(1, respuestas.size()));
+
+        for (int i = 0; i < respuestas.size(); i++) {
+            JPanel panel = new JPanel(new FlowLayout());
+            respuestasRButton.add(new JRadioButton(respuestas.get(i).toString()));
+            panel.add(respuestasRButton.get(i));
+            panelRespuestas.add(panel);
+        }
 
     }
 
@@ -115,13 +124,14 @@ public class Pregunta extends javax.swing.JFrame implements MouseListener {
     // End of variables declaration//GEN-END:variables
     @Override
     public void mouseClicked(MouseEvent e) {
-        
-       validar();
+
+        validar();
     }
 
-    public void validar(){
-        
+    public void validar() {
+
     }
+
     @Override
     public void mousePressed(MouseEvent e) {
 

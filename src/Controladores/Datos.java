@@ -102,7 +102,7 @@ public class Datos {
         do {
             valor = false;
 //            int n = (int) (Math.random() * 2) + 1;
-            int n = 2;
+            int n = 1;
 
             try {
                 Statement consultarDatos = ConexionBD.conexion.createStatement();
