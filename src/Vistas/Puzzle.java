@@ -22,7 +22,7 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
     private JPanel panelTimer;
 
     private final Label tiempoRestante = new Label("Tiempo Restante:");
-    private Label segundosLabel = new Label();
+    private Label segundosLabel = new Label("                    ");
 
     private JLabel[][] botones;
     private int segundos;
@@ -87,7 +87,7 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
 
         panelTimer = new JPanel();
         panelTimer.add(tiempoRestante);
-        sizedFuente = fuente.getFont().deriveFont(16f);     
+        sizedFuente = fuente.getFont().deriveFont(16f).deriveFont(Font.BOLD);     
         tiempoRestante.setFont(sizedFuente);
         segundosLabel.setForeground(Color.RED);
         segundosLabel.setFont(sizedFuente);
