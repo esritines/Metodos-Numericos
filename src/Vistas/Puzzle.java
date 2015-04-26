@@ -43,6 +43,8 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
 
     private static int movidaI;
     private static int movidaJ;
+    
+    
 
     public void setValor(boolean valor) {
         this.valor = valor;

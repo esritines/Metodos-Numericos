@@ -18,7 +18,7 @@ public class Pregunta extends javax.swing.JFrame implements MouseListener {
 
     private JLabel aceptarL = new JLabel("Aceptar");
     private JLabel preguntaL = new JLabel();
-
+    
     private ArrayList<JRadioButton> respuestasRButton = new ArrayList<>();
     private ArrayList<JTextField> respuestasField = new ArrayList<>();
     private ArrayList<String> verdadera;
@@ -41,7 +41,6 @@ public class Pregunta extends javax.swing.JFrame implements MouseListener {
         preguntaL.setText(pregunta);
         panelPregunta.add(preguntaL);
 
-//        this.verdadera = verdadera.clone();
         if (isNumber(respuestas.get(1).toString())) {
             agregarRespuestas1(textoPregunta);
         } else {
