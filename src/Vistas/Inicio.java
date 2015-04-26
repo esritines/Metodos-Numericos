@@ -53,7 +53,7 @@ public class Inicio extends javax.swing.JFrame implements MouseListener {
 
         bienvenido.setFont(sizedFuente);
         
-        sizedFuente = fuente.getFont().deriveFont(12f);
+        sizedFuente = fuente.getFont().deriveFont(11f);
 
         jugar.addMouseListener(this);
         jugar.setFont(sizedFuente);
@@ -140,7 +140,7 @@ public class Inicio extends javax.swing.JFrame implements MouseListener {
         if (e.getSource().equals(jugar)) {
             setVisible(false);
             datos.vaciarPreguntas();
-            puzzle = new Puzzle(50, 0, 3);
+            puzzle = new Puzzle(50, 3);
             puzzle.setValor(false);
             puzzle.regresar(this);
         }
