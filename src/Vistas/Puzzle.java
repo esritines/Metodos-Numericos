@@ -140,7 +140,7 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
             System.out.println("El numero random es: " + rnd);
             if (rnd > n * n) {
                 while (k < rnd) {
-                    for  (i = 0; i < n; i++) {
+                    for (i = 0; i < n; i++) {
                         for (j = 0; j < n + 2; j++) {
                             if (botones[i][j].getText().equals(".")) {
                                 valor = true;
