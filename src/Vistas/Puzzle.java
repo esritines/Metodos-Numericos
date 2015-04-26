@@ -132,7 +132,7 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
     }
 
     public final void desacomodar() {
-        int rnd, rnd2, i, j, k = 0;
+        int rnd, rnd2, i, j, k = 0, h=0;
         boolean valor = false, valor2 = true;
 
         do {
@@ -140,47 +140,47 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
             System.out.println("El numero random es: " + rnd);
             if (rnd > n * n) {
                 while (k < rnd) {
-                    for (i = 0; i < n; i++) {
+                    for  (i = 0; i < n; i++) {
                         for (j = 0; j < n + 2; j++) {
                             if (botones[i][j].getText().equals(".")) {
                                 valor = true;
                                 do {
                                     rnd2 = (int) (Math.random() * 4);
-                                    System.out.print("Case: " + rnd2 + " Movi: ");
+                                    System.out.print( (++h) + " Case: " + rnd2 + " Movi: ");
                                     switch (rnd2) {
                                         case 0:
                                             valor2 = moverBotonVacio(i, j - 1, i, j);
                                             if (valor2) {
-                                                System.out.print("No " + i + "," + (j - 1) + "\n");
+                                                System.out.print("No\n");
                                             }else{
-                                                System.out.print("Izquierda " + i + "," + (j - 1) + "\n");
+                                                System.out.print("Izquierda\n");
                                                 k++;
                                             }
                                             break;
                                         case 1:
                                             valor2 = moverBotonVacio(i - 1, j, i, j);
                                             if (valor2) {
-                                                System.out.print("No " + (i - 1) + "," + j + "\n");
+                                                System.out.print("No\n");
                                             }else{
-                                                System.out.print("Arriba " + (i - 1) + "," + j + "\n");
+                                                System.out.print("Arriba\n");
                                                 k++;
                                             }
                                             break;
                                         case 2:
                                             valor2 = moverBotonVacio(i, j + 1, i, j);
                                             if (valor2) {
-                                                System.out.print("No " + i + "," + (j + 1) + "\n");
+                                                System.out.print("No\n");
                                             }else{
-                                                System.out.print("Derecha " + i + "," + (j + 1) + "\n");
+                                                System.out.print("Derecha\n");
                                                 k++;
                                             }
                                             break;
                                         case 3:
                                             valor2 = moverBotonVacio(i + 1, j, i, j);
                                             if (valor2) {
-                                                System.out.print("No " + (i + 1) + "," + j + "\n");
+                                                System.out.print("No\n");
                                             }else{
-                                                System.out.print("Abajo " + (i + 1) + "," + j + "\n");
+                                                System.out.print("Abajo\n");
                                                 k++;
                                             }
                                             break;
