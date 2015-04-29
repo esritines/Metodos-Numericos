@@ -22,7 +22,9 @@ public class Pregunta extends javax.swing.JFrame implements MouseListener {
     private ArrayList<JRadioButton> respuestasRButton = new ArrayList<>();
     private ArrayList<JTextField> respuestasField = new ArrayList<>();
     private ArrayList<String> verdadera;
+    private ArrayList<String> respuestas = new ArrayList<>();
 
+    private boolean valor;
     private static boolean nuevoPuzzle = false;
 
     public boolean getNuevoPuzzle() {
@@ -38,13 +40,18 @@ public class Pregunta extends javax.swing.JFrame implements MouseListener {
 
         setSize(700, 300);
 
+        this.respuestas = (ArrayList) respuestas.clone();
+        this.verdadera = (ArrayList) verdadera.clone();
         preguntaL.setText(pregunta);
         panelPregunta.add(preguntaL);
 
+        
         if (isNumber(respuestas.get(1).toString())) {
             agregarRespuestas1(textoPregunta);
+            valor = true;
         } else {
             agregarRespuestas2(respuestas);
+            valor = false;
         }
 
         aceptarL.addMouseListener(this);
@@ -61,6 +68,7 @@ public class Pregunta extends javax.swing.JFrame implements MouseListener {
         setVisible(true);
     }
 
+    //JTextField
     public void agregarRespuestas1(ArrayList textoPregunta) {
 
         panelRespuestas = new JPanel(new GridLayout(1, textoPregunta.size()));
@@ -68,7 +76,7 @@ public class Pregunta extends javax.swing.JFrame implements MouseListener {
         for (int i = 0; i < textoPregunta.size(); i++) {
             JPanel panel = new JPanel(new FlowLayout());
             JLabel label = new JLabel();
-            respuestasField.add(new JTextField(11));
+            respuestasField.add(new JTextField(10));
             label.setText(textoPregunta.get(i).toString());
             panel.add(label);
             panel.add(respuestasField.get(i));
@@ -76,6 +84,7 @@ public class Pregunta extends javax.swing.JFrame implements MouseListener {
         }
     }
 
+    //RadioButton
     public void agregarRespuestas2(ArrayList respuestas) {
 
         panelRespuestas = new JPanel(new GridLayout(1, respuestas.size()));
@@ -86,7 +95,6 @@ public class Pregunta extends javax.swing.JFrame implements MouseListener {
             panel.add(respuestasRButton.get(i));
             panelRespuestas.add(panel);
         }
-
     }
 
     public boolean isNumber(String respuesta) {
@@ -128,7 +136,20 @@ public class Pregunta extends javax.swing.JFrame implements MouseListener {
     }
 
     public void validar() {
-
+        int c;
+        if(valor){
+            c = respuestasField.size();
+            for (int i = 0; i < respuestasField.size(); i++) {
+                if(respuestasField.get(i).getText().equals(respuestas.get(i))){
+                    c--;
+                }
+                if(c == 0){
+                    //Acertaste
+                }
+            }
+        }else{
+            c = verdadera.indexOf(1);
+        }
     }
 
     @Override
