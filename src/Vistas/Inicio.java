@@ -1,6 +1,5 @@
 package Vistas;
 
-//import Controladores.Fuente;
 import Controladores.Datos;
 import Controladores.Fuente;
 import Controladores.Imagenes;
@@ -21,18 +20,16 @@ public class Inicio extends javax.swing.JFrame implements MouseListener {
     private Imagenes imagen = new Imagenes(4);
 
     private JPanel principal = new JPanel(new BorderLayout());
-    private JPanel secundario = new JPanel(new GridLayout(5, 0));
+    private JPanel secundario = new JPanel(new GridLayout(4, 0));
 
     private JPanel panel1 = new JPanel(new FlowLayout());
     private JPanel panel2 = new JPanel(new FlowLayout());
     private JPanel panel3 = new JPanel(new FlowLayout());
-    private JPanel panel4 = new JPanel(new FlowLayout());
     private JPanel panel5 = new JPanel(new FlowLayout());
 
     private JLabel bienvenido = new JLabel("Bienvenido");
     private JLabel jugar = new JLabel("Jugar");
     private JLabel records = new JLabel("Records");
-    private JLabel nuevoUsuario = new JLabel("Nuevo Usuario");
     private JLabel atras = new JLabel("Atras");
 
     private Entrar regresar;
@@ -65,11 +62,6 @@ public class Inicio extends javax.swing.JFrame implements MouseListener {
         records.setIcon(imagen.getImagen());
         records.setHorizontalTextPosition(SwingConstants.CENTER);
 
-        nuevoUsuario.addMouseListener(this);
-        nuevoUsuario.setFont(sizedFuente);
-        nuevoUsuario.setIcon(imagen.getImagen());
-        nuevoUsuario.setHorizontalTextPosition(SwingConstants.CENTER);
-
         atras.addMouseListener(this);
         atras.setFont(sizedFuente);
         atras.setIcon(imagen.getImagen());
@@ -78,18 +70,15 @@ public class Inicio extends javax.swing.JFrame implements MouseListener {
         panel1.add(bienvenido);
         panel2.add(jugar);
         panel3.add(records);
-        panel4.add(nuevoUsuario);
         panel5.add(atras);
 
         secundario.add(panel1);
         secundario.add(panel2);
         secundario.add(panel3);
-        secundario.add(panel4);
         secundario.add(panel5);
 
         principal.add("Center", secundario);
         setContentPane(principal);
-
         
         record = new Registros();
         record.regresar(this);
@@ -98,12 +87,6 @@ public class Inicio extends javax.swing.JFrame implements MouseListener {
         listaUsuarios = new ArrayList();
         listaPuntos = new ArrayList();
 
-//        jugar.setFont(fuente.getFont());
-//        records.setFont(fuente.getFont());
-//        nuevoUsuario.setFont(fuente.getFont());
-//        atras.setFont(fuente.getFont());
-//        bienvenido.setFont(fuente.getFont());
-//        repaint();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
