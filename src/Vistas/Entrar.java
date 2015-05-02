@@ -3,7 +3,11 @@ package Vistas;
 import Controladores.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.sql.*;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class Entrar extends javax.swing.JFrame implements MouseListener {
@@ -23,7 +27,7 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
     private JPanel secundario = new JPanel(new GridLayout(5, 0));
 
     private JPanel panelLabel = new JPanel(new FlowLayout());
-    private JLabel label = new JLabel("SCROLL NUMBER");
+    private JLabel titulo = new JLabel("SCROLL NUMBER");
 
     private JPanel panelUsuario = new JPanel(new FlowLayout());
     private JLabel usuario = new JLabel("Usuario:");
@@ -32,10 +36,10 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
     private JPanel panelBotones = new JPanel(new FlowLayout());
     private JLabel aceptar = new JLabel("Aceptar");
     private JLabel salir = new JLabel("Salir");
-    
+
     private JPanel panelNuevoUsuario = new JPanel(new FlowLayout());
     private JLabel nuevoUsuario = new JLabel("Nuevo Usuario");
-    
+
     private nuevoUsuario nuevo;
 
     public Entrar() {
@@ -52,8 +56,8 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
         nuevo = new nuevoUsuario();
         nuevo.regresar(this);
 
-        label.setFont(sizedFuente);
-        
+        titulo.setFont(sizedFuente);
+
         sizedFuente = fuente.getFont().deriveFont(11f);
         usuario.setFont(sizedFuente);
         aceptar.setFont(sizedFuente);
@@ -61,14 +65,14 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
         ingresarUsuario.setFont(sizedFuente);
         nuevoUsuario.setFont(sizedFuente);
 
-        panelLabel.add(label);
+        panelLabel.add(titulo);
 
         panelUsuario.add(usuario);
         panelUsuario.add(ingresarUsuario);
 
         panelBotones.add(salir);
-        panelBotones.add(aceptar);  
-        
+        panelBotones.add(aceptar);
+
         panelNuevoUsuario.add(nuevoUsuario);
 
         secundario.add(new JPanel());
@@ -76,7 +80,7 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
         secundario.add(panelUsuario);
         secundario.add(panelNuevoUsuario);
         secundario.add(panelBotones);
-        
+
         aceptar.addMouseListener(this);
         aceptar.setIcon(imagen.getImagen());
         aceptar.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -86,7 +90,7 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
         nuevoUsuario.addMouseListener(this);
         nuevoUsuario.setIcon(imagen.getImagen());
         nuevoUsuario.setHorizontalTextPosition(SwingConstants.CENTER);
-        
+
         principal.add("Center", secundario);
         setContentPane(principal);
 
@@ -168,11 +172,11 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
                 JOptionPane.showMessageDialog(panelBotones, "Usuario no existe", "", JOptionPane.ERROR_MESSAGE);
                 ingresarUsuario.setText("");
             }
-        } 
-        if(e.getSource().equals(salir)) {
+        }
+        if (e.getSource().equals(salir)) {
             dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
         }
-        if(e.getSource().equals(nuevoUsuario)){
+        if (e.getSource().equals(nuevoUsuario)) {
             nuevo.setVisible(true);
         }
     }
