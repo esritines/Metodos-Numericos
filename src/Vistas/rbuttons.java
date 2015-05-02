@@ -1,10 +1,10 @@
 package Vistas;
 
-import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -14,69 +14,36 @@ import javax.swing.JRadioButton;
 
 public class rbuttons extends javax.swing.JFrame implements ActionListener {
 
-    JPanel panel;
-    JPanel panel1;
-    JPanel panel2;
-    JPanel panel3;
-    JPanel panel4;
-    JPanel panel5;
-    JPanel panel6;
+    private final JPanel principal;
+    private final JPanel panelButton;
 
-    ButtonGroup grupo;
-    JRadioButton r1;
-    JRadioButton r2;
-    JRadioButton r3;
-    JRadioButton r4;
-    JRadioButton r5;
+    private final ButtonGroup grupo = new ButtonGroup();
+    ;
+    private final ArrayList<JRadioButton> listaRadioButton = new ArrayList<>();
 
-    JButton button;
+    private final JButton button;
 
     public rbuttons() {
         initComponents();
 
-        panel = new JPanel(new GridLayout(6, 1));
-        panel1 = new JPanel(new FlowLayout());
-        panel2 = new JPanel(new FlowLayout());
-        panel3 = new JPanel(new FlowLayout());
-        panel4 = new JPanel(new FlowLayout());
-        panel5 = new JPanel(new FlowLayout());
-        panel6 = new JPanel(new FlowLayout());
-        
-        grupo = new ButtonGroup();
+        principal = new JPanel(new GridLayout(6, 1));
 
-        r1 = new JRadioButton("Soy 1");
-        r2 = new JRadioButton("Soy 2");
-        r3 = new JRadioButton("Soy 3");
-        r4 = new JRadioButton("Soy 4");
-        r5 = new JRadioButton("Soy 5");
+        for (int i = 0; i < 5; i++) {
+            listaRadioButton.add(new JRadioButton("Soy " + (i + 1)));
+            grupo.add(listaRadioButton.get(i));
+            JPanel panel = new JPanel(new FlowLayout());
+            panel.add(listaRadioButton.get(i));
+            principal.add(panel);
+        }
 
+        panelButton = new JPanel(new FlowLayout());
         button = new JButton("Aceptar");
         button.addActionListener(this);
-        
-        panel1.add(r1);
-        panel2.add(r2);
-        panel3.add(r3);
-        panel4.add(r4);
-        panel5.add(r5);
-        panel6.add(button);
+        panelButton.add(button);
+        principal.add(button);
 
-        grupo.add(r1);
-        grupo.add(r2);
-        grupo.add(r3);
-        grupo.add(r4);
-        grupo.add(r5);
-
-        panel.add(panel1);
-        panel.add(panel2);
-        panel.add(panel3);
-        panel.add(panel4);
-        panel.add(panel5);
-        panel.add(panel6);
-
-        setContentPane(panel);
-
+        setContentPane(principal);
         setVisible(true);
-
     }
 
     public static void main(String[] args) {
@@ -105,13 +72,26 @@ public class rbuttons extends javax.swing.JFrame implements ActionListener {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
-
     @Override
     public void actionPerformed(ActionEvent e) {
-        String temp = Arrays.toString(r1.getSelectedObjects());
-        
-        if(temp.equals("Soy 3")){
-            System.out.println("Acertaste");
-        }   
+        boolean valor = false;
+        String respuesta;
+
+        for (int i = 0; i < listaRadioButton.size(); i++) {
+            respuesta = Arrays.toString(listaRadioButton.get(i).getSelectedObjects());
+            respuesta = respuesta.substring(1, respuesta.length() - 1);
+            System.out.println(respuesta);
+            if (respuesta.equals("Soy 3")) {
+                valor = true;
+                break;
+            } else {
+                valor = false;
+            }     
+        }
+        if (valor) {
+                JOptionPane.showMessageDialog(panelButton, "Acertaste");
+            } else {
+                JOptionPane.showMessageDialog(panelButton, "Fallaste");
+            }
     }
 }

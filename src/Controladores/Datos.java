@@ -101,7 +101,8 @@ public class Datos {
 
         do {
             valor = false;
-            int n = (int) (Math.random() * 2) + 1;
+//            int n = (int) (Math.random() * 2) + 1;
+            int n = 1;
 
             try {
                 Statement consultarDatos = ConexionBD.conexion.createStatement();
@@ -118,7 +119,7 @@ public class Datos {
                     while (consulta.next()) {
                         preguntaTemp = consulta.getString(1);
                         respuestasTemp.add(consulta.getString(2));
-                        respuestasVerdadera.add(consulta.getString(3));
+                        respuestasVerdadera.add(consulta.getInt(3));
                         textoPregunta.add(consulta.getString(4));
                     }
                     preguntas.add(n);        

@@ -17,7 +17,7 @@ public class nuevoUsuario extends javax.swing.JFrame implements MouseListener {
     private Imagenes imagen = new Imagenes(2);
 
     private Datos datos;
-    private Inicio regresar;
+    private Entrar regresar;
 
     private JPanel principal = new JPanel(new BorderLayout());
     private JPanel secundario = new JPanel(new GridLayout(4, 0));
@@ -65,8 +65,8 @@ public class nuevoUsuario extends javax.swing.JFrame implements MouseListener {
         setContentPane(principal);
     }
 
-    public void regresar(Inicio inicio) {
-        regresar = inicio;
+    public void regresar(Entrar regresar) {
+        this.regresar = regresar;
     }
 
     @SuppressWarnings("unchecked")

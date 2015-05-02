@@ -37,7 +37,7 @@ public class Inicio extends javax.swing.JFrame implements MouseListener {
 
     private Entrar regresar;
     private Puzzle puzzle;
-    private nuevoUsuario usuario;
+    
     private Registros record;
     private Datos datos;
     private ArrayList<String> listaUsuarios;
@@ -90,8 +90,7 @@ public class Inicio extends javax.swing.JFrame implements MouseListener {
         principal.add("Center", secundario);
         setContentPane(principal);
 
-        usuario = new nuevoUsuario();
-        usuario.regresar(this);
+        
         record = new Registros();
         record.regresar(this);
         datos = new Datos();
@@ -151,9 +150,6 @@ public class Inicio extends javax.swing.JFrame implements MouseListener {
             listaPuntos.clear();
             setVisible(false);
             record.setVisible(true);
-        }
-        if (e.getSource().equals(nuevoUsuario)) {
-            usuario.setVisible(true);
         }
         if (e.getSource().equals(atras)) {
             this.setVisible(false);

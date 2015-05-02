@@ -245,7 +245,7 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
 
         String temporal2 = "";
         ArrayList<String> respuestas = new ArrayList<>();
-        ArrayList<String> respuestasVerdadera = new ArrayList<>();
+        ArrayList<Integer> respuestasVerdadera = new ArrayList<>();
         ArrayList<String> textoPregunta = new ArrayList<>();
 
         for (int i = 0; i < n; i++) {

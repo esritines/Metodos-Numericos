@@ -1,10 +1,10 @@
 package Vistas;
 
-import Controladores.Datos;
 import Controladores.Imagenes;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.*;
 
 public class Pregunta extends javax.swing.JFrame implements MouseListener {
@@ -18,11 +18,11 @@ public class Pregunta extends javax.swing.JFrame implements MouseListener {
 
     private JLabel aceptarL = new JLabel("Aceptar");
     private JLabel preguntaL = new JLabel();
-    
+
     private ArrayList<JRadioButton> respuestasRButton = new ArrayList<>();
     private ArrayList<JTextField> respuestasField = new ArrayList<>();
-    private ArrayList<String> verdadera;
     private ArrayList<String> respuestas = new ArrayList<>();
+    private ArrayList<Integer> verdadera;
 
     private boolean valor;
     private static boolean nuevoPuzzle = false;
@@ -38,14 +38,11 @@ public class Pregunta extends javax.swing.JFrame implements MouseListener {
     public Pregunta(String pregunta, ArrayList respuestas, ArrayList verdadera, ArrayList textoPregunta) {
         initComponents();
 
-        setSize(700, 300);
-
         this.respuestas = (ArrayList) respuestas.clone();
         this.verdadera = (ArrayList) verdadera.clone();
         preguntaL.setText(pregunta);
         panelPregunta.add(preguntaL);
 
-        
         if (isNumber(respuestas.get(1).toString())) {
             agregarRespuestas1(textoPregunta);
             valor = true;
@@ -125,8 +122,6 @@ public class Pregunta extends javax.swing.JFrame implements MouseListener {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
     @Override
@@ -136,19 +131,40 @@ public class Pregunta extends javax.swing.JFrame implements MouseListener {
     }
 
     public void validar() {
+        boolean temp = false;
         int c;
-        if(valor){
+        String respuesta;
+        if (valor) {
             c = respuestasField.size();
             for (int i = 0; i < respuestasField.size(); i++) {
-                if(respuestasField.get(i).getText().equals(respuestas.get(i))){
+                if (respuestasField.get(i).getText().equals(respuestas.get(i))) {
                     c--;
                 }
-                if(c == 0){
-                    //Acertaste
+                if (c == 0) {
+                    JOptionPane.showMessageDialog(panelAceptar, "Acertaste");
+                    temp = true;
+                }
+                if (!temp) {
+                    JOptionPane.showMessageDialog(panelAceptar, "Fallaste");
                 }
             }
-        }else{
+        } else {
             c = verdadera.indexOf(1);
+            for (int i = 0; i < respuestasRButton.size(); i++) {
+                respuesta = Arrays.toString(respuestasRButton.get(i).getSelectedObjects());
+                respuesta = respuesta.substring(1, respuesta.length() - 1);
+                if (respuesta.equals(respuestas.get(c).toString())) {
+                    temp = true;
+                    break;
+                } else {
+                    temp = false;
+                }
+            }
+            if (temp) {
+                JOptionPane.showMessageDialog(panelAceptar, "Acertaste");
+            } else {
+                JOptionPane.showMessageDialog(panelAceptar, "Fallaste");
+            }
         }
     }
 
