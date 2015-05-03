@@ -2,6 +2,7 @@ package Vistas;
 
 import Controladores.Datos;
 import Controladores.Fuente;
+import Controladores.Imagenes;
 import Controladores.ReproducirSonido;
 import java.awt.*;
 import java.awt.event.*;
@@ -9,18 +10,19 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 public class Puzzle extends javax.swing.JFrame implements MouseListener {
-
+   
     private Fuente fuente = new Fuente();
     private Font sizedFuente;
 
     private JPanel panelPrincipal;
     private JPanel secundario = new JPanel(new GridBagLayout());
-    GridBagConstraints c = new GridBagConstraints();
+    private GridBagConstraints c = new GridBagConstraints();
 
     private JPanel panelBotones;
     private GridLayout capa;
     private JPanel panelTimer;
 
+    private final JLabel salir = new JLabel("Salir");
     private final Label tiempoRestante = new Label("Tiempo Restante:");
     private Label segundosLabel = new Label("                    ");
 
@@ -35,6 +37,7 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
     private static int puntos;
     private static boolean valor = false;
 
+    private Imagenes imagenSalir = new Imagenes(1);
     private static ImageIcon imagen[][];
     private static Icon imagenTemp;
     private static final String imagenFondo = "./src/Diseño/";
@@ -43,8 +46,7 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
 
     private static int movidaI;
     private static int movidaJ;
-    
-    
+
     public void setValor(boolean valor) {
         this.valor = valor;
     }
@@ -88,13 +90,26 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
         secundario.add(panelBotones, c);
         panelPrincipal.add("Center", secundario);
 
-        panelTimer = new JPanel();
-        panelTimer.add(tiempoRestante);
+        panelTimer = new JPanel(new FlowLayout());
+
+        sizedFuente = fuente.getFont().deriveFont(12f).deriveFont(Font.BOLD);
+        
+        salir.addMouseListener(this);
+        salir.setHorizontalTextPosition(SwingConstants.CENTER);
+        salir.setFont(sizedFuente);
+        salir.setIcon(imagenSalir.getImagen());
+        
         sizedFuente = fuente.getFont().deriveFont(16f).deriveFont(Font.BOLD);
+        
         tiempoRestante.setFont(sizedFuente);
+        
         segundosLabel.setForeground(Color.RED);
         segundosLabel.setFont(sizedFuente);
+        
+        panelTimer.add(salir);
+        panelTimer.add(tiempoRestante);
         panelTimer.add(segundosLabel);
+        
         panelPrincipal.add("South", panelTimer);
 
         setContentPane(panelPrincipal);
@@ -133,7 +148,7 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
     }
 
     public final void desacomodar() {
-        int rnd, rnd2, i, j, k = 0, h=0;
+        int rnd, rnd2, i, j, k = 0, h = 0;
         boolean valor = false, valor2 = true;
 
         do {
@@ -147,40 +162,32 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
                                 valor = true;
                                 do {
                                     rnd2 = (int) (Math.random() * 4);
-                                    System.out.print( (++h) + "Movi: ");
+                                    System.out.print((++h) + " Movi: ");
                                     switch (rnd2) {
                                         case 0:
                                             valor2 = moverBotonVacio(i, j - 1, i, j);
-                                            if (valor2) {
-                                                System.out.print("No\n");
-                                            }else{
+                                            if (!valor2) {
                                                 System.out.print("Izquierda\n");
                                                 k++;
                                             }
                                             break;
                                         case 1:
                                             valor2 = moverBotonVacio(i - 1, j, i, j);
-                                            if (valor2) {
-                                                System.out.print("No\n");
-                                            }else{
+                                            if (!valor2) {
                                                 System.out.print("Arriba\n");
                                                 k++;
                                             }
                                             break;
                                         case 2:
                                             valor2 = moverBotonVacio(i, j + 1, i, j);
-                                            if (valor2) {
-                                                System.out.print("No\n");
-                                            }else{
+                                            if (!valor2) {
                                                 System.out.print("Derecha\n");
                                                 k++;
                                             }
                                             break;
                                         case 3:
                                             valor2 = moverBotonVacio(i + 1, j, i, j);
-                                            if (valor2) {
-                                                System.out.print("No\n");
-                                            }else{
+                                            if (!valor2) {
                                                 System.out.print("Abajo\n");
                                                 k++;
                                             }
@@ -226,7 +233,7 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
             if (botones[movidaI][movidaJ].getText().equals(".")) {
                 botones[i][j].setText(botones[k][l].getText());
                 botones[k][l].setText(".");
-                System.out.print("me regrese | ");
+                System.out.println("Me regrese");
                 return true;
             }
             movidaI = k;
@@ -234,6 +241,7 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
             return false;
 
         } catch (ArrayIndexOutOfBoundsException ex) {
+            System.out.print("No\n");
             return true;
         }
     }
@@ -331,7 +339,11 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
     // End of variables declaration//GEN-END:variables
     @Override
     public void mouseClicked(MouseEvent e) {
-
+        if (e.getSource().equals(salir)) {
+            sonidoClic = new ReproducirSonido(2);
+            sonidoClic.getSonido().start();
+            dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+        }
     }
 
     @Override
