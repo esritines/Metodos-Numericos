@@ -27,13 +27,13 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
     private Label segundosLabel = new Label("                    ");
 
     private JLabel[][] botones;
-    private int segundos;
+    public int segundos;
 
     private String comparaGanar = "";
     private static Inicio regresar;
     private Datos registro;
 
-    private static int n;
+    public static int n;
     private static int puntos;
     private static boolean valor = false;
 
@@ -266,12 +266,17 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
             puntos += segundos * 10;
             valor = true;
             temporal2 = registro.traerPregunta(respuestas, respuestasVerdadera, textoPregunta);
-            Pregunta pregunta = new Pregunta(temporal2, respuestas, respuestasVerdadera, textoPregunta);
             setVisible(false);
-            Puzzle puzzle = new Puzzle(segundos = 50 * (n - 1), ++n);
+            Pregunta pregunta = new Pregunta(temporal2, respuestas, respuestasVerdadera, textoPregunta);   
+            pregunta.pasarPuzzle(this);
+            pregunta.setVisible(true);
         }
     }
 
+    public void crear(){
+        Puzzle puzzle = new Puzzle(segundos = 50 * (n - 1), ++n);
+    }
+    
     public void perdiste() {
         capturarRegistro();
         this.setVisible(false);

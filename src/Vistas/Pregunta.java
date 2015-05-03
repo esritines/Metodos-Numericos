@@ -24,9 +24,15 @@ public class Pregunta extends javax.swing.JFrame implements MouseListener {
     private ArrayList<String> respuestas = new ArrayList<>();
     private ArrayList<Integer> verdadera;
 
+    private Puzzle puzzle;
+    
     private boolean valor;
     private static boolean nuevoPuzzle = false;
 
+    public void pasarPuzzle(Puzzle puzzle){
+        this.puzzle = puzzle;
+    }
+    
     public boolean getNuevoPuzzle() {
         return nuevoPuzzle;
     }
@@ -61,8 +67,7 @@ public class Pregunta extends javax.swing.JFrame implements MouseListener {
         principal.add(panelAceptar);
 
         setContentPane(principal);
-
-        setVisible(true);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     //JTextField
@@ -142,10 +147,14 @@ public class Pregunta extends javax.swing.JFrame implements MouseListener {
                 }
                 if (c == 0) {
                     JOptionPane.showMessageDialog(panelAceptar, "Acertaste");
+                    puzzle.crear();
                     temp = true;
+                    dispose();
                 }
                 if (!temp) {
                     JOptionPane.showMessageDialog(panelAceptar, "Fallaste");
+                    puzzle.perdiste();
+                    dispose();
                 }
             }
         } else {
@@ -153,7 +162,7 @@ public class Pregunta extends javax.swing.JFrame implements MouseListener {
             for (int i = 0; i < respuestasRButton.size(); i++) {
                 respuesta = Arrays.toString(respuestasRButton.get(i).getSelectedObjects());
                 respuesta = respuesta.substring(1, respuesta.length() - 1);
-                if (respuesta.equals(respuestas.get(c).toString())) {
+                if (respuesta.equals(respuestas.get(c))) {
                     temp = true;
                     break;
                 } else {
@@ -162,8 +171,12 @@ public class Pregunta extends javax.swing.JFrame implements MouseListener {
             }
             if (temp) {
                 JOptionPane.showMessageDialog(panelAceptar, "Acertaste");
+                puzzle.crear();
+                dispose();
             } else {
                 JOptionPane.showMessageDialog(panelAceptar, "Fallaste");
+                puzzle.perdiste();
+                dispose();
             }
         }
     }
