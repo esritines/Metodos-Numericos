@@ -13,13 +13,13 @@ public class ReproducirSonido {
     public ReproducirSonido(int n){
         switch(n){
             case 1:
-                sonido = new AePlayWave("C:/Users/Abraham/Documents/NetBeansProjects/puzzle/src/Diseño/clic1.wav");
+                sonido = new AePlayWave("./src/Diseño/clic1.wav");
                 break;
             case 2:
-                sonido = new AePlayWave("C:/Users/Abraham/Documents/NetBeansProjects/puzzle/src/Diseño/clic2.wav");
+                sonido = new AePlayWave("./src/Diseño/clic2.wav");
                 break;
             case 3:
-                sonido = new AePlayWave("C:/Users/Abraham/Documents/NetBeansProjects/puzzle/src/Diseño/sonido.wav");
+                sonido = new AePlayWave("./src/Diseño/sonido.wav");
                 break;        
         }
     }

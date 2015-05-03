@@ -19,11 +19,13 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
     private Inicio inicio;
 
     private Imagenes imagen = new Imagenes(1);
+    private ImageIcon fondo = new ImageIcon("./src/Diseño/fondo.png");
 
     private Fuente fuente;
     private Font sizedFuente;
 
-    private JPanel principal = new JPanel(new BorderLayout());
+//    private JPanel principal = new JPanel(new BorderLayout());
+    private JLabel principal = new JLabel();
     private JPanel secundario = new JPanel(new GridLayout(5, 0));
 
     private JPanel panelLabel = new JPanel(new FlowLayout());
@@ -44,6 +46,9 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
 
     public Entrar() {
 
+        principal.setLayout(new BorderLayout());
+        principal.setIcon(fondo);
+        
         fuente = new Fuente();
         sizedFuente = fuente.getFont().deriveFont(66f);
 
