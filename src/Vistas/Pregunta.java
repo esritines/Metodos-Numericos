@@ -1,5 +1,6 @@
 package Vistas;
 
+import Controladores.Fuente;
 import Controladores.Imagenes;
 import java.awt.*;
 import java.awt.event.*;
@@ -9,6 +10,9 @@ import javax.swing.*;
 
 public class Pregunta extends javax.swing.JFrame implements MouseListener {
 
+    private Fuente fuente = new Fuente();
+    private Font sizedFuente;
+    
     private Imagenes imagen = new Imagenes(2);
 
     private JPanel principal = new JPanel(new GridLayout(3, 1));
@@ -25,30 +29,26 @@ public class Pregunta extends javax.swing.JFrame implements MouseListener {
     private ArrayList<Integer> verdadera;
 
     private Puzzle puzzle;
-    
+
     private boolean valor;
-    private static boolean nuevoPuzzle = false;
 
     public void pasarPuzzle(Puzzle puzzle){
         this.puzzle = puzzle;
     }
     
-    public boolean getNuevoPuzzle() {
-        return nuevoPuzzle;
-    }
-
-    public void setNuevoPuzzle(boolean nuevoPuzzle) {
-        this.nuevoPuzzle = nuevoPuzzle;
-    }
-
     public Pregunta(String pregunta, ArrayList respuestas, ArrayList verdadera, ArrayList textoPregunta) {
         initComponents();
 
+        sizedFuente = fuente.getFont().deriveFont(12f);
+        
         this.respuestas = (ArrayList) respuestas.clone();
         this.verdadera = (ArrayList) verdadera.clone();
         preguntaL.setText(pregunta);
         panelPregunta.add(preguntaL);
 
+        aceptarL.setFont(sizedFuente);
+        preguntaL.setFont(sizedFuente);
+        
         if (isNumber(respuestas.get(1).toString())) {
             agregarRespuestas1(textoPregunta);
             valor = true;
@@ -78,8 +78,11 @@ public class Pregunta extends javax.swing.JFrame implements MouseListener {
         for (int i = 0; i < textoPregunta.size(); i++) {
             JPanel panel = new JPanel(new FlowLayout());
             JLabel label = new JLabel();
-            respuestasField.add(new JTextField(10));
+            JTextField campo = new JTextField(10);
+            campo.setFont(sizedFuente);
+            respuestasField.add(campo);
             label.setText(textoPregunta.get(i).toString());
+            label.setFont(sizedFuente);
             panel.add(label);
             panel.add(respuestasField.get(i));
             panelRespuestas.add(panel);
@@ -93,7 +96,9 @@ public class Pregunta extends javax.swing.JFrame implements MouseListener {
 
         for (int i = 0; i < respuestas.size(); i++) {
             JPanel panel = new JPanel(new FlowLayout());
-            respuestasRButton.add(new JRadioButton(respuestas.get(i).toString()));
+            JRadioButton radioButton = new JRadioButton(respuestas.get(i).toString());
+            radioButton.setFont(sizedFuente);
+            respuestasRButton.add(radioButton);
             panel.add(respuestasRButton.get(i));
             panelRespuestas.add(panel);
         }
@@ -131,7 +136,6 @@ public class Pregunta extends javax.swing.JFrame implements MouseListener {
     // End of variables declaration//GEN-END:variables
     @Override
     public void mouseClicked(MouseEvent e) {
-
         validar();
     }
 
