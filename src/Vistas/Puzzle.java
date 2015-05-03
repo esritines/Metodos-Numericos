@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 public class Puzzle extends javax.swing.JFrame implements MouseListener {
-   
+
     private Fuente fuente = new Fuente();
     private Font sizedFuente;
 
@@ -38,7 +38,9 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
     private static boolean valor = false;
 
     private Imagenes imagenSalir = new Imagenes(1);
-    private static ImageIcon imagen[][];
+    private static ImageIcon imagen1;
+    private static ImageIcon imagen2;
+    private static ImageIcon imagen3;
     private static Icon imagenTemp;
     private static final String imagenFondo = "./src/Diseño/";
 
@@ -62,7 +64,6 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
         initComponents();
 
         setTitle("Puzzle " + Datos.getUsuario());
-
         iniciar();
 
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -93,23 +94,23 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
         panelTimer = new JPanel(new FlowLayout());
 
         sizedFuente = fuente.getFont().deriveFont(12f).deriveFont(Font.BOLD);
-        
+
         salir.addMouseListener(this);
         salir.setHorizontalTextPosition(SwingConstants.CENTER);
         salir.setFont(sizedFuente);
         salir.setIcon(imagenSalir.getImagen());
-        
+
         sizedFuente = fuente.getFont().deriveFont(16f).deriveFont(Font.BOLD);
-        
+
         tiempoRestante.setFont(sizedFuente);
-        
+
         segundosLabel.setForeground(Color.RED);
         segundosLabel.setFont(sizedFuente);
-        
+
         panelTimer.add(salir);
         panelTimer.add(tiempoRestante);
         panelTimer.add(segundosLabel);
-        
+
         panelPrincipal.add("South", panelTimer);
 
         setContentPane(panelPrincipal);
@@ -118,10 +119,21 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
 
     public final void agregarBotones() {
 
+        int uno, dos;
+
         sizedFuente = fuente.getFont().deriveFont(20f);
 
         int c = 0;
-        imagen = new ImageIcon[n][n + 2];
+
+        do {
+            uno = (int) (Math.random() * 7);
+            dos = (int) (Math.random() * 7);
+        } while (uno == dos);
+
+        imagen1 = new ImageIcon(imagenFondo + uno + ".png");
+        imagen2 = new ImageIcon(imagenFondo + dos + ".png");
+        imagen3 = new ImageIcon(imagenFondo + "vacio.png");
+        
         botones = new JLabel[n][n + 2];
         capa = new GridLayout(n, n + 2);
 
@@ -129,16 +141,21 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n + 2; j++) {
-                imagen[i][j] = new ImageIcon(imagenFondo + (int) (Math.random() * 8) + ".png");
-                botones[i][j] = new JLabel(imagen[i][j]);
+                botones[i][j] = new JLabel();
                 botones[i][j].setForeground(Color.WHITE);
                 botones[i][j].setFont(sizedFuente);
                 botones[i][j].addMouseListener(this);
                 panelBotones.add(botones[i][j]);
                 c++;
                 if ((i != (n - 1)) || (j != (n + 1))) {
+                    if ((c % 2) == 0) {
+                        botones[i][j].setIcon(imagen1);
+                    } else {
+                        botones[i][j].setIcon(imagen2);
+                    }
                     botones[i][j].setText("" + c);
                 } else {
+                    botones[i][j].setIcon(imagen3);
                     botones[i][j].setText(".");
                 }
                 comparaGanar += botones[i][j].getText();
@@ -226,12 +243,17 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
     }
 
     public boolean moverBotonVacio(int i, int j, int k, int l) {
+        String temporal;
         try {
-
+            imagenTemp = botones[k][l].getIcon();           //imagen negra
             botones[k][l].setText(botones[i][j].getText());
+            botones[k][l].setIcon(botones[i][j].getIcon());
             botones[i][j].setText(".");
+            botones[i][j].setIcon(imagenTemp);
             if (botones[movidaI][movidaJ].getText().equals(".")) {
+                botones[i][j].setIcon(botones[k][l].getIcon());
                 botones[i][j].setText(botones[k][l].getText());
+                botones[k][l].setIcon(imagenTemp);
                 botones[k][l].setText(".");
                 System.out.println("Me regrese");
                 return true;
@@ -267,16 +289,16 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
             valor = true;
             temporal2 = registro.traerPregunta(respuestas, respuestasVerdadera, textoPregunta);
             setVisible(false);
-            Pregunta pregunta = new Pregunta(temporal2, respuestas, respuestasVerdadera, textoPregunta);   
+            Pregunta pregunta = new Pregunta(temporal2, respuestas, respuestasVerdadera, textoPregunta);
             pregunta.pasarPuzzle(this);
             pregunta.setVisible(true);
         }
     }
 
-    public void crear(){
+    public void crear() {
         Puzzle puzzle = new Puzzle(segundos = 50 * (n - 1), ++n);
     }
-    
+
     public void perdiste() {
         capturarRegistro();
         this.setVisible(false);
