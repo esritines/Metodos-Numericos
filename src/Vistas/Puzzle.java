@@ -147,7 +147,7 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
                                 valor = true;
                                 do {
                                     rnd2 = (int) (Math.random() * 4);
-                                    System.out.print( (++h) + " Case: " + rnd2 + " Movi: ");
+                                    System.out.print( (++h) + "Movi: ");
                                     switch (rnd2) {
                                         case 0:
                                             valor2 = moverBotonVacio(i, j - 1, i, j);

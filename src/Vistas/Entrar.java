@@ -109,7 +109,7 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
 
     public static void conectar() {
         try {
-            String BaseDeDatos = "jdbc:ucanaccess://C:/Users/Abraham/Documents/NetBeansProjects/Puzzle/src/Base de Datos/puzzle.accdb";
+            String BaseDeDatos = "jdbc:ucanaccess://./src/Base de Datos/puzzle.accdb";
             ConexionBD.conexion = DriverManager.getConnection(BaseDeDatos, "", "");
             if (ConexionBD.conexion != null) {
                 System.out.println("Conexion exitosa");

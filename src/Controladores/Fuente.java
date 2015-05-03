@@ -16,9 +16,9 @@ public class Fuente {
 
     public Fuente() {
         try {
-            fuente = Font.createFont(Font.TRUETYPE_FONT, new File("C:/Users/Abraham/Documents/NetBeansProjects/Puzzle/src/Diseño/Games.ttf"));
+            fuente = Font.createFont(Font.TRUETYPE_FONT, new File("./src/Diseño/Games.ttf"));
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("C:/Users/Abraham/Documents/NetBeansProjects/Puzzle/src/Diseño/Games.ttf")));
+            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("./src/Diseño/Games.ttf")));
         } catch (IOException | FontFormatException e) {
         }
 
