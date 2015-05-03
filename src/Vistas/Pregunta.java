@@ -12,8 +12,6 @@ public class Pregunta extends javax.swing.JFrame implements MouseListener {
 
     private Fuente fuente = new Fuente();
     private Font sizedFuente;
-    
-    private Imagenes imagen = new Imagenes(2);
 
     private JPanel principal = new JPanel(new GridLayout(3, 1));
     private JPanel panelPregunta = new JPanel(new FlowLayout());
@@ -47,6 +45,7 @@ public class Pregunta extends javax.swing.JFrame implements MouseListener {
         panelPregunta.add(preguntaL);
 
         aceptarL.setFont(sizedFuente);
+        aceptarL.setForeground(Color.white);
         preguntaL.setFont(sizedFuente);
         
         if (isNumber(respuestas.get(1).toString())) {
@@ -58,7 +57,7 @@ public class Pregunta extends javax.swing.JFrame implements MouseListener {
         }
 
         aceptarL.addMouseListener(this);
-        aceptarL.setIcon(imagen.getImagen());
+        aceptarL.setIcon(Imagenes.preguntas);
         aceptarL.setHorizontalTextPosition(SwingConstants.CENTER);
         panelAceptar.add(aceptarL);
 

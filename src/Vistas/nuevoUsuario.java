@@ -14,7 +14,6 @@ public class nuevoUsuario extends javax.swing.JFrame implements MouseListener {
     private Font sizedFuente;
     
     private ReproducirSonido sonidoClic;
-    private Imagenes imagen = new Imagenes(2);
 
     private Datos datos;
     private Entrar regresar;
@@ -40,6 +39,7 @@ public class nuevoUsuario extends javax.swing.JFrame implements MouseListener {
         datos = new Datos();
 
         usuario.setFont(sizedFuente);
+        usuario.setForeground(Color.white);
         panelUsuario.add(usuario);
         nuevoUsuario.setFont(sizedFuente);
         panelUsuario.add(nuevoUsuario);
@@ -47,13 +47,15 @@ public class nuevoUsuario extends javax.swing.JFrame implements MouseListener {
         panelBotones.add(atras);
         atras.addMouseListener(this);
         atras.setFont(sizedFuente);
-        atras.setIcon(imagen.getImagen());
+        atras.setIcon(Imagenes.atras);
         atras.setHorizontalTextPosition(SwingConstants.CENTER);
+        atras.setForeground(Color.white);
         panelBotones.add(aceptar);
         aceptar.addMouseListener(this);
         aceptar.setFont(sizedFuente);
-        aceptar.setIcon(imagen.getImagen());
+        aceptar.setIcon(Imagenes.si);
         aceptar.setHorizontalTextPosition(SwingConstants.CENTER);
+        aceptar.setForeground(Color.white);
 
         secundario.add(new JPanel());
         secundario.add(panelUsuario);

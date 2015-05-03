@@ -3,11 +3,7 @@ package Vistas;
 import Controladores.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.sql.*;
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class Entrar extends javax.swing.JFrame implements MouseListener {
@@ -18,9 +14,8 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
     private Datos datos;
     private Inicio inicio;
 
-    private Imagenes imagen = new Imagenes(1);
-    private ImageIcon fondo = new ImageIcon("./src/Diseño/fondo.png");
-
+    private Imagenes imagen = new Imagenes();
+    
     private Fuente fuente;
     private Font sizedFuente;
 
@@ -47,7 +42,6 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
     public Entrar() {
 
         principal.setLayout(new BorderLayout());
-        principal.setIcon(fondo);
         
         fuente = new Fuente();
         sizedFuente = fuente.getFont().deriveFont(66f);
@@ -87,14 +81,17 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
         secundario.add(panelBotones);
 
         aceptar.addMouseListener(this);
-        aceptar.setIcon(imagen.getImagen());
+        aceptar.setIcon(Imagenes.si);
         aceptar.setHorizontalTextPosition(SwingConstants.CENTER);
+        aceptar.setForeground(Color.white);
         salir.addMouseListener(this);
-        salir.setIcon(imagen.getImagen());
+        salir.setIcon(Imagenes.no);
         salir.setHorizontalTextPosition(SwingConstants.CENTER);
+        salir.setForeground(Color.white);
         nuevoUsuario.addMouseListener(this);
-        nuevoUsuario.setIcon(imagen.getImagen());
+        nuevoUsuario.setIcon(Imagenes.usuarios);
         nuevoUsuario.setHorizontalTextPosition(SwingConstants.CENTER);
+        nuevoUsuario.setForeground(Color.white);
 
         principal.add("Center", secundario);
         setContentPane(principal);

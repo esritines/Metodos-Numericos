@@ -15,8 +15,6 @@ public class Registros extends javax.swing.JFrame implements MouseListener {
     private Font sizedFuente;
 
     private ReproducirSonido sonidoClic;
-    private Imagenes imagen = new Imagenes(3);
-
 
     private Inicio regresar;
 
@@ -72,9 +70,10 @@ public class Registros extends javax.swing.JFrame implements MouseListener {
         panel3.setSize(200, 75);
         atras = new JLabel("Atras");
         atras.addMouseListener(this);
-        atras.setIcon(imagen.getImagen());
+        atras.setIcon(Imagenes.atras);
         atras.setFont(sizedFuente);
         atras.setHorizontalTextPosition(SwingConstants.CENTER);
+        atras.setForeground(Color.white);
         panel3.add(atras);
 
         panelPrincipal = new JPanel(new BorderLayout());

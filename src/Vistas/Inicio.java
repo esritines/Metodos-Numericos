@@ -17,7 +17,7 @@ public class Inicio extends javax.swing.JFrame implements MouseListener {
     
     private ReproducirSonido sonidoClic;
 
-    private Imagenes imagen = new Imagenes(4);
+    private Imagenes imagen = new Imagenes();
 
     private JPanel principal = new JPanel(new BorderLayout());
     private JPanel secundario = new JPanel(new GridLayout(4, 0));
@@ -54,18 +54,21 @@ public class Inicio extends javax.swing.JFrame implements MouseListener {
 
         jugar.addMouseListener(this);
         jugar.setFont(sizedFuente);
-        jugar.setIcon(imagen.getImagen());
+        jugar.setIcon(Imagenes.si);
         jugar.setHorizontalTextPosition(SwingConstants.CENTER);
+        jugar.setForeground(Color.white);
 
         records.addMouseListener(this);
         records.setFont(sizedFuente);
-        records.setIcon(imagen.getImagen());
+        records.setIcon(Imagenes.usuarios);
         records.setHorizontalTextPosition(SwingConstants.CENTER);
+        records.setForeground(Color.white);
 
         atras.addMouseListener(this);
         atras.setFont(sizedFuente);
-        atras.setIcon(imagen.getImagen());
+        atras.setIcon(Imagenes.atras);
         atras.setHorizontalTextPosition(SwingConstants.CENTER);
+        atras.setForeground(Color.white);
 
         panel1.add(bienvenido);
         panel2.add(jugar);

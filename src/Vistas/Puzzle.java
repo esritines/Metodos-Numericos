@@ -37,7 +37,6 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
     private static int puntos;
     private static boolean valor = false;
 
-    private Imagenes imagenSalir = new Imagenes(1);
     private static ImageIcon imagen1;
     private static ImageIcon imagen2;
     private static ImageIcon imagen3;
@@ -98,7 +97,8 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
         salir.addMouseListener(this);
         salir.setHorizontalTextPosition(SwingConstants.CENTER);
         salir.setFont(sizedFuente);
-        salir.setIcon(imagenSalir.getImagen());
+        salir.setIcon(Imagenes.no);
+        salir.setForeground(Color.white);
 
         sizedFuente = fuente.getFont().deriveFont(16f).deriveFont(Font.BOLD);
 
