@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTextField;
 
 public class Datos {
 
@@ -18,10 +19,10 @@ public class Datos {
         return usuario;
     }
 
-    public void vaciarPreguntas(){
+    public void vaciarPreguntas() {
         preguntas.clear();
     }
-    
+
     public boolean traerDatos(String usuario) {
 
         try {
@@ -73,6 +74,38 @@ public class Datos {
         }
     }
 
+    public static void insertarPregunta(String pregunta, String array[]) {
+        int verdadera, id;
+        try {
+            Statement capturarRegistro;
+            
+            capturarRegistro = ConexionBD.conexion.createStatement();
+            ResultSet consulta = capturarRegistro.executeQuery("select MAX(id) from preguntas");
+            
+            consulta.next();
+            
+            id = consulta.getInt(1) + 1;
+            
+            consulta.close();
+            
+            capturarRegistro = ConexionBD.conexion.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            
+            for (int i = 0; i < 4; i++) {
+                verdadera = 0;
+                if(i == 0){
+                    verdadera = 1;
+                }
+                capturarRegistro.executeUpdate("insert into preguntas (id, pregunta, verdadera, respuesta) "
+                + "values('" + id + "'," + "'" + pregunta + "'" + verdadera + "'" + array[i] + "')");
+            }
+
+            capturarRegistro.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Datos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public void traerRegistros(ArrayList usuarios, ArrayList puntos) {
         try {
             Statement traerRegistros = ConexionBD.conexion.createStatement();
@@ -96,7 +129,7 @@ public class Datos {
 
         String preguntaTemp = "";
         recorrer = preguntas.iterator();
-        
+
         boolean valor;
 
         do {
@@ -107,7 +140,7 @@ public class Datos {
             try {
                 Statement consultarDatos = ConexionBD.conexion.createStatement();
                 ResultSet consulta = consultarDatos.executeQuery("select pregunta, respuesta, verdadera, texto from preguntas where id = '" + n + "'");
-              
+
                 while (recorrer.hasNext()) {
                     if (n == recorrer.next()) {
                         valor = true;
@@ -122,7 +155,7 @@ public class Datos {
                         respuestasVerdadera.add(consulta.getInt(3));
                         textoPregunta.add(consulta.getString(4));
                     }
-                    preguntas.add(n);        
+                    preguntas.add(n);
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(Datos.class.getName()).log(Level.SEVERE, null, ex);
