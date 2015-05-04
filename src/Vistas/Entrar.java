@@ -13,8 +13,6 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
 
     private Datos datos;
     private Inicio inicio;
-
-    private Imagenes imagen = new Imagenes();
     
     private Fuente fuente;
     private Font sizedFuente;

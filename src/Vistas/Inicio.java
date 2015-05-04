@@ -20,16 +20,18 @@ public class Inicio extends javax.swing.JFrame implements MouseListener {
     private Imagenes imagen = new Imagenes();
 
     private JPanel principal = new JPanel(new BorderLayout());
-    private JPanel secundario = new JPanel(new GridLayout(4, 0));
+    private JPanel secundario = new JPanel(new GridLayout(5, 0));
 
     private JPanel panel1 = new JPanel(new FlowLayout());
     private JPanel panel2 = new JPanel(new FlowLayout());
     private JPanel panel3 = new JPanel(new FlowLayout());
+    private JPanel panel4 = new JPanel(new FlowLayout());
     private JPanel panel5 = new JPanel(new FlowLayout());
 
     private JLabel bienvenido = new JLabel("Bienvenido");
     private JLabel jugar = new JLabel("Jugar");
     private JLabel records = new JLabel("Records");
+    private JLabel preguntaNueva = new JLabel("Pregunta nueva");
     private JLabel atras = new JLabel("Atras");
 
     private Entrar regresar;
@@ -37,6 +39,8 @@ public class Inicio extends javax.swing.JFrame implements MouseListener {
     
     private Registros record;
     private Datos datos;
+    private AgregarPregunta nuevaPregunta;
+    
     private ArrayList<String> listaUsuarios;
     private ArrayList<Integer> listaPuntos;
 
@@ -50,7 +54,7 @@ public class Inicio extends javax.swing.JFrame implements MouseListener {
 
         bienvenido.setFont(sizedFuente);
         
-        sizedFuente = fuente.getFont().deriveFont(11f);
+        sizedFuente = fuente.getFont().deriveFont(10f);
 
         jugar.addMouseListener(this);
         jugar.setFont(sizedFuente);
@@ -69,15 +73,23 @@ public class Inicio extends javax.swing.JFrame implements MouseListener {
         atras.setIcon(Imagenes.atras);
         atras.setHorizontalTextPosition(SwingConstants.CENTER);
         atras.setForeground(Color.white);
+        
+        preguntaNueva.addMouseListener(this);
+        preguntaNueva.setFont(sizedFuente);
+        preguntaNueva.setIcon(Imagenes.preguntas);
+        preguntaNueva.setHorizontalTextPosition(SwingConstants.CENTER);
+        preguntaNueva.setForeground(Color.white);
 
         panel1.add(bienvenido);
         panel2.add(jugar);
         panel3.add(records);
+        panel4.add(preguntaNueva);
         panel5.add(atras);
 
         secundario.add(panel1);
         secundario.add(panel2);
         secundario.add(panel3);
+        secundario.add(panel4);
         secundario.add(panel5);
 
         principal.add("Center", secundario);
@@ -86,6 +98,8 @@ public class Inicio extends javax.swing.JFrame implements MouseListener {
         record = new Registros();
         record.regresar(this);
         datos = new Datos();
+        nuevaPregunta = new AgregarPregunta();
+        nuevaPregunta.regresar(this);
 
         listaUsuarios = new ArrayList();
         listaPuntos = new ArrayList();
@@ -140,6 +154,10 @@ public class Inicio extends javax.swing.JFrame implements MouseListener {
         if (e.getSource().equals(atras)) {
             this.setVisible(false);
             regresar.setVisible(true);
+        }
+        if (e.getSource().equals(preguntaNueva)) {
+            this.setVisible(false);
+            nuevaPregunta.setVisible(true);
         }
     }
 
