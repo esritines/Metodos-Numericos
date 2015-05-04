@@ -1,5 +1,6 @@
 package Vistas;
 
+import Controladores.Datos;
 import Controladores.Fuente;
 import Controladores.Imagenes;
 import Controladores.ReproducirSonido;
@@ -25,7 +26,7 @@ public class AgregarPregunta extends JFrame implements MouseListener {
     private JLabel campoPregunta = new JLabel();
 
     private final JLabel pregunta = new JLabel("Pregunta");
-    private JTextField respuesta = new JTextField(30);
+    private JTextField preguntaT = new JTextField(30);
     private JLabel respuestasL[] = new JLabel[4];
     private JTextField respuestasT[] = new JTextField[4];
 
@@ -47,7 +48,7 @@ public class AgregarPregunta extends JFrame implements MouseListener {
 
         pregunta.setFont(sizedFuente);
 
-        respuesta.setFont(sizedFuente);
+        preguntaT.setFont(sizedFuente);
 
         campoBotones.setLayout(new FlowLayout());
         campoBotones.add(atras);
@@ -65,7 +66,7 @@ public class AgregarPregunta extends JFrame implements MouseListener {
 
         campoPregunta.setLayout(new FlowLayout());
         campoPregunta.add(pregunta);
-        campoPregunta.add(respuesta);
+        campoPregunta.add(preguntaT);
 
         secundario.add(new JLabel());
         secundario.add(campoPregunta);
@@ -113,13 +114,17 @@ public class AgregarPregunta extends JFrame implements MouseListener {
         if (e.getSource().equals(atras)) {
             setVisible(false);
             regresar.setVisible(true);
-            respuesta.setText("");
+            preguntaT.setText("");
             for (int i = 0; i < 4; i++) {
                 respuestasT[i].setText("");
             }
         }
         if (e.getSource().equals(aceptar)) {
-
+            String temp[] = new String[4];
+            for (int i = 0; i < respuestasT.length; i++) {
+                temp[i] = respuestasT[i].getText();
+            }
+            Datos.insertarPregunta(preguntaT.getText(), temp);
         }
     }
 
