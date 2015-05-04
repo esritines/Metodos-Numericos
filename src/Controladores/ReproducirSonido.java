@@ -17,10 +17,7 @@ public class ReproducirSonido {
                 break;
             case 2:
                 sonido = new AePlayWave("./src/Diseño/clic2.wav");
-                break;
-            case 3:
-                sonido = new AePlayWave("./src/Diseño/sonido.wav");
-                break;        
+                break;       
         }
     }
 }
