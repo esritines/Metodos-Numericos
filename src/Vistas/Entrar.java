@@ -25,7 +25,7 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
     private JLabel titulo = new JLabel("SCROLL NUMBER");
 
     private JPanel panelUsuario = new JPanel(new FlowLayout());
-    private JLabel usuario = new JLabel("Usuario:");
+    private JLabel usuario = new JLabel("Jugador:");
     private JTextField ingresarUsuario = new JTextField(15);
 
     private JPanel panelBotones = new JPanel(new FlowLayout());
@@ -33,7 +33,7 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
     private JLabel salir = new JLabel("Salir");
 
     private JPanel panelNuevoUsuario = new JPanel(new FlowLayout());
-    private JLabel nuevoUsuario = new JLabel("Nuevo Usuario");
+    private JLabel nuevoUsuario = new JLabel("Nuevo jugador");
 
     private nuevoUsuario nuevo;
 

@@ -22,7 +22,7 @@ public class nuevoUsuario extends javax.swing.JFrame implements MouseListener {
     private JPanel secundario = new JPanel(new GridLayout(4, 0));
 
     private JPanel panelUsuario = new JPanel(new FlowLayout());
-    private JLabel usuario = new JLabel("Nuevo usuario:");
+    private JLabel usuario = new JLabel("Nuevo jugador:");
     private JTextField nuevoUsuario = new JTextField(15);
 
     private JPanel panelBotones = new JPanel(new FlowLayout());
