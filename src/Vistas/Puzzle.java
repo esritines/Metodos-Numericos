@@ -296,7 +296,7 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
     }
 
     public void crear() {
-        Puzzle puzzle = new Puzzle(segundos = 50 * (n - 1), ++n);
+        Puzzle puzzle = new Puzzle(segundos = 65 * (n - 1), ++n);
     }
 
     public void perdiste() {

@@ -139,7 +139,7 @@ public class Inicio extends javax.swing.JFrame implements MouseListener {
         if (e.getSource().equals(jugar)) {
             setVisible(false);
             datos.vaciarPreguntas();
-            puzzle = new Puzzle(50, 3);
+            puzzle = new Puzzle(65, 3);
             puzzle.setValor(false);
             puzzle.regresar(this);
         }
