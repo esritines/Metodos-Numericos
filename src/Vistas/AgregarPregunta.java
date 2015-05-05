@@ -12,6 +12,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
@@ -124,7 +125,12 @@ public class AgregarPregunta extends JFrame implements MouseListener {
             for (int i = 0; i < respuestasT.length; i++) {
                 temp[i] = respuestasT[i].getText();
             }
-            Datos.insertarPregunta(preguntaT.getText(), temp);
+            if(Datos.insertarPregunta(preguntaT.getText(), temp)){
+                JOptionPane.showMessageDialog(campoBotones, "Se agrego la pregunta con exito");
+            }else{
+                JOptionPane.showMessageDialog(campoBotones, "No se encuentra la base de datos");
+            }
+            
         }
     }
 

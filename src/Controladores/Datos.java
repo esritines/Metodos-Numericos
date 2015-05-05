@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JTextField;
 
 public class Datos {
 
@@ -74,7 +73,7 @@ public class Datos {
         }
     }
 
-    public static void insertarPregunta(String pregunta, String array[]) {
+    public static boolean insertarPregunta(String pregunta, String array[]) {
         int verdadera, id;
         try {
             Statement capturarRegistro;
@@ -85,7 +84,7 @@ public class Datos {
             consulta.next();
             
             id = consulta.getInt(1) + 1;
-            
+
             consulta.close();
             
             capturarRegistro = ConexionBD.conexion.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -96,13 +95,16 @@ public class Datos {
                     verdadera = 1;
                 }
                 capturarRegistro.executeUpdate("insert into preguntas (id, pregunta, verdadera, respuesta) "
-                + "values('" + id + "'," + "'" + pregunta + "'" + verdadera + "'" + array[i] + "')");
+                + "values('" + id + "','" + pregunta + "','" + verdadera + "','" + array[i] + "')");
             }
 
             capturarRegistro.close();
+            
+            return true;
 
         } catch (SQLException ex) {
             Logger.getLogger(Datos.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
     }
 
@@ -134,8 +136,7 @@ public class Datos {
 
         do {
             valor = false;
-//            int n = (int) (Math.random() * 2) + 1;
-            int n = 1;
+            int n = (int) (Math.random() * 2) + 1;
 
             try {
                 Statement consultarDatos = ConexionBD.conexion.createStatement();
