@@ -140,8 +140,11 @@ public class Datos {
 
             try {
                 Statement consultarDatos = ConexionBD.conexion.createStatement();
-                ResultSet consulta = consultarDatos.executeQuery("select pregunta, respuesta, verdadera, texto from preguntas where id = '" + n + "'");
-
+//                ResultSet consulta = consultarDatos.executeQuery
+//                ("select pregunta, respuesta, verdadera, texto from preguntas where id = '" + n + "'");    //metodos numericos
+                ResultSet consulta = consultarDatos.executeQuery
+                ("select pregunta, respuesta, verdadera from preguntas where id = '" + n + "'");     //interaccion humano
+                
                 while (recorrer.hasNext()) {
                     if (n == recorrer.next()) {
                         valor = true;
@@ -154,7 +157,7 @@ public class Datos {
                         preguntaTemp = consulta.getString(1);
                         respuestasTemp.add(consulta.getString(2));
                         respuestasVerdadera.add(consulta.getInt(3));
-                        textoPregunta.add(consulta.getString(4));
+//                        textoPregunta.add(consulta.getString(4));
                     }
                     preguntas.add(n);
                 }
