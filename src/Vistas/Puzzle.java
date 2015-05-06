@@ -92,7 +92,7 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
 
         panelTimer = new JPanel(new FlowLayout());
 
-        sizedFuente = fuente.getFont().deriveFont(12f).deriveFont(Font.BOLD);
+        sizedFuente = fuente.getFont().deriveFont(17f).deriveFont(Font.BOLD);
 
         salir.addMouseListener(this);
         salir.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -100,7 +100,7 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
         salir.setIcon(Imagenes.no);
         salir.setForeground(Color.white);
 
-        sizedFuente = fuente.getFont().deriveFont(16f).deriveFont(Font.BOLD);
+        sizedFuente = fuente.getFont().deriveFont(20f).deriveFont(Font.BOLD);
 
         tiempoRestante.setFont(sizedFuente);
 
@@ -121,7 +121,7 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
 
         int uno, dos;
 
-        sizedFuente = fuente.getFont().deriveFont(20f);
+        sizedFuente = fuente.getFont().deriveFont(30f);
 
         int c = 0;
 

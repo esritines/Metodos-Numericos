@@ -37,7 +37,7 @@ public final class Pregunta extends javax.swing.JFrame implements MouseListener 
     public Pregunta(String pregunta, ArrayList respuestas, ArrayList verdadera, ArrayList textoPregunta) {
         initComponents();
 
-        sizedFuente = fuente.getFont().deriveFont(12f);
+        sizedFuente = fuente.getFont().deriveFont(17f);
         
         this.respuestas = (ArrayList) respuestas.clone();
         this.verdadera = (ArrayList) verdadera.clone();

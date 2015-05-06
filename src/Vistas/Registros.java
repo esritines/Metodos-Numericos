@@ -51,7 +51,7 @@ public class Registros extends javax.swing.JFrame implements MouseListener {
         records = new JLabel[6][2];
         paneles = new JPanel[6][4];
 
-        sizedFuente = fuente.getFont().deriveFont(14f);
+        sizedFuente = fuente.getFont().deriveFont(20f).deriveFont(Font.BOLD);
         
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 4; j++) {
@@ -60,6 +60,7 @@ public class Registros extends javax.swing.JFrame implements MouseListener {
                     paneles[i][j].setLayout(new FlowLayout());
                     records[i][j-1] = new JLabel("        ");
                     records[i][j-1].setFont(sizedFuente);
+                    records[i][j-1].setForeground(Color.black);
                     paneles[i][j].add(records[i][j-1]);
                 }
                 panel2.add(paneles[i][j]);

@@ -55,11 +55,12 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
 
         titulo.setFont(sizedFuente);
 
-        sizedFuente = fuente.getFont().deriveFont(11f);
+        sizedFuente = fuente.getFont().deriveFont(17f);
+        
         usuario.setFont(sizedFuente);
         aceptar.setFont(sizedFuente);
         salir.setFont(sizedFuente);
-        ingresarUsuario.setFont(sizedFuente);
+        
         nuevoUsuario.setFont(sizedFuente);
 
         panelLabel.add(titulo);
@@ -86,10 +87,13 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
         salir.setIcon(Imagenes.no);
         salir.setHorizontalTextPosition(SwingConstants.CENTER);
         salir.setForeground(Color.white);
+        sizedFuente = fuente.getFont().deriveFont(16f);
+        nuevoUsuario.setFont(sizedFuente);
         nuevoUsuario.addMouseListener(this);
         nuevoUsuario.setIcon(Imagenes.usuarios);
         nuevoUsuario.setHorizontalTextPosition(SwingConstants.CENTER);
         nuevoUsuario.setForeground(Color.white);
+        nuevoUsuario.setFont(sizedFuente);
 
         principal.add("Center", secundario);
         setContentPane(principal);

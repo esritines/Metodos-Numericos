@@ -55,7 +55,7 @@ public class Inicio extends javax.swing.JFrame implements MouseListener {
 
         bienvenido.setFont(sizedFuente);
         
-        sizedFuente = fuente.getFont().deriveFont(10f);
+        sizedFuente = fuente.getFont().deriveFont(17f);
 
         jugar.addMouseListener(this);
         jugar.setFont(sizedFuente);
@@ -75,6 +75,7 @@ public class Inicio extends javax.swing.JFrame implements MouseListener {
         atras.setHorizontalTextPosition(SwingConstants.CENTER);
         atras.setForeground(Color.white);
         
+        sizedFuente = fuente.getFont().deriveFont(15f);
         preguntaNueva.addMouseListener(this);
         preguntaNueva.setFont(sizedFuente);
         preguntaNueva.setIcon(Imagenes.preguntas);

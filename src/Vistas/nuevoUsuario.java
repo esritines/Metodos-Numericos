@@ -32,14 +32,14 @@ public class nuevoUsuario extends javax.swing.JFrame implements MouseListener {
     public nuevoUsuario() {
         
         fuente = new Fuente();
-        sizedFuente = fuente.getFont().deriveFont(14f);
+        sizedFuente = fuente.getFont().deriveFont(17f);
         
         setVisible(false);
         initComponents();
         datos = new Datos();
 
         usuario.setFont(sizedFuente);
-        usuario.setForeground(Color.white);
+        usuario.setForeground(Color.black);
         panelUsuario.add(usuario);
         nuevoUsuario.setFont(sizedFuente);
         panelUsuario.add(nuevoUsuario);
@@ -95,9 +95,7 @@ public class nuevoUsuario extends javax.swing.JFrame implements MouseListener {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
     @Override
-    public void mouseClicked(MouseEvent e) {
-        
-        
+    public void mouseClicked(MouseEvent e) {    
         if (e.getSource().equals(aceptar)) {
             if (datos.enviarDatos(nuevoUsuario.getText())) {
                 JOptionPane.showMessageDialog(rootPane, "Jugador nuevo agregado :) ", "", JOptionPane.INFORMATION_MESSAGE);
