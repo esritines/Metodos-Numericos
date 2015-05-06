@@ -169,7 +169,7 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
                 inicio.setVisible(true);
                 ingresarUsuario.setText("");
             } else {
-                JOptionPane.showMessageDialog(panelBotones, "Usuario no existe", "", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(panelBotones, "Este jugador no existe", "", JOptionPane.ERROR_MESSAGE);
                 ingresarUsuario.setText("");
             }
         }

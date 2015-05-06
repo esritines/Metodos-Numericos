@@ -323,10 +323,10 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
 //            setTitle("Puzzle (" + Datos.getUsuario() + ") Tiempo Restante: " + segundos);
             segundosLabel.setText(Integer.toString(segundos));
             segundos--;
-            if (segundos == 0) {
+           /* if (segundos == 0) {
                 tiempo.stop();
                 perdiste();
-            }
+            } */
         }
     });
 

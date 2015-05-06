@@ -8,27 +8,27 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.*;
 
-public class Pregunta extends javax.swing.JFrame implements MouseListener {
+public final class Pregunta extends javax.swing.JFrame implements MouseListener {
 
-    private Fuente fuente = new Fuente();
-    private Font sizedFuente;
+    private final Fuente fuente = new Fuente();
+    private final Font sizedFuente;
 
-    private JPanel principal = new JPanel(new GridLayout(3, 1));
-    private JPanel panelPregunta = new JPanel(new FlowLayout());
+    private final JPanel principal = new JPanel(new GridLayout(3, 1));
+    private final JPanel panelPregunta = new JPanel(new FlowLayout());
     private JPanel panelRespuestas;
-    private JPanel panelAceptar = new JPanel(new FlowLayout());
+    private final JPanel panelAceptar = new JPanel(new FlowLayout());
 
-    private JLabel aceptarL = new JLabel("Aceptar");
-    private JLabel preguntaL = new JLabel();
+    private final JLabel aceptarL = new JLabel("Aceptar");
+    private final JLabel preguntaL = new JLabel();
 
-    private ArrayList<JRadioButton> respuestasRButton = new ArrayList<>();
-    private ArrayList<JTextField> respuestasField = new ArrayList<>();
+    private final ArrayList<JRadioButton> respuestasRButton = new ArrayList<>();
+    private final ArrayList<JTextField> respuestasField = new ArrayList<>();
     private ArrayList<String> respuestas = new ArrayList<>();
-    private ArrayList<Integer> verdadera;
+    private final ArrayList<Integer> verdadera;
 
     private Puzzle puzzle;
 
-    private boolean valor;
+    private final boolean valor;
 
     public void pasarPuzzle(Puzzle puzzle){
         this.puzzle = puzzle;
@@ -162,8 +162,8 @@ public class Pregunta extends javax.swing.JFrame implements MouseListener {
             }
         } else {
             c = verdadera.indexOf(1);
-            for (int i = 0; i < respuestasRButton.size(); i++) {
-                respuesta = Arrays.toString(respuestasRButton.get(i).getSelectedObjects());
+            for (JRadioButton respuestasRButton1 : respuestasRButton) {
+                respuesta = Arrays.toString(respuestasRButton1.getSelectedObjects());
                 respuesta = respuesta.substring(1, respuesta.length() - 1);
                 if (respuesta.equals(respuestas.get(c))) {
                     temp = true;

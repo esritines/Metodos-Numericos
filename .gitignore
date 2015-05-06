@@ -1,2 +1,6 @@
 /build/
 /dist/
+/nbproject/private/
+/nbproject/Sonidos/build/
+/nbproject/Sonidos/dist/
+/nbproject/Sonidos/nbproject/private/

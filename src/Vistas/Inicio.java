@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 public class Inicio extends javax.swing.JFrame implements MouseListener {
+    
 
     private Fuente fuente;
     private Font sizedFuente;
