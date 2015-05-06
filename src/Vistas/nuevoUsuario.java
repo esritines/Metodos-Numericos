@@ -100,12 +100,12 @@ public class nuevoUsuario extends javax.swing.JFrame implements MouseListener {
         
         if (e.getSource().equals(aceptar)) {
             if (datos.enviarDatos(nuevoUsuario.getText())) {
-                JOptionPane.showMessageDialog(rootPane, "Se agrego al nuevo usuario con exito", "", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "Jugador nuevo agregado :) ", "", JOptionPane.INFORMATION_MESSAGE);
                 nuevoUsuario.setText("");
                 setVisible(false);
                 regresar.setVisible(true);
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Error al agregar nuevo usuario", "", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "Error al agregar un jugador:(", "", JOptionPane.INFORMATION_MESSAGE);
                 nuevoUsuario.setText("");
             }
         }
