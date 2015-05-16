@@ -21,10 +21,9 @@ public final class Pregunta extends javax.swing.JFrame implements MouseListener 
     private final JLabel aceptarL = new JLabel("Aceptar");
     private final JLabel preguntaL = new JLabel();
 
-    private final ArrayList<JRadioButton> respuestasRButton = new ArrayList<>();
-    private final ArrayList<JTextField> respuestasField = new ArrayList<>();
+    private ArrayList<JRadioButton> respuestasRButton = new ArrayList<>();
+    private ArrayList<JTextField> respuestasField = new ArrayList<>();
     private ArrayList<String> respuestas = new ArrayList<>();
-    private final ArrayList<Integer> verdadera;
 
     private Puzzle puzzle;
 
@@ -34,14 +33,11 @@ public final class Pregunta extends javax.swing.JFrame implements MouseListener 
         this.puzzle = puzzle;
     }
     
-    public Pregunta(String pregunta, ArrayList respuestas, ArrayList verdadera, ArrayList textoPregunta) {
+    public Pregunta() {
         initComponents();
 
         sizedFuente = fuente.getFont().deriveFont(17f);
-        
-        this.respuestas = (ArrayList) respuestas.clone();
-        this.verdadera = (ArrayList) verdadera.clone();
-        preguntaL.setText(pregunta);
+
         panelPregunta.add(preguntaL);
 
         aceptarL.setFont(sizedFuente);
@@ -49,7 +45,7 @@ public final class Pregunta extends javax.swing.JFrame implements MouseListener 
         preguntaL.setFont(sizedFuente);
         
         if (isNumber(respuestas.get(1).toString())) {
-            agregarRespuestas1(textoPregunta);
+            agregarRespuestas1(new ArrayList());
             valor = true;
         } else {
             agregarRespuestas2(respuestas);
@@ -161,16 +157,15 @@ public final class Pregunta extends javax.swing.JFrame implements MouseListener 
                 }
             }
         } else {
-            c = verdadera.indexOf(1);
             for (JRadioButton respuestasRButton1 : respuestasRButton) {
                 respuesta = Arrays.toString(respuestasRButton1.getSelectedObjects());
                 respuesta = respuesta.substring(1, respuesta.length() - 1);
-                if (respuesta.equals(respuestas.get(c))) {
-                    temp = true;
-                    break;
-                } else {
-                    temp = false;
-                }
+//                if (respuesta.equals(respuestas.get(c))) {
+//                    temp = true;
+//                    break;
+//                } else {
+//                    temp = false;
+//                }
             }
             if (temp) {
                 JOptionPane.showMessageDialog(panelAceptar, "Acertaste");

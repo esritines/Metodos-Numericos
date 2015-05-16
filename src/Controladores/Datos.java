@@ -11,15 +11,23 @@ import java.util.logging.Logger;
 public class Datos {
 
     private static String usuario;
-    private static ArrayList<Integer> preguntas = new ArrayList<>();
-    private static Iterator<Integer> recorrer;
+    private static ArrayList<Integer> preguntasP = new ArrayList<>();
+    private static ArrayList<Integer> preguntasT = new ArrayList<>();
+    private static Iterator<Integer> recorrerP;
+    private static Iterator<Integer> recorrerT;
+    
+    private static String pregunta;
+    private static String texto;
+    private static ArrayList<String> respuestas = new ArrayList<>();
+    
 
     public static String getUsuario() {
         return usuario;
     }
 
     public void vaciarPreguntas() {
-        preguntas.clear();
+        preguntasP.clear();
+        preguntasT.clear();
     }
 
     public boolean traerDatos(String usuario) {
@@ -127,10 +135,11 @@ public class Datos {
         }
     }
 
-    public String traerPregunta(ArrayList respuestasTemp, ArrayList respuestasVerdadera, ArrayList textoPregunta) {
+    public String traerPregunta() {
 
         String preguntaTemp = "";
-        recorrer = preguntas.iterator();
+        recorrerP = preguntasP.iterator();
+        recorrerT = preguntasT.iterator();
 
         boolean valor;
 
@@ -145,8 +154,8 @@ public class Datos {
                 ResultSet consulta = consultarDatos.executeQuery
                 ("select pregunta, respuesta, verdadera from preguntas where id = '" + n + "'");     //interaccion humano
                 
-                while (recorrer.hasNext()) {
-                    if (n == recorrer.next()) {
+                while (recorrerP.hasNext()) {
+                    if (n == recorrerP.next()) {
                         valor = true;
                         break;
                     }
@@ -155,11 +164,10 @@ public class Datos {
                 if (!valor) {
                     while (consulta.next()) {
                         preguntaTemp = consulta.getString(1);
-                        respuestasTemp.add(consulta.getString(2));
-                        respuestasVerdadera.add(consulta.getInt(3));
-//                        textoPregunta.add(consulta.getString(4));
+                        respuestas.add(consulta.getString(2));
+                        texto = consulta.getString(3);
                     }
-                    preguntas.add(n);
+                    preguntasP.add(n);
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(Datos.class.getName()).log(Level.SEVERE, null, ex);

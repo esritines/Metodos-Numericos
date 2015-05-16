@@ -145,6 +145,7 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         musica.stop();
+        datos.vaciarPreguntas();
         try {
             ConexionBD.conexion.close();
         } catch (Exception e) {
