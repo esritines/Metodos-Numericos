@@ -6,7 +6,7 @@ import javax.sound.sampled.*;
 
 public class Sound {
 
-    private final String fileName = "./src/Diseño/sonido02.wav";
+    private final String fileName = "./src/Diseño/sonido.wav";
     private Clip clip;
 
     public Sound() {

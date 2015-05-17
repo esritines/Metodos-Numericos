@@ -6,7 +6,6 @@ import Controladores.Imagenes;
 import Controladores.ReproducirSonido;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
 import javax.swing.*;
 
 public class Puzzle extends javax.swing.JFrame implements MouseListener {
@@ -243,7 +242,7 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
     }
 
     public boolean moverBotonVacio(int i, int j, int k, int l) {
-        String temporal;
+
         try {
             imagenTemp = botones[k][l].getIcon();           //imagen negra
             botones[k][l].setText(botones[i][j].getText());
@@ -272,10 +271,6 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
 
         String temporal = "";
 
-        String temporal2 = "";
-        ArrayList<String> respuestas = new ArrayList<>();
-        ArrayList<String> textoPregunta = new ArrayList<>();
-
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n + 2; j++) {
                 temporal += botones[i][j].getText();
@@ -287,6 +282,7 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
             puntos += segundos * 10;
             valor = true;
             setVisible(false);
+            registro.crearPregunta();
             Pregunta pregunta = new Pregunta();
             pregunta.pasarPuzzle(this);
             pregunta.setVisible(true);
@@ -318,13 +314,12 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
     Timer tiempo = new Timer(1000, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-//            setTitle("Puzzle (" + Datos.getUsuario() + ") Tiempo Restante: " + segundos);
             segundosLabel.setText(Integer.toString(segundos));
             segundos--;
-           /* if (segundos == 0) {
+            if (segundos == 0) {
                 tiempo.stop();
                 perdiste();
-            } */
+            } 
         }
     });
 

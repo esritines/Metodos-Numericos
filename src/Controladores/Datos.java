@@ -15,11 +15,32 @@ public class Datos {
     private static ArrayList<Integer> preguntasT = new ArrayList<>();
     private static Iterator<Integer> recorrerP;
     private static Iterator<Integer> recorrerT;
-    
+
     private static String pregunta;
+    private static String respuesta;
     private static String texto;
     private static ArrayList<String> respuestas = new ArrayList<>();
-    
+    private static int aleatoria;
+
+    public static int getAleatoria() {
+        return aleatoria;
+    }
+
+    public static String getPregunta() {
+        return pregunta;
+    }
+
+    public static String getRespuesta() {
+        return respuesta;
+    }
+
+    public static String getTexto() {
+        return texto;
+    }
+
+    public static ArrayList<String> getRespuestas() {
+        return respuestas;
+    }
 
     public static String getUsuario() {
         return usuario;
@@ -85,29 +106,29 @@ public class Datos {
         int verdadera, id;
         try {
             Statement capturarRegistro;
-            
+
             capturarRegistro = ConexionBD.conexion.createStatement();
             ResultSet consulta = capturarRegistro.executeQuery("select MAX(id) from preguntas");
-            
+
             consulta.next();
-            
+
             id = consulta.getInt(1) + 1;
 
             consulta.close();
-            
+
             capturarRegistro = ConexionBD.conexion.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            
+
             for (int i = 0; i < 4; i++) {
                 verdadera = 0;
-                if(i == 0){
+                if (i == 0) {
                     verdadera = 1;
                 }
                 capturarRegistro.executeUpdate("insert into preguntas (id, pregunta, verdadera, respuesta) "
-                + "values('" + id + "','" + pregunta + "','" + verdadera + "','" + array[i] + "')");
+                        + "values('" + id + "','" + pregunta + "','" + verdadera + "','" + array[i] + "')");
             }
 
             capturarRegistro.close();
-            
+
             return true;
 
         } catch (SQLException ex) {
@@ -135,45 +156,85 @@ public class Datos {
         }
     }
 
-    public String traerPregunta() {
+    public void crearPregunta() {
 
-        String preguntaTemp = "";
+        respuestas.clear();
+        
         recorrerP = preguntasP.iterator();
         recorrerT = preguntasT.iterator();
 
         boolean valor;
-
+//            aleatoria = (int) (Math.random() * 3);
+            aleatoria = 2;
+            
         do {
             valor = false;
-            int n = (int) (Math.random() * 2) + 1;
 
-            try {
-                Statement consultarDatos = ConexionBD.conexion.createStatement();
-//                ResultSet consulta = consultarDatos.executeQuery
-//                ("select pregunta, respuesta, verdadera, texto from preguntas where id = '" + n + "'");    //metodos numericos
-                ResultSet consulta = consultarDatos.executeQuery
-                ("select pregunta, respuesta, verdadera from preguntas where id = '" + n + "'");     //interaccion humano
-                
-                while (recorrerP.hasNext()) {
-                    if (n == recorrerP.next()) {
-                        valor = true;
-                        break;
-                    }
-                }
-
-                if (!valor) {
-                    while (consulta.next()) {
-                        preguntaTemp = consulta.getString(1);
-                        respuestas.add(consulta.getString(2));
-                        texto = consulta.getString(3);
-                    }
-                    preguntasP.add(n);
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(Datos.class.getName()).log(Level.SEVERE, null, ex);
-                return "";
+            switch (aleatoria) {
+                case 0:
+                    valor = traerProblema();
+                    break;
+                case 1:
+                    valor = traerProblema();
+                    break;
+                case 2:
+                    valor = traerTeorica();
+                    break;
             }
         } while (valor);
-        return preguntaTemp;
+    }
+
+    public boolean traerProblema() {
+        int n = (int) (Math.random() * 2) + 1;
+        try {
+            Statement consultarDatos = ConexionBD.conexion.createStatement();
+            ResultSet consulta = consultarDatos.executeQuery("select pregunta, respuesta, texto from preguntasP where id = '" + n + "'");
+
+            while (recorrerP.hasNext()) {
+                if (n == recorrerP.next()) {
+                    return true;
+                }
+            }
+
+            consulta.next();
+            pregunta = consulta.getString(1);
+            respuesta = consulta.getString(2);
+            texto = consulta.getString(3);
+            preguntasP.add(n);
+            return false;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Datos.class.getName()).log(Level.SEVERE, null, ex);
+            return true;
+        }
+    }
+
+    public boolean traerTeorica() {
+        int n = (int) (Math.random() * 2) + 1;
+        try {
+            Statement consultarDatos = ConexionBD.conexion.createStatement();
+            ResultSet consulta = consultarDatos.executeQuery
+        ("select pregunta, respuesta1, respuesta2, respuesta3, respuesta4 from preguntasT where id = '" + n + "'");
+
+            while (recorrerT.hasNext()) {
+                if (n == recorrerT.next()) {
+                    return true;
+                }
+            }
+
+            consulta.next();
+            pregunta = consulta.getString(1);
+            respuestas.add(consulta.getString(2));
+            respuestas.add(consulta.getString(3));
+            respuestas.add(consulta.getString(4));
+            respuestas.add(consulta.getString(5));
+            preguntasT.add(n);
+            
+            return false;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Datos.class.getName()).log(Level.SEVERE, null, ex);
+            return true;
+        }
     }
 }

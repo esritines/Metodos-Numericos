@@ -1,110 +1,119 @@
 package Vistas;
 
+import Controladores.Datos;
 import Controladores.Fuente;
 import Controladores.Imagenes;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.*;
 
 public final class Pregunta extends javax.swing.JFrame implements MouseListener {
 
     private final Fuente fuente = new Fuente();
-    private final Font sizedFuente;
+    private final Font sizedFuente = fuente.getFont().deriveFont(17f);
+    ;
 
-    private final JPanel principal = new JPanel(new GridLayout(3, 1));
+    private final JPanel principal = new JPanel(new GridLayout(5, 1));
     private final JPanel panelPregunta = new JPanel(new FlowLayout());
-    private JPanel panelRespuestas;
+    private JLabel panelRespuestas;
     private final JPanel panelAceptar = new JPanel(new FlowLayout());
 
     private final JLabel aceptarL = new JLabel("Aceptar");
     private final JLabel preguntaL = new JLabel();
 
-    private ArrayList<JRadioButton> respuestasRButton = new ArrayList<>();
-    private ArrayList<JTextField> respuestasField = new ArrayList<>();
-    private ArrayList<String> respuestas = new ArrayList<>();
+    private static JRadioButton radioButtons[] = new JRadioButton[4];
+    private static ButtonGroup grupo = new ButtonGroup();
+    private JTextField campo;
 
     private Puzzle puzzle;
 
-    private final boolean valor;
+    private boolean valor;
 
-    public void pasarPuzzle(Puzzle puzzle){
+    public void pasarPuzzle(Puzzle puzzle) {
         this.puzzle = puzzle;
     }
-    
+
     public Pregunta() {
         initComponents();
 
-        sizedFuente = fuente.getFont().deriveFont(17f);
+        if (Datos.getAleatoria() != 2) {
+            agregarRespuestas1();
+            valor = true;
+        } else {
+            agregarRespuestas2();
+            valor = false;
+        }
 
+        preguntaL.setText(Datos.getPregunta());
+        preguntaL.setFont(sizedFuente);
         panelPregunta.add(preguntaL);
 
         aceptarL.setFont(sizedFuente);
         aceptarL.setForeground(Color.white);
-        preguntaL.setFont(sizedFuente);
-        
-        if (isNumber(respuestas.get(1).toString())) {
-            agregarRespuestas1(new ArrayList());
-            valor = true;
-        } else {
-            agregarRespuestas2(respuestas);
-            valor = false;
-        }
-
         aceptarL.addMouseListener(this);
         aceptarL.setIcon(Imagenes.preguntas);
         aceptarL.setHorizontalTextPosition(SwingConstants.CENTER);
         panelAceptar.add(aceptarL);
 
+        principal.add(new JLabel());
         principal.add(panelPregunta);
         principal.add(panelRespuestas);
         principal.add(panelAceptar);
+        principal.add(new JLabel());
 
         setContentPane(principal);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     //JTextField
-    public void agregarRespuestas1(ArrayList textoPregunta) {
+    public void agregarRespuestas1() {
 
-        panelRespuestas = new JPanel(new GridLayout(1, textoPregunta.size()));
+        panelRespuestas = new JLabel();
+        panelRespuestas.setLayout(new FlowLayout());
 
-        for (int i = 0; i < textoPregunta.size(); i++) {
-            JPanel panel = new JPanel(new FlowLayout());
-            JLabel label = new JLabel();
-            JTextField campo = new JTextField(10);
-            campo.setFont(sizedFuente);
-            respuestasField.add(campo);
-            label.setText(textoPregunta.get(i).toString());
-            label.setFont(sizedFuente);
-            panel.add(label);
-            panel.add(respuestasField.get(i));
-            panelRespuestas.add(panel);
-        }
+        JLabel label = new JLabel();
+        label.setText(Datos.getTexto());
+        label.setFont(sizedFuente);
+
+        campo = new JTextField(10);
+        campo.setFont(sizedFuente);
+
+        panelRespuestas.add(label);
+        panelRespuestas.add(campo);
     }
 
     //RadioButton
-    public void agregarRespuestas2(ArrayList respuestas) {
+    public void agregarRespuestas2() {
 
-        panelRespuestas = new JPanel(new GridLayout(1, respuestas.size()));
+        int temp[] = new int[4];
+        boolean valorRandomRespuesta = false;
 
-        for (int i = 0; i < respuestas.size(); i++) {
-            JPanel panel = new JPanel(new FlowLayout());
-            JRadioButton radioButton = new JRadioButton(respuestas.get(i).toString());
-            radioButton.setFont(sizedFuente);
-            respuestasRButton.add(radioButton);
-            panel.add(respuestasRButton.get(i));
-            panelRespuestas.add(panel);
+        for (int i = 0; i < 4; i++) {
+            do {
+                temp[i] = (int) ((Math.random() * 4) + 1);
+                for (int j = 0; j != i; j++) {
+                    if (temp[i] == temp[j]) {
+                        valorRandomRespuesta = true;
+                        break;
+                    } else {
+                        valorRandomRespuesta = false;
+                    }
+                }
+            } while (valorRandomRespuesta);
         }
-    }
+        
+        panelRespuestas = new JLabel();
+        panelRespuestas.setLayout(new GridLayout(1, 4));
 
-    public boolean isNumber(String respuesta) {
-        try {
-            Float.parseFloat(respuesta);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
+        for (int i = 0; i < 4; i++) {
+            JLabel label = new JLabel();
+            label.setLayout(new FlowLayout());
+            radioButtons[i] = new JRadioButton(Datos.getRespuestas().get(temp[i] - 1));
+            radioButtons[i].setFont(sizedFuente);
+            label.add(radioButtons[i]);
+            grupo.add(radioButtons[i]);
+            panelRespuestas.add(label);
         }
     }
 
@@ -112,7 +121,7 @@ public final class Pregunta extends javax.swing.JFrame implements MouseListener 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -136,43 +145,36 @@ public final class Pregunta extends javax.swing.JFrame implements MouseListener 
 
     public void validar() {
         boolean temp = false;
-        int c;
         String respuesta;
         if (valor) {
-            c = respuestasField.size();
-            for (int i = 0; i < respuestasField.size(); i++) {
-                if (respuestasField.get(i).getText().equals(respuestas.get(i))) {
-                    c--;
-                }
-                if (c == 0) {
-                    JOptionPane.showMessageDialog(panelAceptar, "Acertaste");
-                    puzzle.crear();
-                    temp = true;
-                    dispose();
-                }
-                if (!temp) {
-                    JOptionPane.showMessageDialog(panelAceptar, "Fallaste");
-                    puzzle.perdiste();
-                    dispose();
-                }
+            if (campo.getText().equals(Datos.getRespuesta())) {
+                JOptionPane.showMessageDialog(principal, "Acertaste");
+                puzzle.crear();
+                temp = true;
+                dispose();
+            }
+            if (!temp) {
+                JOptionPane.showMessageDialog(principal, "Fallaste");
+                puzzle.perdiste();
+                dispose();
             }
         } else {
-            for (JRadioButton respuestasRButton1 : respuestasRButton) {
-                respuesta = Arrays.toString(respuestasRButton1.getSelectedObjects());
+            for (int i = 0; i < 4; i++) {
+                respuesta = Arrays.toString(radioButtons[i].getSelectedObjects());
                 respuesta = respuesta.substring(1, respuesta.length() - 1);
-//                if (respuesta.equals(respuestas.get(c))) {
-//                    temp = true;
-//                    break;
-//                } else {
-//                    temp = false;
-//                }
+                if (respuesta.equals(Datos.getRespuestas().get(0))) {
+                    temp = true;
+                    break;
+                } else {
+                    temp = false;
+                }
             }
             if (temp) {
-                JOptionPane.showMessageDialog(panelAceptar, "Acertaste");
+                JOptionPane.showMessageDialog(principal, "Acertaste");
                 puzzle.crear();
                 dispose();
             } else {
-                JOptionPane.showMessageDialog(panelAceptar, "Fallaste");
+                JOptionPane.showMessageDialog(principal, "Fallaste");
                 puzzle.perdiste();
                 dispose();
             }
