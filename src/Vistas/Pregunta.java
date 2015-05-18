@@ -11,7 +11,7 @@ import javax.swing.*;
 public final class Pregunta extends javax.swing.JFrame implements MouseListener {
 
     private final Fuente fuente = new Fuente();
-    private final Font sizedFuente = fuente.getFont().deriveFont(18f);
+    private Font sizedFuente;
 
     private final JLabel principal = new JLabel();
     private final JLabel panelPregunta = new JLabel();
@@ -41,6 +41,8 @@ public final class Pregunta extends javax.swing.JFrame implements MouseListener 
         panelPregunta.setLayout(new FlowLayout());
         panelAceptar.setLayout(new FlowLayout());
         
+        sizedFuente = fuente.getFont().deriveFont(19f);
+        
         if (Datos.getAleatoria() != 2) {
             agregarRespuestas1();
             valor = true;
@@ -49,11 +51,15 @@ public final class Pregunta extends javax.swing.JFrame implements MouseListener 
             valor = false;
         }
 
+        sizedFuente = fuente.getFont().deriveFont(27f).deriveFont(Font.BOLD);
+        
         preguntaL.setText(Datos.getPregunta());
         preguntaL.setFont(sizedFuente);
         preguntaL.setForeground(Color.white);
         panelPregunta.add(preguntaL);
 
+        sizedFuente = fuente.getFont().deriveFont(17f);
+        
         aceptarL.setFont(sizedFuente);
         aceptarL.setForeground(Color.white);
         aceptarL.addMouseListener(this);
@@ -117,7 +123,7 @@ public final class Pregunta extends javax.swing.JFrame implements MouseListener 
             label.setLayout(new FlowLayout());
             radioButtons[i] = new JRadioButton(Datos.getRespuestas().get(temp[i] - 1));
             radioButtons[i].setFont(sizedFuente);
-            radioButtons[i].setForeground(Color.white);
+            radioButtons[i].setForeground(Color.black);
             label.add(radioButtons[i]);
             grupo.add(radioButtons[i]);
             panelRespuestas.add(label);

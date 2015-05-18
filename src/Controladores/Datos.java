@@ -164,8 +164,7 @@ public class Datos {
         recorrerT = preguntasT.iterator();
 
         boolean valor;
-//            aleatoria = (int) (Math.random() * 3);
-            aleatoria = 2;
+            aleatoria = (int) (Math.random() * 3);
             
         do {
             valor = false;

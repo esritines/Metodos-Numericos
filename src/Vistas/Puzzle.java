@@ -78,14 +78,14 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
         panelTimer.setBackground(Color.black);
         
         agregarBotones();
-//        desacomodar();
+        desacomodar();
              
         c.fill = GridBagConstraints.HORIZONTAL;
         c.ipady = 40;
         c.weightx = 0.0;
-        c.gridwidth = 3;
+        c.gridwidth = 0;                
         c.gridx = 0;
-        c.gridy = 1;
+        c.gridy = 0;                   
               
         sizedFuente = fuente.getFont().deriveFont(17f).deriveFont(Font.BOLD);
 
