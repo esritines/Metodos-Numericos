@@ -17,22 +17,21 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
     private Fuente fuente;
     private Font sizedFuente;
 
-//    private JPanel principal = new JPanel(new BorderLayout());
     private JLabel principal = new JLabel();
-    private JPanel secundario = new JPanel(new GridLayout(5, 0));
+    private JLabel secundario = new JLabel();
 
-    private JPanel panelLabel = new JPanel(new FlowLayout());
+    private JLabel panelLabel = new JLabel();
     private JLabel titulo = new JLabel("SCROLL NUMBER");
 
-    private JPanel panelUsuario = new JPanel(new FlowLayout());
+    private JLabel panelUsuario = new JLabel();
     private JLabel usuario = new JLabel("Jugador:");
     private JTextField ingresarUsuario = new JTextField(15);
 
-    private JPanel panelBotones = new JPanel(new FlowLayout());
+    private JLabel panelBotones = new JLabel();
     private JLabel aceptar = new JLabel("Aceptar");
     private JLabel salir = new JLabel("Salir");
 
-    private JPanel panelNuevoUsuario = new JPanel(new FlowLayout());
+    private JLabel panelNuevoUsuario = new JLabel();
     private JLabel nuevoUsuario = new JLabel("Nuevo jugador");
 
     private nuevoUsuario nuevo;
@@ -40,9 +39,15 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
     public Entrar() {
 
         principal.setLayout(new BorderLayout());
+        principal.setIcon(Imagenes.fondo);
+        secundario.setLayout(new GridLayout(5, 0));
+        panelLabel.setLayout(new FlowLayout());
+        panelUsuario.setLayout(new FlowLayout());
+        panelBotones.setLayout(new FlowLayout());
+        panelNuevoUsuario.setLayout(new FlowLayout());
         
         fuente = new Fuente();
-        sizedFuente = fuente.getFont().deriveFont(66f);
+        sizedFuente = fuente.getFont().deriveFont(76f);
 
         conectar();
         initComponents();
@@ -54,10 +59,12 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
         nuevo.regresar(this);
 
         titulo.setFont(sizedFuente);
+        titulo.setForeground(Color.white);
 
         sizedFuente = fuente.getFont().deriveFont(17f);
         
         usuario.setFont(sizedFuente);
+        usuario.setForeground(Color.white);
         aceptar.setFont(sizedFuente);
         salir.setFont(sizedFuente);
         
@@ -73,12 +80,13 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
 
         panelNuevoUsuario.add(nuevoUsuario);
 
-        secundario.add(new JPanel());
+        secundario.add(new JLabel());
         secundario.add(panelLabel);
         secundario.add(panelUsuario);
         secundario.add(panelNuevoUsuario);
         secundario.add(panelBotones);
 
+        
         aceptar.addMouseListener(this);
         aceptar.setIcon(Imagenes.si);
         aceptar.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -88,6 +96,7 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
         salir.setHorizontalTextPosition(SwingConstants.CENTER);
         salir.setForeground(Color.white);
         sizedFuente = fuente.getFont().deriveFont(16f);
+        ingresarUsuario.setFont(sizedFuente);
         nuevoUsuario.setFont(sizedFuente);
         nuevoUsuario.addMouseListener(this);
         nuevoUsuario.setIcon(Imagenes.usuarios);
@@ -145,7 +154,6 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         musica.stop();
-        datos.vaciarPreguntas();
         try {
             ConexionBD.conexion.close();
         } catch (Exception e) {
@@ -167,6 +175,7 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        datos.vaciarPreguntas();
         if (e.getSource().equals(aceptar)) {
             if (datos.traerDatos(ingresarUsuario.getText())) {
                 inicio.setTitle("Inicio (" + Datos.getUsuario() + ")");
@@ -174,7 +183,7 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
                 inicio.setVisible(true);
                 ingresarUsuario.setText("");
             } else {
-                JOptionPane.showMessageDialog(panelBotones, "Este jugador no existe", "", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(principal, "El jugador no existe", "", JOptionPane.ERROR_MESSAGE);
                 ingresarUsuario.setText("");
             }
         }

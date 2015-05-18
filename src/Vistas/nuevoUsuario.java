@@ -18,32 +18,39 @@ public class nuevoUsuario extends javax.swing.JFrame implements MouseListener {
     private Datos datos;
     private Entrar regresar;
 
-    private JPanel principal = new JPanel(new BorderLayout());
-    private JPanel secundario = new JPanel(new GridLayout(4, 0));
+    private JLabel principal = new JLabel();
+    private JLabel secundario = new JLabel();
 
-    private JPanel panelUsuario = new JPanel(new FlowLayout());
+    private JLabel panelUsuario = new JLabel();
     private JLabel usuario = new JLabel("Nuevo jugador:");
     private JTextField nuevoUsuario = new JTextField(15);
 
-    private JPanel panelBotones = new JPanel(new FlowLayout());
+    private JLabel panelBotones = new JLabel();
     private JLabel aceptar = new JLabel("Aceptar");
     private JLabel atras = new JLabel("Atras");
 
     public nuevoUsuario() {
         
+        principal.setLayout(new BorderLayout());
+        principal.setIcon(Imagenes.fondo); 
+        secundario.setLayout(new GridLayout(4, 0));
+        panelUsuario.setLayout(new FlowLayout());
+        panelBotones.setLayout(new FlowLayout());
+        
         fuente = new Fuente();
-        sizedFuente = fuente.getFont().deriveFont(17f);
+        sizedFuente = fuente.getFont().deriveFont(19f);
         
         setVisible(false);
         initComponents();
         datos = new Datos();
 
         usuario.setFont(sizedFuente);
-        usuario.setForeground(Color.black);
+        usuario.setForeground(Color.white);
         panelUsuario.add(usuario);
         nuevoUsuario.setFont(sizedFuente);
         panelUsuario.add(nuevoUsuario);
 
+        sizedFuente = fuente.getFont().deriveFont(17f);
         panelBotones.add(atras);
         atras.addMouseListener(this);
         atras.setFont(sizedFuente);
@@ -57,10 +64,10 @@ public class nuevoUsuario extends javax.swing.JFrame implements MouseListener {
         aceptar.setHorizontalTextPosition(SwingConstants.CENTER);
         aceptar.setForeground(Color.white);
 
-        secundario.add(new JPanel());
+        secundario.add(new JLabel());
         secundario.add(panelUsuario);
         secundario.add(panelBotones);
-        secundario.add(new JPanel());
+        secundario.add(new JLabel());
         
         principal.add("Center", secundario);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -76,7 +83,6 @@ public class nuevoUsuario extends javax.swing.JFrame implements MouseListener {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setResizable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -98,12 +104,12 @@ public class nuevoUsuario extends javax.swing.JFrame implements MouseListener {
     public void mouseClicked(MouseEvent e) {    
         if (e.getSource().equals(aceptar)) {
             if (datos.enviarDatos(nuevoUsuario.getText())) {
-                JOptionPane.showMessageDialog(rootPane, "Jugador nuevo agregado :) ", "", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(principal, "Jugador nuevo agregado :) ", "", JOptionPane.INFORMATION_MESSAGE);
                 nuevoUsuario.setText("");
                 setVisible(false);
                 regresar.setVisible(true);
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Error al agregar un jugador:(", "", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(principal, "Error al agregar un jugador :(", "", JOptionPane.INFORMATION_MESSAGE);
                 nuevoUsuario.setText("");
             }
         }

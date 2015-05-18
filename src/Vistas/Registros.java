@@ -18,16 +18,15 @@ public class Registros extends javax.swing.JFrame implements MouseListener {
 
     private Inicio regresar;
 
-    private JPanel panelPrincipal;
+    private JLabel panelPrincipal;
 
-    private JPanel panel1;
+    private JLabel panel1;
     private JLabel recordsTitulo;
-
-    private JPanel panel2;
+    private JLabel panel2;
     private JLabel records[][];
-    private JPanel paneles[][];
+    private JLabel paneles[][];
 
-    private JPanel panel3;
+    private JLabel panel3;
     private JLabel atras;
 
     public Registros() {
@@ -37,38 +36,39 @@ public class Registros extends javax.swing.JFrame implements MouseListener {
         setVisible(false);
 
         fuente = new Fuente();
-        sizedFuente = fuente.getFont().deriveFont(56f);
+        sizedFuente = fuente.getFont().deriveFont(66f);
         
-        panel1 = new JPanel(new FlowLayout());
-        panel1.setSize(200, 75);
+        panel1 = new JLabel();
+        panel1.setLayout(new FlowLayout());
         recordsTitulo = new JLabel("Records");
+        recordsTitulo.setForeground(Color.white);
         recordsTitulo.setFont(sizedFuente);
         panel1.add(recordsTitulo);
 
-        panel2 = new JPanel();
-        panel2.setSize(200, 250);
+        panel2 = new JLabel();
         panel2.setLayout(new GridLayout(6, 4));
         records = new JLabel[6][2];
-        paneles = new JPanel[6][4];
+        paneles = new JLabel[6][4];
 
-        sizedFuente = fuente.getFont().deriveFont(20f).deriveFont(Font.BOLD);
+        sizedFuente = fuente.getFont().deriveFont(25f).deriveFont(Font.BOLD);
         
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 4; j++) {
-                paneles[i][j] = new JPanel();          
+                paneles[i][j] = new JLabel();          
                 if (j == 1 || j == 2) {
                     paneles[i][j].setLayout(new FlowLayout());
                     records[i][j-1] = new JLabel("        ");
                     records[i][j-1].setFont(sizedFuente);
-                    records[i][j-1].setForeground(Color.black);
+                    records[i][j-1].setForeground(Color.white);
                     paneles[i][j].add(records[i][j-1]);
                 }
                 panel2.add(paneles[i][j]);
             }
         }
-
-        panel3 = new JPanel(new FlowLayout());
-        panel3.setSize(200, 75);
+        
+        sizedFuente = fuente.getFont().deriveFont(20f);
+        panel3 = new JLabel();
+        panel3.setLayout(new FlowLayout());
         atras = new JLabel("Atras");
         atras.addMouseListener(this);
         atras.setIcon(Imagenes.atras);
@@ -77,12 +77,14 @@ public class Registros extends javax.swing.JFrame implements MouseListener {
         atras.setForeground(Color.white);
         panel3.add(atras);
 
-        panelPrincipal = new JPanel(new BorderLayout());
-        panelPrincipal.setSize(200, 400);
+        panelPrincipal = new JLabel();
+        panelPrincipal.setLayout(new GridLayout(4, 1));
+        panelPrincipal.setIcon(Imagenes.fondo);
 
-        panelPrincipal.add("North", panel1);
-        panelPrincipal.add("Center", panel2);
-        panelPrincipal.add("South", panel3);
+        panelPrincipal.add( panel1);
+        panelPrincipal.add( panel2);
+        panelPrincipal.add(new JLabel());
+        panelPrincipal.add( panel3);
 
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setContentPane(panelPrincipal);
@@ -109,7 +111,6 @@ public class Registros extends javax.swing.JFrame implements MouseListener {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setResizable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

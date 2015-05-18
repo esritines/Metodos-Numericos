@@ -18,16 +18,14 @@ public class Inicio extends javax.swing.JFrame implements MouseListener {
     
     private ReproducirSonido sonidoClic;
 
-    private Imagenes imagen = new Imagenes();
+    private JLabel principal = new JLabel();
+    private JLabel secundario = new JLabel();
 
-    private JPanel principal = new JPanel(new BorderLayout());
-    private JPanel secundario = new JPanel(new GridLayout(5, 0));
-
-    private JPanel panel1 = new JPanel(new FlowLayout());
-    private JPanel panel2 = new JPanel(new FlowLayout());
-    private JPanel panel3 = new JPanel(new FlowLayout());
-    private JPanel panel4 = new JPanel(new FlowLayout());
-    private JPanel panel5 = new JPanel(new FlowLayout());
+    private JLabel panel1 = new JLabel();
+    private JLabel panel2 = new JLabel();
+    private JLabel panel3 = new JLabel();
+    private JLabel panel4 = new JLabel();
+    private JLabel panel5 = new JLabel();
 
     private JLabel bienvenido = new JLabel("Bienvenido");
     private JLabel jugar = new JLabel("Jugar");
@@ -47,6 +45,16 @@ public class Inicio extends javax.swing.JFrame implements MouseListener {
 
     public Inicio() {
 
+        principal.setLayout(new BorderLayout());
+        principal.setIcon(Imagenes.fondo);
+        secundario.setLayout(new GridLayout(4, 0));
+        
+        panel1.setLayout(new FlowLayout());
+        panel2.setLayout(new FlowLayout());
+        panel3.setLayout(new FlowLayout());
+        panel4.setLayout(new FlowLayout());
+        panel5.setLayout(new FlowLayout());
+        
         fuente = new Fuente();
         sizedFuente = fuente.getFont().deriveFont(56f);
         
@@ -54,6 +62,7 @@ public class Inicio extends javax.swing.JFrame implements MouseListener {
         initComponents();
 
         bienvenido.setFont(sizedFuente);
+        bienvenido.setForeground(Color.white);
         
         sizedFuente = fuente.getFont().deriveFont(17f);
 
@@ -85,13 +94,13 @@ public class Inicio extends javax.swing.JFrame implements MouseListener {
         panel1.add(bienvenido);
         panel2.add(jugar);
         panel3.add(records);
-        panel4.add(preguntaNueva);
+//        panel4.add(preguntaNueva);
         panel5.add(atras);
 
         secundario.add(panel1);
         secundario.add(panel2);
         secundario.add(panel3);
-        secundario.add(panel4);
+//        secundario.add(panel4);
         secundario.add(panel5);
 
         principal.add("Center", secundario);

@@ -44,7 +44,7 @@ public class AgregarPregunta extends JFrame implements MouseListener {
         sizedFuente = fuente.getFont().deriveFont(11f);
 
         principal.setLayout(new BorderLayout());
-
+        principal.setIcon(Imagenes.fondo);
         secundario.setLayout(new GridLayout(8, 1));
 
         pregunta.setFont(sizedFuente);

@@ -11,13 +11,12 @@ import javax.swing.*;
 public final class Pregunta extends javax.swing.JFrame implements MouseListener {
 
     private final Fuente fuente = new Fuente();
-    private final Font sizedFuente = fuente.getFont().deriveFont(17f);
-    ;
+    private final Font sizedFuente = fuente.getFont().deriveFont(18f);
 
-    private final JPanel principal = new JPanel(new GridLayout(5, 1));
-    private final JPanel panelPregunta = new JPanel(new FlowLayout());
+    private final JLabel principal = new JLabel();
+    private final JLabel panelPregunta = new JLabel();
     private JLabel panelRespuestas;
-    private final JPanel panelAceptar = new JPanel(new FlowLayout());
+    private final JLabel panelAceptar = new JLabel();
 
     private final JLabel aceptarL = new JLabel("Aceptar");
     private final JLabel preguntaL = new JLabel();
@@ -37,6 +36,11 @@ public final class Pregunta extends javax.swing.JFrame implements MouseListener 
     public Pregunta() {
         initComponents();
 
+        principal.setLayout(new GridLayout(5, 1));
+        principal.setIcon(Imagenes.fondo);
+        panelPregunta.setLayout(new FlowLayout());
+        panelAceptar.setLayout(new FlowLayout());
+        
         if (Datos.getAleatoria() != 2) {
             agregarRespuestas1();
             valor = true;
@@ -47,6 +51,7 @@ public final class Pregunta extends javax.swing.JFrame implements MouseListener 
 
         preguntaL.setText(Datos.getPregunta());
         preguntaL.setFont(sizedFuente);
+        preguntaL.setForeground(Color.white);
         panelPregunta.add(preguntaL);
 
         aceptarL.setFont(sizedFuente);
@@ -75,6 +80,7 @@ public final class Pregunta extends javax.swing.JFrame implements MouseListener 
         JLabel label = new JLabel();
         label.setText(Datos.getTexto());
         label.setFont(sizedFuente);
+        label.setForeground(Color.white);
 
         campo = new JTextField(10);
         campo.setFont(sizedFuente);
@@ -111,6 +117,7 @@ public final class Pregunta extends javax.swing.JFrame implements MouseListener 
             label.setLayout(new FlowLayout());
             radioButtons[i] = new JRadioButton(Datos.getRespuestas().get(temp[i] - 1));
             radioButtons[i].setFont(sizedFuente);
+            radioButtons[i].setForeground(Color.white);
             label.add(radioButtons[i]);
             grupo.add(radioButtons[i]);
             panelRespuestas.add(label);

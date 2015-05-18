@@ -13,17 +13,15 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
     private Fuente fuente = new Fuente();
     private Font sizedFuente;
 
-    private JPanel panelPrincipal;
-    private JPanel secundario = new JPanel(new GridBagLayout());
+    private JPanel panelPrincipal = new JPanel();
+    private JPanel secundario = new JPanel();
+    private JPanel panelBotones = new JPanel();
+    private JPanel panelTimer = new JPanel();
     private GridBagConstraints c = new GridBagConstraints();
-
-    private JPanel panelBotones;
-    private GridLayout capa;
-    private JPanel panelTimer;
-
+    
     private final JLabel salir = new JLabel("Salir");
-    private final Label tiempoRestante = new Label("Tiempo Restante:");
-    private Label segundosLabel = new Label("                    ");
+    private final JLabel tiempoRestante = new JLabel("Tiempo Restante:");
+    private JLabel segundosLabel = new JLabel("                    ");
 
     private JLabel[][] botones;
     public int segundos;
@@ -71,26 +69,24 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
 
     public void iniciar() {
 
-        panelBotones = new JPanel();
-
-        agregarBotones();
-        desacomodar();
-
-        panelPrincipal = new JPanel();
         panelPrincipal.setLayout(new BorderLayout());
-
+        panelPrincipal.setBackground(Color.black);     
+        secundario.setLayout(new GridBagLayout());
+        secundario.setBackground(Color.black);
+        panelBotones.setBackground(Color.black);
+        panelTimer.setLayout(new FlowLayout());
+        panelTimer.setBackground(Color.black);
+        
+        agregarBotones();
+//        desacomodar();
+             
         c.fill = GridBagConstraints.HORIZONTAL;
         c.ipady = 40;
         c.weightx = 0.0;
         c.gridwidth = 3;
         c.gridx = 0;
         c.gridy = 1;
-
-        secundario.add(panelBotones, c);
-        panelPrincipal.add("Center", secundario);
-
-        panelTimer = new JPanel(new FlowLayout());
-
+              
         sizedFuente = fuente.getFont().deriveFont(17f).deriveFont(Font.BOLD);
 
         salir.addMouseListener(this);
@@ -102,6 +98,7 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
         sizedFuente = fuente.getFont().deriveFont(20f).deriveFont(Font.BOLD);
 
         tiempoRestante.setFont(sizedFuente);
+        tiempoRestante.setForeground(Color.white);
 
         segundosLabel.setForeground(Color.RED);
         segundosLabel.setFont(sizedFuente);
@@ -110,6 +107,8 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
         panelTimer.add(tiempoRestante);
         panelTimer.add(segundosLabel);
 
+        secundario.add(panelBotones, c);  
+        panelPrincipal.add("Center", secundario);
         panelPrincipal.add("South", panelTimer);
 
         setContentPane(panelPrincipal);
@@ -134,9 +133,7 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
         imagen3 = new ImageIcon(imagenFondo + "vacio.png");
         
         botones = new JLabel[n][n + 2];
-        capa = new GridLayout(n, n + 2);
-
-        panelBotones.setLayout(capa);
+        panelBotones.setLayout(new GridLayout(n, n + 2));
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n + 2; j++) {
@@ -328,7 +325,6 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
