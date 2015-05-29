@@ -38,7 +38,6 @@ public class Inicio extends javax.swing.JFrame implements MouseListener {
     
     private Registros record;
     private Datos datos;
-    private AgregarPregunta nuevaPregunta;
     
     private ArrayList<String> listaUsuarios;
     private ArrayList<Integer> listaPuntos;
@@ -109,8 +108,6 @@ public class Inicio extends javax.swing.JFrame implements MouseListener {
         record = new Registros();
         record.regresar(this);
         datos = new Datos();
-        nuevaPregunta = new AgregarPregunta();
-        nuevaPregunta.regresar(this);
 
         listaUsuarios = new ArrayList();
         listaPuntos = new ArrayList();
@@ -164,10 +161,6 @@ public class Inicio extends javax.swing.JFrame implements MouseListener {
         if (e.getSource().equals(atras)) {
             this.setVisible(false);
             regresar.setVisible(true);
-        }
-        if (e.getSource().equals(preguntaNueva)) {
-            this.setVisible(false);
-            nuevaPregunta.setVisible(true);
         }
     }
 

@@ -102,41 +102,6 @@ public class Datos {
         }
     }
 
-    public static boolean insertarPregunta(String pregunta, String array[]) {
-        int verdadera, id;
-        try {
-            Statement capturarRegistro;
-
-            capturarRegistro = ConexionBD.conexion.createStatement();
-            ResultSet consulta = capturarRegistro.executeQuery("select MAX(id) from preguntas");
-
-            consulta.next();
-
-            id = consulta.getInt(1) + 1;
-
-            consulta.close();
-
-            capturarRegistro = ConexionBD.conexion.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-
-            for (int i = 0; i < 4; i++) {
-                verdadera = 0;
-                if (i == 0) {
-                    verdadera = 1;
-                }
-                capturarRegistro.executeUpdate("insert into preguntas (id, pregunta, verdadera, respuesta) "
-                        + "values('" + id + "','" + pregunta + "','" + verdadera + "','" + array[i] + "')");
-            }
-
-            capturarRegistro.close();
-
-            return true;
-
-        } catch (SQLException ex) {
-            Logger.getLogger(Datos.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        }
-    }
-
     public void traerRegistros(ArrayList usuarios, ArrayList puntos) {
         try {
             Statement traerRegistros = ConexionBD.conexion.createStatement();
@@ -159,13 +124,13 @@ public class Datos {
     public void crearPregunta() {
 
         respuestas.clear();
-        
+
         recorrerP = preguntasP.iterator();
         recorrerT = preguntasT.iterator();
 
         boolean valor;
-            aleatoria = (int) (Math.random() * 3);
-            
+        aleatoria = (int) (Math.random() * 3);
+
         do {
             valor = false;
 
@@ -184,7 +149,8 @@ public class Datos {
     }
 
     public boolean traerProblema() {
-        int n = (int) (Math.random() * 2) + 1;
+        int n = (int) (Math.random() * 25) + 1;
+
         try {
             Statement consultarDatos = ConexionBD.conexion.createStatement();
             ResultSet consulta = consultarDatos.executeQuery("select pregunta, respuesta, texto from preguntasP where id = '" + n + "'");
@@ -209,11 +175,10 @@ public class Datos {
     }
 
     public boolean traerTeorica() {
-        int n = (int) (Math.random() * 2) + 1;
+        int n = (int) (Math.random() * 20) + 1;
         try {
             Statement consultarDatos = ConexionBD.conexion.createStatement();
-            ResultSet consulta = consultarDatos.executeQuery
-        ("select pregunta, respuesta1, respuesta2, respuesta3, respuesta4 from preguntasT where id = '" + n + "'");
+            ResultSet consulta = consultarDatos.executeQuery("select pregunta, respuesta1, respuesta2, respuesta3, respuesta4 from preguntasT where id = '" + n + "'");
 
             while (recorrerT.hasNext()) {
                 if (n == recorrerT.next()) {
@@ -228,7 +193,7 @@ public class Datos {
             respuestas.add(consulta.getString(4));
             respuestas.add(consulta.getString(5));
             preguntasT.add(n);
-            
+
             return false;
 
         } catch (SQLException ex) {

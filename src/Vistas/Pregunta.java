@@ -6,6 +6,7 @@ import Controladores.Imagenes;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Arrays;
+import java.util.StringTokenizer;
 import javax.swing.*;
 
 public final class Pregunta extends javax.swing.JFrame implements MouseListener {
@@ -19,7 +20,7 @@ public final class Pregunta extends javax.swing.JFrame implements MouseListener 
     private final JLabel panelAceptar = new JLabel();
 
     private final JLabel aceptarL = new JLabel("Aceptar");
-    private final JLabel preguntaL = new JLabel();
+    private  JLabel preguntaL = new JLabel();
 
     private static JRadioButton radioButtons[] = new JRadioButton[4];
     private static ButtonGroup grupo = new ButtonGroup();
@@ -40,9 +41,9 @@ public final class Pregunta extends javax.swing.JFrame implements MouseListener 
         principal.setIcon(Imagenes.fondo);
         panelPregunta.setLayout(new FlowLayout());
         panelAceptar.setLayout(new FlowLayout());
-        
+
         sizedFuente = fuente.getFont().deriveFont(19f);
-        
+
         if (Datos.getAleatoria() != 2) {
             agregarRespuestas1();
             valor = true;
@@ -52,14 +53,29 @@ public final class Pregunta extends javax.swing.JFrame implements MouseListener 
         }
 
         sizedFuente = fuente.getFont().deriveFont(27f).deriveFont(Font.BOLD);
+
+        StringTokenizer st = new StringTokenizer(Datos.getPregunta(), " ");
+        String temp = "<html>";
         
-        preguntaL.setText(Datos.getPregunta());
+        int c = 0;
+        while (st.hasMoreTokens()) {
+            temp += st.nextToken() + " ";
+            c++;
+            if(c == 9){
+                temp += "<br>";
+                c = 0;
+            }
+        }
+
+        temp += "</html>";
+
+        preguntaL.setText(temp);
         preguntaL.setFont(sizedFuente);
         preguntaL.setForeground(Color.white);
         panelPregunta.add(preguntaL);
 
         sizedFuente = fuente.getFont().deriveFont(17f);
-        
+
         aceptarL.setFont(sizedFuente);
         aceptarL.setForeground(Color.white);
         aceptarL.addMouseListener(this);
@@ -114,7 +130,7 @@ public final class Pregunta extends javax.swing.JFrame implements MouseListener 
                 }
             } while (valorRandomRespuesta);
         }
-        
+
         panelRespuestas = new JLabel();
         panelRespuestas.setLayout(new GridLayout(1, 4));
 
@@ -160,7 +176,10 @@ public final class Pregunta extends javax.swing.JFrame implements MouseListener 
         boolean temp = false;
         String respuesta;
         if (valor) {
-            if (campo.getText().equals(Datos.getRespuesta())) {
+            System.out.println(Datos.getRespuesta());
+            String temp2 = Datos.getRespuesta().substring(0, Datos.getRespuesta().length()-2);
+            if (campo.getText().equals(temp2)) {
+                
                 JOptionPane.showMessageDialog(principal, "Acertaste");
                 puzzle.crear();
                 temp = true;
