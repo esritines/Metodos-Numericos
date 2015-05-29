@@ -20,7 +20,7 @@ public final class Pregunta extends javax.swing.JFrame implements MouseListener 
     private final JLabel panelAceptar = new JLabel();
 
     private final JLabel aceptarL = new JLabel("Aceptar");
-    private  JLabel preguntaL = new JLabel();
+    private JLabel preguntaL = new JLabel();
 
     private static JRadioButton radioButtons[] = new JRadioButton[4];
     private static ButtonGroup grupo = new ButtonGroup();
@@ -55,13 +55,14 @@ public final class Pregunta extends javax.swing.JFrame implements MouseListener 
         sizedFuente = fuente.getFont().deriveFont(27f).deriveFont(Font.BOLD);
 
         StringTokenizer st = new StringTokenizer(Datos.getPregunta(), " ");
+
         String temp = "<html>";
-        
+
         int c = 0;
         while (st.hasMoreTokens()) {
             temp += st.nextToken() + " ";
             c++;
-            if(c == 9){
+            if (c == 9) {
                 temp += "<br>";
                 c = 0;
             }
@@ -173,19 +174,16 @@ public final class Pregunta extends javax.swing.JFrame implements MouseListener 
     }
 
     public void validar() {
-        boolean temp = false;
+        boolean tempB = false;
         String respuesta;
         if (valor) {
-            System.out.println(Datos.getRespuesta());
-            String temp2 = Datos.getRespuesta().substring(0, Datos.getRespuesta().length()-2);
-            if (campo.getText().equals(temp2)) {
-                
+            if (Double.parseDouble(campo.getText()) == Datos.getRespuesta()) {
                 JOptionPane.showMessageDialog(principal, "Acertaste");
                 puzzle.crear();
-                temp = true;
+                tempB = true;
                 dispose();
             }
-            if (!temp) {
+            if (!tempB) {
                 JOptionPane.showMessageDialog(principal, "Fallaste");
                 puzzle.perdiste();
                 dispose();
@@ -195,13 +193,13 @@ public final class Pregunta extends javax.swing.JFrame implements MouseListener 
                 respuesta = Arrays.toString(radioButtons[i].getSelectedObjects());
                 respuesta = respuesta.substring(1, respuesta.length() - 1);
                 if (respuesta.equals(Datos.getRespuestas().get(0))) {
-                    temp = true;
+                    tempB = true;
                     break;
                 } else {
-                    temp = false;
+                    tempB = false;
                 }
             }
-            if (temp) {
+            if (tempB) {
                 JOptionPane.showMessageDialog(principal, "Acertaste");
                 puzzle.crear();
                 dispose();

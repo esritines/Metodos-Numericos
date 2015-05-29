@@ -17,7 +17,7 @@ public class Datos {
     private static Iterator<Integer> recorrerT;
 
     private static String pregunta;
-    private static String respuesta;
+    private static double respuesta;
     private static String texto;
     private static ArrayList<String> respuestas = new ArrayList<>();
     private static int aleatoria;
@@ -30,9 +30,9 @@ public class Datos {
         return pregunta;
     }
 
-    public static String getRespuesta() {
+    public static double getRespuesta() {
         return respuesta;
-    }
+    } 
 
     public static String getTexto() {
         return texto;
@@ -130,6 +130,7 @@ public class Datos {
 
         boolean valor;
         aleatoria = (int) (Math.random() * 3);
+        aleatoria = 1;
 
         do {
             valor = false;
@@ -163,7 +164,7 @@ public class Datos {
 
             consulta.next();
             pregunta = consulta.getString(1);
-            respuesta = consulta.getString(2);
+            respuesta = consulta.getDouble(2);
             texto = consulta.getString(3);
             preguntasP.add(n);
             return false;
