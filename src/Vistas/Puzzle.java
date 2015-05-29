@@ -78,7 +78,7 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
         panelTimer.setBackground(Color.black);
         
         agregarBotones();
-//        desacomodar();
+        desacomodar();
              
         c.fill = GridBagConstraints.HORIZONTAL;
         c.ipady = 40;
