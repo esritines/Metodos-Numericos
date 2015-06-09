@@ -279,15 +279,17 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
             puntos += segundos * 10;
             valor = true;
             setVisible(false);
-            registro.crearPregunta();
-            Pregunta pregunta = new Pregunta();
-            pregunta.pasarPuzzle(this);
-            pregunta.setVisible(true);
+//            registro.crearPregunta();
+//            Pregunta pregunta = new Pregunta();
+//            pregunta.pasarPuzzle(this);
+//            pregunta.setVisible(true);
+            n = (n == 8) ? n = 3: ++n;
+            this.crear();
         }
     }
 
     public void crear() {
-        Puzzle puzzle = new Puzzle(segundos = 85 * (n - 1), ++n);
+        Puzzle puzzle = new Puzzle(85 * (n - 1), n);
     }
 
     public void perdiste() {
@@ -313,7 +315,7 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
         public void actionPerformed(ActionEvent e) {
             segundosLabel.setText(Integer.toString(segundos));
             segundos--;
-            if (segundos == 0) {
+            if (segundosLabel.getText().equals("0")) {
                 tiempo.stop();
                 perdiste();
             } 

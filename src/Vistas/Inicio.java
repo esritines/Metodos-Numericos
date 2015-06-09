@@ -12,7 +12,6 @@ import javax.swing.*;
 
 public class Inicio extends javax.swing.JFrame implements MouseListener {
     
-
     private Fuente fuente;
     private Font sizedFuente;
     
@@ -94,13 +93,14 @@ public class Inicio extends javax.swing.JFrame implements MouseListener {
         panel1.add(bienvenido);
         panel2.add(jugar);
         panel3.add(records);
-        panel4.add(preguntaNueva);
+//        panel4.add(preguntaNueva);
         panel5.add(atras);
 
         secundario.add(panel1);
         secundario.add(panel2);
         secundario.add(panel3);
-        secundario.add(panel4);
+//        secundario.add(panel4);
+        secundario.add(new JLabel());
         secundario.add(panel5);
 
         principal.add("Center", secundario);
