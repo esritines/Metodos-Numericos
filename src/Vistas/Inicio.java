@@ -38,6 +38,7 @@ public class Inicio extends javax.swing.JFrame implements MouseListener {
     
     private Registros record;
     private Datos datos;
+    private AgregarPregunta nuevaPregunta;
     
     private ArrayList<String> listaUsuarios;
     private ArrayList<Integer> listaPuntos;
@@ -46,7 +47,7 @@ public class Inicio extends javax.swing.JFrame implements MouseListener {
 
         principal.setLayout(new BorderLayout());
         principal.setIcon(Imagenes.fondo);
-        secundario.setLayout(new GridLayout(4, 0));
+        secundario.setLayout(new GridLayout(5, 0));
         
         panel1.setLayout(new FlowLayout());
         panel2.setLayout(new FlowLayout());
@@ -93,13 +94,13 @@ public class Inicio extends javax.swing.JFrame implements MouseListener {
         panel1.add(bienvenido);
         panel2.add(jugar);
         panel3.add(records);
-//        panel4.add(preguntaNueva);
+        panel4.add(preguntaNueva);
         panel5.add(atras);
 
         secundario.add(panel1);
         secundario.add(panel2);
         secundario.add(panel3);
-//        secundario.add(panel4);
+        secundario.add(panel4);
         secundario.add(panel5);
 
         principal.add("Center", secundario);
@@ -108,6 +109,8 @@ public class Inicio extends javax.swing.JFrame implements MouseListener {
         record = new Registros();
         record.regresar(this);
         datos = new Datos();
+        nuevaPregunta = new AgregarPregunta();
+        nuevaPregunta.regresar(this);
 
         listaUsuarios = new ArrayList();
         listaPuntos = new ArrayList();
@@ -161,6 +164,11 @@ public class Inicio extends javax.swing.JFrame implements MouseListener {
         if (e.getSource().equals(atras)) {
             this.setVisible(false);
             regresar.setVisible(true);
+        }
+        if (e.getSource().equals(preguntaNueva)) {
+            this.setVisible(false);
+            nuevaPregunta.setVisible(true);
+            JOptionPane.showMessageDialog(principal, "Recuerda que la primera respuesta sera la verdadera", "", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 

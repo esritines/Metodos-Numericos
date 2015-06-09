@@ -202,4 +202,22 @@ public class Datos {
             return true;
         }
     }
+    
+    public static boolean insertarPregunta(String pregunta, String array[]) {
+        try {
+            Statement capturarRegistro;
+            capturarRegistro = ConexionBD.conexion.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+
+            capturarRegistro.executeUpdate("insert into preguntasT (pregunta, respuesta1, respuesta2, respuesta3, respuesta4)"
+            + "values('" + pregunta + "','" + array[0] + "','" + array[1] + "','" + array[2] + "','" + array[3] + "')");
+
+            capturarRegistro.close();
+
+            return true;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Datos.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
 }
