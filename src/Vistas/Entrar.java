@@ -38,6 +38,8 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
 
     public Entrar() {
 
+        ConexionBD.conectar();
+        
         principal.setLayout(new BorderLayout());
         principal.setIcon(Imagenes.fondo);
         secundario.setLayout(new GridLayout(5, 0));
@@ -49,7 +51,6 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
         fuente = new Fuente();
         sizedFuente = fuente.getFont().deriveFont(76f);
 
-        conectar();
         initComponents();
 
         datos = new Datos();
@@ -115,16 +116,7 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
         musica.loop();
     }
 
-    public static void conectar() {
-        try {
-            String BaseDeDatos = "jdbc:ucanaccess://./src/Base de Datos/puzzle.accdb";
-            ConexionBD.conexion = DriverManager.getConnection(BaseDeDatos, "", "");
-            if (ConexionBD.conexion != null) {
-                System.out.println("Conexion exitosa");
-            }
-        } catch (Exception e) {
-        }
-    }
+
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
