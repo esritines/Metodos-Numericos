@@ -19,6 +19,7 @@ public class ConexionBD {
                 System.out.println("Conexion exitosa");
             }
         } catch (Exception e) {
+            System.out.println("No hay base de datos");
         }
     }
 }
