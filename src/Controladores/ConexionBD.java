@@ -5,7 +5,11 @@ import java.sql.DriverManager;
 
 public class ConexionBD {
 
-    public static Connection conexion;
+    private static Connection conexion;
+
+    public static Connection getConexion() {
+        return conexion;
+    }
 
     public static void conectar() {
         try {

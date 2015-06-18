@@ -54,7 +54,7 @@ public class Datos {
     public boolean traerDatos(String usuario) {
 
         try {
-            Statement consultarDatos = ConexionBD.conexion.createStatement();
+            Statement consultarDatos = ConexionBD.getConexion().createStatement();
             ResultSet consulta = consultarDatos.executeQuery("select USUARIO from datos where USUARIO = '" + usuario + "'");
 
             if (consulta.next()) {
@@ -76,7 +76,7 @@ public class Datos {
     public boolean enviarDatos(String nuevoUsuario) {
         try {
             Statement capturarUsuario;
-            capturarUsuario = ConexionBD.conexion.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            capturarUsuario = ConexionBD.getConexion().createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             capturarUsuario.executeUpdate("insert into datos (USUARIO) values('" + nuevoUsuario + "')");
 
             capturarUsuario.close();
@@ -92,7 +92,7 @@ public class Datos {
     public void enviarRegistro(String usuario, int puntos) {
         try {
             Statement capturarRegistro;
-            capturarRegistro = ConexionBD.conexion.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            capturarRegistro = ConexionBD.getConexion().createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             capturarRegistro.executeUpdate("insert into registros (usuario, puntos) values('" + usuario + "'," + "'" + puntos + "')");
 
             capturarRegistro.close();
@@ -104,7 +104,7 @@ public class Datos {
 
     public void traerRegistros(ArrayList usuarios, ArrayList puntos) {
         try {
-            Statement traerRegistros = ConexionBD.conexion.createStatement();
+            Statement traerRegistros = ConexionBD.getConexion().createStatement();
             ResultSet consulta = traerRegistros.executeQuery("select usuario, puntos from registros order by puntos desc");
 
             for (int i = 0; i < 6; i++) {
@@ -153,7 +153,7 @@ public class Datos {
         int n = (int) (Math.random() * 25) + 1;
 
         try {
-            Statement consultarDatos = ConexionBD.conexion.createStatement();
+            Statement consultarDatos = ConexionBD.getConexion().createStatement();
             ResultSet consulta = consultarDatos.executeQuery("select pregunta, respuesta, texto from preguntasP where id = '" + n + "'");
 
             while (recorrerP.hasNext()) {
@@ -178,7 +178,7 @@ public class Datos {
     public boolean traerTeorica() {
         int n = (int) (Math.random() * 20) + 1;
         try {
-            Statement consultarDatos = ConexionBD.conexion.createStatement();
+            Statement consultarDatos = ConexionBD.getConexion().createStatement();
             ResultSet consulta = consultarDatos.executeQuery("select pregunta, respuesta1, respuesta2, respuesta3, respuesta4 from preguntasT where id = '" + n + "'");
 
             while (recorrerT.hasNext()) {
@@ -206,7 +206,7 @@ public class Datos {
     public static boolean insertarPregunta(String pregunta, String array[]) {
         try {
             Statement capturarRegistro;
-            capturarRegistro = ConexionBD.conexion.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            capturarRegistro = ConexionBD.getConexion().createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
             capturarRegistro.executeUpdate("insert into preguntasT (pregunta, respuesta1, respuesta2, respuesta3, respuesta4)"
             + "values('" + pregunta + "','" + array[0] + "','" + array[1] + "','" + array[2] + "','" + array[3] + "')");
