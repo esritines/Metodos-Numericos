@@ -18,7 +18,7 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
     private JPanel panelBotones = new JPanel();
     private JPanel panelTimer = new JPanel();
     private GridBagConstraints c = new GridBagConstraints();
-    
+
     private final JLabel salir = new JLabel("Salir");
     private final JLabel tiempoRestante = new JLabel("Tiempo Restante:");
     private JLabel segundosLabel = new JLabel("                    ");
@@ -70,23 +70,23 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
     public void iniciar() {
 
         panelPrincipal.setLayout(new BorderLayout());
-        panelPrincipal.setBackground(Color.black);     
+        panelPrincipal.setBackground(Color.black);
         secundario.setLayout(new GridBagLayout());
         secundario.setBackground(Color.black);
         panelBotones.setBackground(Color.black);
         panelTimer.setLayout(new FlowLayout());
         panelTimer.setBackground(Color.black);
-        
+
         agregarBotones();
         desacomodar();
-             
+
         c.fill = GridBagConstraints.HORIZONTAL;
         c.ipady = 40;
         c.weightx = 0.0;
-        c.gridwidth = 0;                
+        c.gridwidth = 0;
         c.gridx = 0;
-        c.gridy = 0;                   
-              
+        c.gridy = 0;
+
         sizedFuente = fuente.getFont().deriveFont(17f).deriveFont(Font.BOLD);
 
         salir.addMouseListener(this);
@@ -107,7 +107,7 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
         panelTimer.add(tiempoRestante);
         panelTimer.add(segundosLabel);
 
-        secundario.add(panelBotones, c);  
+        secundario.add(panelBotones, c);
         panelPrincipal.add("Center", secundario);
         panelPrincipal.add("South", panelTimer);
 
@@ -124,14 +124,14 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
         int c = 0;
 
         do {
-            uno = (int) (Math.random() * 7);
-            dos = (int) (Math.random() * 7);
+            uno = (int) (Math.random() * 10);
+            dos = (int) (Math.random() * 10);
         } while (uno == dos);
 
         imagen1 = new ImageIcon(imagenFondo + uno + ".png");
         imagen2 = new ImageIcon(imagenFondo + dos + ".png");
         imagen3 = new ImageIcon(imagenFondo + "vacio.png");
-        
+
         botones = new JLabel[n][n + 2];
         panelBotones.setLayout(new GridLayout(n, n + 2));
 
@@ -259,7 +259,7 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
             return false;
 
         } catch (ArrayIndexOutOfBoundsException ex) {
-            System.out.print("No\n");
+            System.out.print("No hay movimiento\n");
             return true;
         }
     }
@@ -283,7 +283,7 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
 //            Pregunta pregunta = new Pregunta();
 //            pregunta.pasarPuzzle(this);
 //            pregunta.setVisible(true);
-            n = (n == 8) ? n = 3: ++n;
+            n = (n == 8) ? n = 3 : ++n;
             this.crear();
         }
     }
@@ -318,7 +318,7 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
             if (segundosLabel.getText().equals("0")) {
                 tiempo.stop();
                 perdiste();
-            } 
+            }
         }
     });
 

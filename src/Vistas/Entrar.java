@@ -116,8 +116,6 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
         musica.loop();
     }
 
-
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -183,6 +181,7 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
             dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
         }
         if (e.getSource().equals(nuevoUsuario)) {
+            this.setVisible(false);
             nuevo.setVisible(true);
         }
     }

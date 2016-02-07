@@ -32,7 +32,7 @@ public class Datos {
 
     public static double getRespuesta() {
         return respuesta;
-    } 
+    }
 
     public static String getTexto() {
         return texto;
@@ -49,6 +49,31 @@ public class Datos {
     public void vaciarPreguntas() {
         preguntasP.clear();
         preguntasT.clear();
+    }
+
+    public boolean compararUsuario(String comparar) {
+
+        try {
+            Statement consultarDatos = ConexionBD.getConexion().createStatement();
+            ResultSet consulta = consultarDatos.executeQuery("select USUARIO from datos");
+
+            if (consulta.next()) {
+                if (comparar.equals(consulta.getString(1))) {
+                    consulta.close();
+                    consultarDatos.close();
+
+                    return true;
+                }else{
+                    return false;
+                }
+
+            } else {
+                return false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Datos.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
 
     public boolean traerDatos(String usuario) {
@@ -202,14 +227,14 @@ public class Datos {
             return true;
         }
     }
-    
+
     public static boolean insertarPregunta(String pregunta, String array[]) {
         try {
             Statement capturarRegistro;
             capturarRegistro = ConexionBD.getConexion().createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
             capturarRegistro.executeUpdate("insert into preguntasT (pregunta, respuesta1, respuesta2, respuesta3, respuesta4)"
-            + "values('" + pregunta + "','" + array[0] + "','" + array[1] + "','" + array[2] + "','" + array[3] + "')");
+                    + "values('" + pregunta + "','" + array[0] + "','" + array[1] + "','" + array[2] + "','" + array[3] + "')");
 
             capturarRegistro.close();
 

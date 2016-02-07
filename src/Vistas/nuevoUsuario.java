@@ -12,11 +12,13 @@ public class nuevoUsuario extends javax.swing.JFrame implements MouseListener {
 
     private Fuente fuente;
     private Font sizedFuente;
-    
+    private String compararUsuarios;
     private ReproducirSonido sonidoClic;
 
     private Datos datos;
     private Entrar regresar;
+
+    private JLabel comparar = new JLabel();
 
     private JLabel principal = new JLabel();
     private JLabel secundario = new JLabel();
@@ -30,16 +32,16 @@ public class nuevoUsuario extends javax.swing.JFrame implements MouseListener {
     private JLabel atras = new JLabel("Atras");
 
     public nuevoUsuario() {
-        
+
         principal.setLayout(new BorderLayout());
-        principal.setIcon(Imagenes.fondo); 
+        principal.setIcon(Imagenes.fondo);
         secundario.setLayout(new GridLayout(4, 0));
         panelUsuario.setLayout(new FlowLayout());
         panelBotones.setLayout(new FlowLayout());
-        
+
         fuente = new Fuente();
         sizedFuente = fuente.getFont().deriveFont(19f);
-        
+
         setVisible(false);
         initComponents();
         datos = new Datos();
@@ -49,6 +51,14 @@ public class nuevoUsuario extends javax.swing.JFrame implements MouseListener {
         panelUsuario.add(usuario);
         nuevoUsuario.setFont(sizedFuente);
         panelUsuario.add(nuevoUsuario);
+        nuevoUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                compararUsuarios = nuevoUsuario.getText();
+                buscarUsuario(evt);
+            }
+        });
+        panelUsuario.add(comparar);
 
         sizedFuente = fuente.getFont().deriveFont(17f);
         panelBotones.add(atras);
@@ -68,10 +78,26 @@ public class nuevoUsuario extends javax.swing.JFrame implements MouseListener {
         secundario.add(panelUsuario);
         secundario.add(panelBotones);
         secundario.add(new JLabel());
-        
+
         principal.add("Center", secundario);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setContentPane(principal);
+    }
+
+    private void buscarUsuario(java.awt.event.KeyEvent evt) {
+
+        if (evt.getKeyCode() != java.awt.event.KeyEvent.VK_ENTER) {
+            if (datos.compararUsuario(compararUsuarios)) {
+                aceptar.setEnabled(false);
+                comparar.setForeground(Color.red);
+                comparar.setText("*Usuarios no disponible");
+            } else {
+                aceptar.setEnabled(true);
+                comparar.setForeground(Color.green);
+                comparar.setText("*Usuarios disponible");
+            }
+        }
+
     }
 
     public void regresar(Entrar regresar) {
@@ -101,7 +127,7 @@ public class nuevoUsuario extends javax.swing.JFrame implements MouseListener {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
     @Override
-    public void mouseClicked(MouseEvent e) {    
+    public void mouseClicked(MouseEvent e) {
         if (e.getSource().equals(aceptar)) {
             if (datos.enviarDatos(nuevoUsuario.getText())) {
                 JOptionPane.showMessageDialog(principal, "Jugador nuevo agregado :) ", "", JOptionPane.INFORMATION_MESSAGE);
