@@ -34,7 +34,7 @@ public class nuevoUsuario extends javax.swing.JFrame implements MouseListener {
     public nuevoUsuario() {
 
         principal.setLayout(new BorderLayout());
-        principal.setIcon(Imagenes.fondo);
+//        principal.setIcon(Imagenes.fondo);
         secundario.setLayout(new GridLayout(4, 0));
         panelUsuario.setLayout(new FlowLayout());
         panelBotones.setLayout(new FlowLayout());
@@ -47,7 +47,7 @@ public class nuevoUsuario extends javax.swing.JFrame implements MouseListener {
         datos = new Datos();
 
         usuario.setFont(sizedFuente);
-        usuario.setForeground(Color.white);
+        usuario.setForeground(Color.black);
         panelUsuario.add(usuario);
         nuevoUsuario.setFont(sizedFuente);
         panelUsuario.add(nuevoUsuario);
@@ -64,15 +64,15 @@ public class nuevoUsuario extends javax.swing.JFrame implements MouseListener {
         panelBotones.add(atras);
         atras.addMouseListener(this);
         atras.setFont(sizedFuente);
-        atras.setIcon(Imagenes.atras);
+//        atras.setIcon(Imagenes.atras);
         atras.setHorizontalTextPosition(SwingConstants.CENTER);
-        atras.setForeground(Color.white);
+        atras.setForeground(Color.black);
         panelBotones.add(aceptar);
         aceptar.addMouseListener(this);
         aceptar.setFont(sizedFuente);
-        aceptar.setIcon(Imagenes.si);
+//        aceptar.setIcon(Imagenes.si);
         aceptar.setHorizontalTextPosition(SwingConstants.CENTER);
-        aceptar.setForeground(Color.white);
+        aceptar.setForeground(Color.black);
 
         secundario.add(new JLabel());
         secundario.add(panelUsuario);
@@ -147,8 +147,8 @@ public class nuevoUsuario extends javax.swing.JFrame implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        sonidoClic = new ReproducirSonido(2);
-        sonidoClic.getSonido().start();
+//        sonidoClic = new ReproducirSonido(2);
+//        sonidoClic.getSonido().start();
     }
 
     @Override

@@ -41,7 +41,7 @@ public class Registros extends javax.swing.JFrame implements MouseListener {
         panel1 = new JLabel();
         panel1.setLayout(new FlowLayout());
         recordsTitulo = new JLabel("Records");
-        recordsTitulo.setForeground(Color.white);
+        recordsTitulo.setForeground(Color.black);
         recordsTitulo.setFont(sizedFuente);
         panel1.add(recordsTitulo);
 
@@ -59,7 +59,7 @@ public class Registros extends javax.swing.JFrame implements MouseListener {
                     paneles[i][j].setLayout(new FlowLayout());
                     records[i][j-1] = new JLabel("        ");
                     records[i][j-1].setFont(sizedFuente);
-                    records[i][j-1].setForeground(Color.white);
+                    records[i][j-1].setForeground(Color.black);
                     paneles[i][j].add(records[i][j-1]);
                 }
                 panel2.add(paneles[i][j]);
@@ -71,15 +71,15 @@ public class Registros extends javax.swing.JFrame implements MouseListener {
         panel3.setLayout(new FlowLayout());
         atras = new JLabel("Atras");
         atras.addMouseListener(this);
-        atras.setIcon(Imagenes.atras);
+//        atras.setIcon(Imagenes.atras);
         atras.setFont(sizedFuente);
         atras.setHorizontalTextPosition(SwingConstants.CENTER);
-        atras.setForeground(Color.white);
+        atras.setForeground(Color.black);
         panel3.add(atras);
 
         panelPrincipal = new JLabel();
         panelPrincipal.setLayout(new GridLayout(4, 1));
-        panelPrincipal.setIcon(Imagenes.fondo);
+//        panelPrincipal.setIcon(Imagenes.fondo);
 
         panelPrincipal.add( panel1);
         panelPrincipal.add( panel2);
@@ -136,8 +136,8 @@ public class Registros extends javax.swing.JFrame implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        sonidoClic = new ReproducirSonido(2);
-        sonidoClic.getSonido().start();
+//        sonidoClic = new ReproducirSonido(2);
+//        sonidoClic.getSonido().start();
     }
 
     @Override

@@ -45,7 +45,7 @@ public class Inicio extends javax.swing.JFrame implements MouseListener {
     public Inicio() {
 
         principal.setLayout(new BorderLayout());
-        principal.setIcon(Imagenes.fondo);
+//        principal.setIcon(Imagenes.fondo);
         secundario.setLayout(new GridLayout(5, 0));
         
         panel1.setLayout(new FlowLayout());
@@ -61,34 +61,34 @@ public class Inicio extends javax.swing.JFrame implements MouseListener {
         initComponents();
 
         bienvenido.setFont(sizedFuente);
-        bienvenido.setForeground(Color.white);
+        bienvenido.setForeground(Color.black);
         
         sizedFuente = fuente.getFont().deriveFont(17f);
 
         jugar.addMouseListener(this);
         jugar.setFont(sizedFuente);
-        jugar.setIcon(Imagenes.si);
+//        jugar.setIcon(Imagenes.si);
         jugar.setHorizontalTextPosition(SwingConstants.CENTER);
-        jugar.setForeground(Color.white);
+        jugar.setForeground(Color.black);
 
         records.addMouseListener(this);
         records.setFont(sizedFuente);
-        records.setIcon(Imagenes.usuarios);
+//        records.setIcon(Imagenes.usuarios);
         records.setHorizontalTextPosition(SwingConstants.CENTER);
-        records.setForeground(Color.white);
+        records.setForeground(Color.black);
 
         atras.addMouseListener(this);
         atras.setFont(sizedFuente);
-        atras.setIcon(Imagenes.atras);
+//        atras.setIcon(Imagenes.atras);
         atras.setHorizontalTextPosition(SwingConstants.CENTER);
-        atras.setForeground(Color.white);
+        atras.setForeground(Color.black);
         
         sizedFuente = fuente.getFont().deriveFont(15f);
         preguntaNueva.addMouseListener(this);
         preguntaNueva.setFont(sizedFuente);
         preguntaNueva.setIcon(Imagenes.preguntas);
         preguntaNueva.setHorizontalTextPosition(SwingConstants.CENTER);
-        preguntaNueva.setForeground(Color.white);
+        preguntaNueva.setForeground(Color.black);
 
         panel1.add(bienvenido);
         panel2.add(jugar);
@@ -174,8 +174,8 @@ public class Inicio extends javax.swing.JFrame implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        sonidoClic = new ReproducirSonido(2);
-        sonidoClic.getSonido().start();
+//        sonidoClic = new ReproducirSonido(2);
+//        sonidoClic.getSonido().start();
     }
 
     @Override

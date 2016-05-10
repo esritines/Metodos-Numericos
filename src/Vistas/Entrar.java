@@ -41,7 +41,7 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
         ConexionBD.conectar();
         
         principal.setLayout(new BorderLayout());
-        principal.setIcon(Imagenes.fondo);
+//        principal.setIcon(Imagenes.fondo);
         secundario.setLayout(new GridLayout(5, 0));
         panelLabel.setLayout(new FlowLayout());
         panelUsuario.setLayout(new FlowLayout());
@@ -60,12 +60,12 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
         nuevo.regresar(this);
 
         titulo.setFont(sizedFuente);
-        titulo.setForeground(Color.white);
+        titulo.setForeground(Color.black);
 
         sizedFuente = fuente.getFont().deriveFont(17f);
         
         usuario.setFont(sizedFuente);
-        usuario.setForeground(Color.white);
+        usuario.setForeground(Color.black);
         aceptar.setFont(sizedFuente);
         salir.setFont(sizedFuente);
         
@@ -89,20 +89,20 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
 
         
         aceptar.addMouseListener(this);
-        aceptar.setIcon(Imagenes.si);
+//        aceptar.setIcon(Imagenes.si);
         aceptar.setHorizontalTextPosition(SwingConstants.CENTER);
-        aceptar.setForeground(Color.white);
+        aceptar.setForeground(Color.black);
         salir.addMouseListener(this);
-        salir.setIcon(Imagenes.no);
+//        salir.setIcon(Imagenes.no);
         salir.setHorizontalTextPosition(SwingConstants.CENTER);
-        salir.setForeground(Color.white);
+        salir.setForeground(Color.black);
         sizedFuente = fuente.getFont().deriveFont(16f);
         ingresarUsuario.setFont(sizedFuente);
         nuevoUsuario.setFont(sizedFuente);
         nuevoUsuario.addMouseListener(this);
-        nuevoUsuario.setIcon(Imagenes.usuarios);
+//        nuevoUsuario.setIcon(Imagenes.usuarios);
         nuevoUsuario.setHorizontalTextPosition(SwingConstants.CENTER);
-        nuevoUsuario.setForeground(Color.white);
+        nuevoUsuario.setForeground(Color.black);
         nuevoUsuario.setFont(sizedFuente);
 
         principal.add("Center", secundario);
@@ -112,8 +112,8 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
         repaint();
         setVisible(true);
 
-        musica = new Sound();
-        musica.loop();
+//        musica = new Sound();
+//        musica.loop();
     }
 
     @SuppressWarnings("unchecked")
@@ -143,7 +143,7 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        musica.stop();
+//        musica.stop();
         try {
             ConexionBD.getConexion().close();
         } catch (Exception e) {
@@ -159,8 +159,8 @@ public class Entrar extends javax.swing.JFrame implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        sonidoClic = new ReproducirSonido(2);
-        sonidoClic.getSonido().start();
+//        sonidoClic = new ReproducirSonido(2);
+//        sonidoClic.getSonido().start();
     }
 
     @Override
