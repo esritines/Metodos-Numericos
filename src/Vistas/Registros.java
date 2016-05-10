@@ -71,7 +71,7 @@ public class Registros extends javax.swing.JFrame implements MouseListener {
         panel3.setLayout(new FlowLayout());
         atras = new JLabel("Atras");
         atras.addMouseListener(this);
-//        atras.setIcon(Imagenes.atras);
+        atras.setIcon(Imagenes.atras);
         atras.setFont(sizedFuente);
         atras.setHorizontalTextPosition(SwingConstants.CENTER);
         atras.setForeground(Color.black);
@@ -79,7 +79,7 @@ public class Registros extends javax.swing.JFrame implements MouseListener {
 
         panelPrincipal = new JLabel();
         panelPrincipal.setLayout(new GridLayout(4, 1));
-//        panelPrincipal.setIcon(Imagenes.fondo);
+        panelPrincipal.setIcon(Imagenes.fondo);
 
         panelPrincipal.add( panel1);
         panelPrincipal.add( panel2);
@@ -136,8 +136,8 @@ public class Registros extends javax.swing.JFrame implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-//        sonidoClic = new ReproducirSonido(2);
-//        sonidoClic.getSonido().start();
+        sonidoClic = new ReproducirSonido(2);
+        sonidoClic.getSonido().start();
     }
 
     @Override

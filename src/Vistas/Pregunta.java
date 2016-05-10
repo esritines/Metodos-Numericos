@@ -94,7 +94,7 @@ public final class Pregunta extends javax.swing.JFrame implements MouseListener 
         setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
-    //JTextField
+//    JTextField
     public void agregarRespuestas1() {
 
         panelRespuestas = new JLabel();
@@ -112,7 +112,7 @@ public final class Pregunta extends javax.swing.JFrame implements MouseListener 
         panelRespuestas.add(campo);
     }
 
-    //RadioButton
+//    RadioButton
     public void agregarRespuestas2() {
 
         int temp[] = new int[4];

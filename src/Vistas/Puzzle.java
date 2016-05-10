@@ -38,7 +38,7 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
     private static ImageIcon imagen2;
     private static ImageIcon imagen3;
     private static Icon imagenTemp;
-//    private static final String imagenFondo = "./src/Diseño/";
+    private static final String imagenFondo = "./src/Diseño/";
 
     private static ReproducirSonido sonidoClic;
 
@@ -70,12 +70,12 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
     public void iniciar() {
 
         panelPrincipal.setLayout(new BorderLayout());
-//        panelPrincipal.setBackground(Color.black);
+        panelPrincipal.setBackground(Color.black);
         secundario.setLayout(new GridBagLayout());
-//        secundario.setBackground(Color.black);
-//        panelBotones.setBackground(Color.black);
+        secundario.setBackground(Color.black);
+        panelBotones.setBackground(Color.black);
         panelTimer.setLayout(new FlowLayout());
-//        panelTimer.setBackground(Color.black);
+        panelTimer.setBackground(Color.black);
 
         agregarBotones();
         desacomodar();
@@ -92,7 +92,7 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
         salir.addMouseListener(this);
         salir.setHorizontalTextPosition(SwingConstants.CENTER);
         salir.setFont(sizedFuente);
-//        salir.setIcon(Imagenes.no);
+        salir.setIcon(Imagenes.no);
         salir.setForeground(Color.black);
 
         sizedFuente = fuente.getFont().deriveFont(20f).deriveFont(Font.BOLD);
@@ -128,9 +128,9 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
             dos = (int) (Math.random() * 10);
         } while (uno == dos);
 
-//        imagen1 = new ImageIcon(imagenFondo + uno + ".png");
-//        imagen2 = new ImageIcon(imagenFondo + dos + ".png");
-//        imagen3 = new ImageIcon(imagenFondo + "vacio.png");
+        imagen1 = new ImageIcon(imagenFondo + uno + ".png");
+        imagen2 = new ImageIcon(imagenFondo + dos + ".png");
+        imagen3 = new ImageIcon(imagenFondo + "vacio.png");
 
         botones = new JLabel[n][n + 2];
         panelBotones.setLayout(new GridLayout(n, n + 2));
@@ -145,13 +145,13 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
                 c++;
                 if ((i != (n - 1)) || (j != (n + 1))) {
                     if ((c % 2) == 0) {
-//                        botones[i][j].setIcon(imagen1);
+                        botones[i][j].setIcon(imagen1);
                     } else {
-//                        botones[i][j].setIcon(imagen2);
+                        botones[i][j].setIcon(imagen2);
                     }
                     botones[i][j].setText("" + c);
                 } else {
-//                    botones[i][j].setIcon(imagen3);
+                    botones[i][j].setIcon(imagen3);
                     botones[i][j].setText(".");
                 }
                 comparaGanar += botones[i][j].getText();
@@ -224,14 +224,14 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
         String temporal;
         try {
             if (botones[i][j].getText().equals(".")) {
-//                sonidoClic = new ReproducirSonido(1);
-//                sonidoClic.getSonido().start();
+                sonidoClic = new ReproducirSonido(1);
+                sonidoClic.getSonido().start();
 
                 temporal = botones[k][l].getText();
-//                imagenTemp = botones[k][l].getIcon();
+                imagenTemp = botones[k][l].getIcon();
                 botones[k][l].setText(".");
-//                botones[k][l].setIcon(botones[i][j].getIcon());
-//                botones[i][j].setIcon(imagenTemp);
+                botones[k][l].setIcon(botones[i][j].getIcon());
+                botones[i][j].setIcon(imagenTemp);
                 botones[i][j].setText(temporal);
             }
         } catch (ArrayIndexOutOfBoundsException ex) {
@@ -241,15 +241,15 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
     public boolean moverBotonVacio(int i, int j, int k, int l) {
 
         try {
-//            imagenTemp = botones[k][l].getIcon();           //imagen negra
+            imagenTemp = botones[k][l].getIcon();           //imagen negra
             botones[k][l].setText(botones[i][j].getText());
-//            botones[k][l].setIcon(botones[i][j].getIcon());
+            botones[k][l].setIcon(botones[i][j].getIcon());
             botones[i][j].setText(".");
-//            botones[i][j].setIcon(imagenTemp);
+            botones[i][j].setIcon(imagenTemp);
             if (botones[movidaI][movidaJ].getText().equals(".")) {
-//                botones[i][j].setIcon(botones[k][l].getIcon());
+                botones[i][j].setIcon(botones[k][l].getIcon());
                 botones[i][j].setText(botones[k][l].getText());
-//                botones[k][l].setIcon(imagenTemp);
+                botones[k][l].setIcon(imagenTemp);
                 botones[k][l].setText(".");
                 System.out.println("Me regrese");
                 return true;
@@ -279,10 +279,10 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
             puntos += segundos * 10;
             valor = true;
             setVisible(false);
-//            registro.crearPregunta();
-//            Pregunta pregunta = new Pregunta();
-//            pregunta.pasarPuzzle(this);
-//            pregunta.setVisible(true);
+            registro.crearPregunta();
+            Pregunta pregunta = new Pregunta();
+            pregunta.pasarPuzzle(this);
+            pregunta.setVisible(true);
             n = (n == 8) ? n = 3 : ++n;
             this.crear();
         }
@@ -358,8 +358,8 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getSource().equals(salir)) {
-//            sonidoClic = new ReproducirSonido(2);
-//            sonidoClic.getSonido().start();
+            sonidoClic = new ReproducirSonido(2);
+            sonidoClic.getSonido().start();
             dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
         }
     }

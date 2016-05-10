@@ -34,7 +34,7 @@ public class nuevoUsuario extends javax.swing.JFrame implements MouseListener {
     public nuevoUsuario() {
 
         principal.setLayout(new BorderLayout());
-//        principal.setIcon(Imagenes.fondo);
+        principal.setIcon(Imagenes.fondo);
         secundario.setLayout(new GridLayout(4, 0));
         panelUsuario.setLayout(new FlowLayout());
         panelBotones.setLayout(new FlowLayout());
@@ -64,13 +64,13 @@ public class nuevoUsuario extends javax.swing.JFrame implements MouseListener {
         panelBotones.add(atras);
         atras.addMouseListener(this);
         atras.setFont(sizedFuente);
-//        atras.setIcon(Imagenes.atras);
+        atras.setIcon(Imagenes.atras);
         atras.setHorizontalTextPosition(SwingConstants.CENTER);
         atras.setForeground(Color.black);
         panelBotones.add(aceptar);
         aceptar.addMouseListener(this);
         aceptar.setFont(sizedFuente);
-//        aceptar.setIcon(Imagenes.si);
+        aceptar.setIcon(Imagenes.si);
         aceptar.setHorizontalTextPosition(SwingConstants.CENTER);
         aceptar.setForeground(Color.black);
 
@@ -129,14 +129,19 @@ public class nuevoUsuario extends javax.swing.JFrame implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getSource().equals(aceptar)) {
-            if (datos.enviarDatos(nuevoUsuario.getText())) {
-                JOptionPane.showMessageDialog(principal, "Jugador nuevo agregado :) ", "", JOptionPane.INFORMATION_MESSAGE);
-                nuevoUsuario.setText("");
-                setVisible(false);
-                regresar.setVisible(true);
-            } else {
-                JOptionPane.showMessageDialog(principal, "Error al agregar un jugador :(", "", JOptionPane.INFORMATION_MESSAGE);
-                nuevoUsuario.setText("");
+            if (!nuevoUsuario.getText().isEmpty()) {
+                if (datos.enviarDatos(nuevoUsuario.getText())) {
+                    JOptionPane.showMessageDialog(principal, "Jugador nuevo agregado :) ", "", JOptionPane.INFORMATION_MESSAGE);
+                    nuevoUsuario.setText("");
+                    setVisible(false);
+                    regresar.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(principal, "Error al agregar un jugador :(", "", JOptionPane.INFORMATION_MESSAGE);
+                    nuevoUsuario.setText("");
+                }
+            }else{
+                JOptionPane.showMessageDialog(principal, "No has capturado un nombre :(", "", JOptionPane.INFORMATION_MESSAGE);
+                    nuevoUsuario.setText("");
             }
         }
         if (e.getSource().equals(atras)) {
@@ -147,8 +152,8 @@ public class nuevoUsuario extends javax.swing.JFrame implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-//        sonidoClic = new ReproducirSonido(2);
-//        sonidoClic.getSonido().start();
+        sonidoClic = new ReproducirSonido(2);
+        sonidoClic.getSonido().start();
     }
 
     @Override
