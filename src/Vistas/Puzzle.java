@@ -98,9 +98,9 @@ public class Puzzle extends javax.swing.JFrame implements MouseListener {
         sizedFuente = fuente.getFont().deriveFont(20f).deriveFont(Font.BOLD);
 
         tiempoRestante.setFont(sizedFuente);
-        tiempoRestante.setForeground(Color.black);
+        tiempoRestante.setForeground(Color.white);
 
-        segundosLabel.setForeground(Color.black);
+        segundosLabel.setForeground(Color.red);
         segundosLabel.setFont(sizedFuente);
 
         panelTimer.add(salir);
